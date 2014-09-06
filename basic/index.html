@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js"></script>
+    <script src="scripts/parser.js"></script>
+    <script src="scripts/basic.js"></script>
+    <script src="scripts/processor.js"></script>
+    <script src="scripts/interpreter.js"></script>
+    <link href="styles/interpreter.css" rel="stylesheet" />
+  </head>
+  <body>
+<textarea class="pc" readonly="readonly" resizable="false">
+</textarea>
+<textarea class="source">
+
+LET x = 1
+
+LOOP
+  LET x = x + 1
+WHILE x < 5
+
+FOR i = 1 TO 5
+  Print i
+NEXT i
+
+FUNCTION Print i
+  INTERRUPT 'print', i
+END FUNCTION
+
+</textarea>
+    <div class="console">
+    </div>
+    
+    <input class="compile" type="button" value="COMPILE" />
+    <input class="step" type="button" value="STEP" />
+  </body>
+</html>
