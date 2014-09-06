@@ -55,11 +55,6 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
 
     ctx.drawImage(this.image, -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);
 
-    ctx.beginPath();
-    ctx.arc(0, 0, 5, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'red';
-    ctx.fill();
-
     ctx.restore();
 }
 
