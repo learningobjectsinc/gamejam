@@ -14,20 +14,20 @@ var bgImage = new Image();
 bgImage.onload = function () {
     bgReady = true;
 };
-bgImage.src = "resources/background.jpg";
+bgImage.src = "images/background.jpg";
 
 // The main game loop
-var main = function () {
+var mainGame = function () {
     var now = Date.now();
     var delta = now - then;
 
     robot.update(delta/1000);
     ctx.drawImage(bgImage, 0, 0);
     robot.render(ctx);
-    console.log('robot! ', robot);
+    //console.log('robot! ', robot);
     then = now;
 
     // Request to do this again ASAP
-    requestAnimationFrame(main);
+    requestAnimationFrame(mainGame);
 };
-main();
+

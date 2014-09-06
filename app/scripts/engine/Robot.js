@@ -6,7 +6,7 @@ var Robot = function(x,y) {
     rbImage.onload = function () {
         rbReady = true;
     };
-    rbImage.src = "resources/robot.bmp";
+    rbImage.src = "images/robot/robot-complete.svg";//resources/robot.bmp";
 
 	var self = this;
     this.x = x;
@@ -61,7 +61,7 @@ Robot.prototype.update = function(time) {
     }
 }
 
-Robot.prototype.busy = function() {
+Robot.prototype.isBusy = function() {
     return this.busy;
 }
 
