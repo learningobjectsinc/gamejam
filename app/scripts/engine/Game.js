@@ -47,8 +47,8 @@ Game.prototype.update = function(canvasSive, ctx) {
 
 
 Game.prototype.getAtLocation = function(x, y) {
-    for (var i = 0; i < objects.length; i++) {
-        var object = objects[i];
+    for (var i = 0; i < this.objects.length; i++) {
+        var object = this.objects[i];
         if ((object.getX() === x) && (object.getY() === y)) {
             return object;
         }
