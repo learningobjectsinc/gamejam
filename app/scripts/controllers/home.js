@@ -8,10 +8,12 @@
  * Controller of the gamejamApp
  */
 angular.module('gamejamApp')
-  .controller('HomeCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'Learning Objects',
-      'Difference Engine',
-      'CampusPack'
-    ];
-  });
+    .controller('HomeCtrl', function($scope, levelService, $state) {
+        $scope.levels = levelService.getLevels();
+
+        $scope.loadLevel = function(level) {
+            $state.go('level.intro', {
+                levelId: level.id
+            });
+        };
+    });

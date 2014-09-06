@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
+    <link rel="stylesheet" href="bower_components/angular-carousel/dist/angular-carousel.css">
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
@@ -22,19 +23,7 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
-          <li ui-sref-active="active"><a ui-sref="about">About</a></li>
-        </ul>
-        <h3 class="text-muted">gamejam</h3>
-      </div>
-
       <div ui-view></div>
-
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
     </div>
 
 
@@ -79,6 +68,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/angular-carousel/dist/angular-carousel.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -88,7 +78,6 @@
         <script src="scripts/gameData.js"></script>
         
         <script src="scripts/controllers/home.js"></script>
-
         <script src="scripts/controllers/game/gameCtrl.js"></script>
         <script src="scripts/controllers/game/gameIntro.js"></script>
         <script src="scripts/controllers/game/TheGame.js"></script>
@@ -98,11 +87,13 @@
 
         <script src="scripts/directives/block.js"></script>
         <script src="scripts/directives/blockContainer.js"></script>
+        <script src="scripts/directives/gameCanvas.js"></script>
 
         <script src="scripts/services/blockService.js"></script>
         <script src="scripts/services/levelService.js"></script>
+        <script src="scripts/services/instructionService.js"></script>
 
-        <script src="scripts/types/Block.js"></script>
+        <script src="scripts/engine/Robot.js"></script>
         <!-- endbuild -->
 </body>
 </html>

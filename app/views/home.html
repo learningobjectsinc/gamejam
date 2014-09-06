@@ -1,4 +1,50 @@
-<div class="jumbotron">
-  <h1>LearningDifferenceCampusObjectEnginePack</h1>
-  <button class="btn btn-primary" ui-sref="game.intro({levelId: 123})">Play A Game</button>
-</div>
+<section class="comp-head">
+
+  <div class="comp-title done-50">
+    <div class="c100 p50">
+      <span class="icon icon-calculate"></span>
+      <div class="slice">
+          <div class="bar"></div>
+          <div class="fill"></div>
+      </div>
+    </div>
+    GAMEJAM
+  </div>
+  <p>
+    Description?
+  </p>
+
+  <!-- <div class="comp-head-img">
+    <img src="/images/back1.jpg">
+  </div> -->
+
+</section>
+
+<section class="comp-list-wrap">
+
+  <!--<h2>Knowledge Base</h2>-->
+
+  <ul class="comp-list">
+
+    <li ng-repeat="level in levels" 
+        class="comp-list-item done-{{level.completed * 100}}" 
+        ng-click="loadLevel(level)">
+
+      <p class="comp-name">{{level.name}}</p>
+
+      <div class="comp-item">
+        <div class="c100 p{{level.completed * 100}}">
+          <span class="icon icon-{{level.icon}}"></span>
+          <p class="comp-percent">{{level.completed * 100}}</p>
+          <div class="slice">
+              <div class="bar"></div>
+              <div class="fill"></div>
+          </div>
+        </div>
+      </div>
+
+    </li>
+
+  </ul>
+
+</section>
