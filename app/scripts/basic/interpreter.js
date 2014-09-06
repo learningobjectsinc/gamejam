@@ -24,7 +24,7 @@ $(function() {
         }
         processor.step();
         $('.pc').val(_.times(processor.pc, function() { return ''; }).join('\n') + '\n>');
-        $('.console').html(_.reduce(processor.variables, function(str, value, variable) { 
+        $('.variables').html(_.reduce(processor.variables, function(str, value, variable) { 
             return str + '<div>' + variable + ' = ' + value + '</div>';
         }, ''));
     });

@@ -55,7 +55,7 @@ BasicIO.prototype.constructor = BasicIO;
 
 BasicIO.prototype.interrupt = function(code, parameters) {
     if (code == 'print') {
-        console.log(parameters.join(', '));
+        $('.console').append('<div>' + parameters.join(', ') + '</div>');
     } else {
         throw "Unknown Interrupt: " + code;
     }
