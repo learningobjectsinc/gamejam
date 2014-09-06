@@ -1,17 +1,3 @@
-
-var robot = new Robot(5, 5);
-var rock = new Rock(10, 10);
-var owl = new Owl(3, 3);
-
-var game = new Game({
-    height:10,
-    width:15
-},[
-    robot,
-    rock,
-    owl
-]);
-var game;
 angular.module('gamejamApp')
     .directive('gameCanvas', function() {
         return {
@@ -22,21 +8,7 @@ angular.module('gamejamApp')
                 "level": "="
             },
             link: function(scope, element) {
-                var objects = [robot];
-
-                _.each(scope.level.map.objects, function(object) {
-                    // forgive me
-                    var instance = new window[object.type](object.x, object.y);
-                    console.log(instance, object.x, object.y);
-                    objects.push(instance);
-                });
-
-                console.log(objects);
-
-                game = new Game({
-                    height: scope.level.map.height,
-                    width: scope.level.map.width
-                }, objects);
+                var game = new Game(scope.level.map);
 
                 var windowHeight = window.innerHeight;
                 var windowWidth = window.innerWidth;
@@ -69,7 +41,7 @@ angular.module('gamejamApp')
                         width:canvas.width
                     };
 
-                    robot.update(delta / 1000);
+                    game.update(delta / 1000);
 
                     ctx.drawImage(bgImage, 0, 0);
                     game.render(canvasSize, ctx);

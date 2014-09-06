@@ -64,6 +64,11 @@ gameData["levels"] = [
 			"height": 10,
 			"objects": [
 				{
+					"type": "Robot",
+					"x": 5,
+					"y": 5
+				},
+				{
 					"type": "Rock",
 					"x": 1,
 					"y": 1

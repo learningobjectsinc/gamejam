@@ -1,7 +1,14 @@
-var Game = function(map, objects) {
+var Game = function(map) {
     this.map = map;
+    var self = this;
 
-    this.objects = objects;
+    this.objects = [];
+
+    _.each(map.objects, function(object) {
+        // forgive me
+        var instance = new window[object.type](object.x, object.y);
+        self.objects.push(instance);
+    });
 
     this.getSquareSizes = function(canvasSive){
         //figure out the width of each square
