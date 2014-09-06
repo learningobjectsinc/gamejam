@@ -18,6 +18,15 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				$scope.pc = new Array(program.processor.pc).join('\n') + '>';
 			});
 
+			$scope.console = function(){
+				if(!program.io){
+					return '';
+				}
+				return _.map(program.io.console, function(ln){
+					return '<div>' + ln + '</div>';
+				}).join('');
+			};
+
 			$scope.variables = function(){
 				if(!program.processor){
 					return;
@@ -26,6 +35,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				    return str + '<div>' + variable + ' = ' + value + '</div>';
 				}, '');
 			};
+			
 		}, link: function(scope, el){
 			var existingSource = el.find('.source').val();
 			scope.program.code = existingSource;

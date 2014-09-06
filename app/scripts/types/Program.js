@@ -1,8 +1,11 @@
+'use strict';
+
 angular.module('gamejamApp').factory('Program', function($timeout){
 	var program = function(code){
-		this.code = code || '',
-		this.statements = [],
-		this.processor = null
+		this.code = code || '';
+		this.statements = [];
+		this.processor = null;
+		this.io = null;
 	};
 
 	program.prototype.compile = function(){
@@ -14,11 +17,8 @@ angular.module('gamejamApp').factory('Program', function($timeout){
 
 	    console.log(this.statements);
 
-	    var io = new BasicIO();
-	    this.processor = new Processor(this.statements, io);
-
-	    $('.pc').val('>');
-	    $('.console').text('');
+	    this.io = new BasicIO();
+	    this.processor = new Processor(this.statements, this.io);
 	};
 
 	program.prototype.step = function(){
