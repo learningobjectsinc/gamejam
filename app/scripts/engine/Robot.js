@@ -48,7 +48,8 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
     ctx.save();
     ctx.translate(
         this.x*squareSize.width - squareSize.width/2,
-        this.y*squareSize.height - squareSize.height/2);
+        this.y*squareSize.height - squareSize.height/2
+    );
     ctx.rotate(this.angle);
 
     ctx.drawImage(this.image, -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);

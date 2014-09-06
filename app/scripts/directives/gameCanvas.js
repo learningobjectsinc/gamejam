@@ -2,7 +2,7 @@
 var robot = new Robot(5, 5);
 var game = new Game({
     height:10,
-    width:10
+    width:15
 },[
     robot
 ]);
