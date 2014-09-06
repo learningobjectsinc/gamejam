@@ -11,7 +11,7 @@ angular.module('gamejamApp')
 angular.module('gamejamApp')
   .controller('TheGame', function ($scope, Program) {
     $scope.program = new Program();
-    $scope.isSoundOn = true;
+    $scope.isSoundOn = false;
 
     $scope.toggleSound = function() {
         $scope.isSoundOn = !$scope.isSoundOn;

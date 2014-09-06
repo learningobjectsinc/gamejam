@@ -1,11 +1,10 @@
 <div id="game">
 
-	<button ng-click="toggleSound()" ng-show="isSoundOn">Turn Sound Off</button>
-	<button ng-click="toggleSound()" ng-hide="isSoundOn">Turn Sound On</button>
-
-	<audio id="music" autoplay loop>
+	<audio id="music" mute loop>
 		<source src="sound/finalAct.wav" type="audio/wav">
 	</audio>
+	<button ng-click="toggleSound()" ng-show="isSoundOn">Turn Sound Off</button>
+	<button ng-click="toggleSound()" ng-hide="isSoundOn">Turn Sound On</button>
 
 	<div class="sidebar" ng-controller="BlockEditor">
 		<div class="blockLibrary">
