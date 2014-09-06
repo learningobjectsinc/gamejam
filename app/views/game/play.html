@@ -1,5 +1,27 @@
-<game-canvas></game-canvas>
-<audio autoplay loop>
-	<source src="sound/finalAct.wav" type="audio/wav">
-</audio>
-<button class="btn" ui-sref="^.wrapup">WIN</button>
+<div id="game">
+
+	<audio autoplay loop>
+		<source src="sound/finalAct.wav" type="audio/wav">
+	</audio>
+
+	<div class="sidebar" ng-controller="BlockEditor">
+		<div class="blockLibrary">
+			<h2>Block Library</h2>
+			<button type="button" class="btn btn-block btn-primary" ng-repeat="block in blockTypes" ng-click="addToProgram(block)">
+				{{ block.name }}
+			</button>
+		</div>
+		<div class="programBlockContainer" block-container="program">
+			<h2>Your Program</h2>
+			<div ng-if="!program.length">
+				Add some blocks!<br>Y U NO CODE!?!?
+			</div>
+			<div ng-repeat="block in program track by block.id" block="block"></div>
+		</div>
+
+		<button class="btn" ui-sref="^.wrapup">WIN</button>
+	</div>
+
+	<game-canvas></game-canvas>
+
+</div>
