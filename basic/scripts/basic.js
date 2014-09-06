@@ -88,12 +88,102 @@ Interrupt.prototype.match = "^INT\\b";
 
 Interrupt.prototype.syntax = "^INT\\s+(0x[0-9a-fA-F]{2}(?:,\\s*" + EXPR + ")*)\\s*$";
 
+// Subroutine
+
+function Subroutine(source, line) {
+    Statement.call(this, source, line);
+    var match = this.source.match(this.syntax);
+    this.name = match[1];
+    this.parameterNames = _parseParameterList(match[2]);
+}
+
+Subroutine.prototype = Object.create(Statement.prototype);
+
+Subroutine.prototype.constructor = Subroutine;
+
+Subroutine.prototype.execute = function() {
+}
+
+Subroutine.prototype.invoke = function(processor, parameters) {
+    if (parameters.length != this.parameterNames.length) {
+        throw 'Incorrect parameters: ' + this.source + ' (received: ' + parameters.join(', ') + ')';
+    }
+    processor.stack.push({
+        ret: processor.pc,
+        variables: processor.variables
+    });
+    processor.pc = this.line;
+    processor.variables = _.reduce(this.parameterNames, function(map, name, index) {
+        map[name] = parameters[index];
+        return map;
+    }, {});
+}
+
+Subroutine.prototype.startsBlock = true;
+
+Subroutine.prototype.match = "^SUB\\b";
+
+Subroutine.prototype.syntax = "^SUB\\s+(" + FUNCTION + ")\\b\\s*(" + VAR + "(?:\\s*,\\s*" + VAR + ")*)?\\s*$";
+
+// End Subroutine
+
+function EndSub(source, line) {
+    Statement.call(this, source, line);
+}
+
+EndSub.prototype = Object.create(Statement.prototype);
+
+EndSub.prototype.constructor = EndSub;
+
+EndSub.prototype.execute = function(processor) {
+    var stack = processor.stack.pop();
+    processor.pc = stack.ret;
+    processor.variables = stack.variables;
+}
+
+EndSub.prototype.endsBlock = true;
+
+EndSub.prototype.match = "^END SUB\\b";
+
+EndSub.prototype.syntax = "^END SUB\\s*$";
+
+// Call
+
+function Call(source, line) {
+    Statement.call(this, source, line);
+    var match = source.match(new RegExp(this.syntax));
+    this.subroutine = match[1];
+    this.parameters = _parseExpressionList(match[2]);
+}
+
+Call.prototype = Object.create(Statement.prototype);
+
+Call.prototype.constructor = Call;
+
+Call.prototype.execute = function(processor) {
+    var subroutine = processor.subroutines[this.subroutine];
+    if (!subroutine) {
+        throw "Unknown subroutine: " + this.source;
+    }
+    var parameters = _.map(this.parameters, processor.evaluate, processor);
+    subroutine.invoke(processor, parameters);
+}
+
+Call.prototype.startsBlock = true;
+
+Call.prototype.match = "^" + FUNCTION + "\\b";
+
+Call.prototype.syntax = "^(" + FUNCTION + ")\\s*(" + EXPR + "(,\\s*" + EXPR + ")*)?\\s*$";
+
 // Basic
 
 Basic.statements = [
     Blank,
     Remark,
-    Interrupt
+    Interrupt,
+    Subroutine,
+    EndSub,
+    Call // MUST BE LAST
 ];
 
 Basic.parseStatement = function(source, line) {

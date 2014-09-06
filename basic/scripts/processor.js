@@ -5,6 +5,9 @@ function Processor(statements) {
     this.variables = {};
     this.pc = 0;
     this.stack = [{}];
+    this.subroutines = _.indexBy(_.filter(statements, function(statement) {
+            return statement instanceof Subroutine;
+        }), 'name');
 }
 
 Processor.prototype.halted = function() {
