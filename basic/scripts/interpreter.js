@@ -1,5 +1,7 @@
 $(function() {
-    $('.run').click(function() {
+    var processor = null;
+
+    $('.compile').click(function() {
         var source = $('.source').val().split('\n');
 
         var statements = _.map(source, function(s, i) {
@@ -10,10 +12,20 @@ $(function() {
 
         var io = new BasicIO();
 
-        var processor = new Processor(statements, io);
+        processor = new Processor(statements, io);
 
-        while (!processor.halted()) {
-            processor.step();
+        $('.pc').val('>');
+        $('.console').text('');
+    });
+
+    $('.step').click(function() {
+        if (processor.halted()) {
+            return;
         }
+        processor.step();
+        $('.pc').val(_.times(processor.pc, function() { return ''; }).join('\n') + '\n>');
+        $('.console').html(_.reduce(processor.variables, function(str, value, variable) { 
+            return str + '<div>' + variable + ' = ' + value + '</div>';
+        }, ''));
     });
 });
