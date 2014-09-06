@@ -1,4 +1,4 @@
-var EXPRESSION_REGEX = "[^,]+";
+var EXPRESSION_REGEX = "(?:'[^']*'|[^',])+";
 
 var VARIABLE_REGEX = "[a-z][a-z_0-9]*";
 
@@ -12,7 +12,12 @@ function _parseParameterList(str) {
 }
 
 function _parseExpressionList(str) {
-    return _.map(_parseParameterList(str), Parser.parse);
+    var re = new RegExp(EXPRESSION_REGEX, 'g');
+    var result = [], match;
+    while (match = re.exec(str)) {
+        result.push(Parser.parse($.trim(match[0])));
+    }
+    return result;
 }
 
 function Statement(source, line) {
@@ -91,8 +96,7 @@ Let.prototype.syntax = "^LET\\s+(" + VARIABLE_REGEX + ")\\s*=\\s*(" + EXPRESSION
 function Interrupt(source, line) {
     Statement.call(this, source, line);
     var match = this.source.match(this.syntax);
-    var params = _parseParameterList(match[1]);
-    this.parameters = _.map(params, Parser.parse);
+    this.parameters = _parseExpressionList(match[1]);
 }
 
 Interrupt.prototype = Object.create(Statement.prototype);
