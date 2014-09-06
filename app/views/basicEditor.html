@@ -21,7 +21,7 @@ FOR i = 1 TO 5
 NEXT i
 
 FUNCTION Print i
-  INTERRUPT 'print', i
+  TELL robot 'print', i
 END FUNCTION
     </textarea>
     <div class="variables" ng-bind-html="variables()">

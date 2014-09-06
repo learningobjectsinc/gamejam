@@ -158,28 +158,29 @@ LetStatement.prototype.description = "This statement assigns a value to variable
 
 LetStatement.prototype.syntaxHelp = '<span class="keyword">LET</span> <span class="variable">variable</span> = <span class="value">value</span>';
 
-// InterruptStatement
+// TellStatement
 
-function InterruptStatement() {
+function TellStatement() {
 }
 
-InterruptStatement.prototype = Object.create(Statement.prototype);
+TellStatement.prototype = Object.create(Statement.prototype);
 
-InterruptStatement.prototype.constructor = InterruptStatement;
+TellStatement.prototype.constructor = TellStatement;
 
-InterruptStatement.prototype.initmatch = function(match) {
-    this.parameters = _parseExpressionList(match[1]);
+TellStatement.prototype.initmatch = function(match) {
+    this.recipient = match[1];
+    this.parameters = _parseExpressionList(match[2]);
 }
 
-InterruptStatement.prototype.execute = function(processor) {
+TellStatement.prototype.execute = function(processor) {
     var parameters = _.map(this.parameters, processor.evaluate, processor);
     var code = parameters.shift();
     processor.io.interrupt(code, parameters);
 }
 
-InterruptStatement.prototype.keyword = "INTERRUPT";
+TellStatement.prototype.keyword = "TELL";
 
-InterruptStatement.prototype.syntax = "^INTERRUPT\\s+(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
+TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s+(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
 
 // FunctionStatement
 
@@ -469,7 +470,7 @@ FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*(" + EXPRESSION_RE
 
 Basic.statements = [
     LetStatement,
-    InterruptStatement,
+    TellStatement,
     IfStatement,
     EndIfStatement,
     ForStatement,
