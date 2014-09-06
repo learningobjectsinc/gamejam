@@ -26,6 +26,10 @@ angular.module('gamejamApp').config(function($stateProvider, $urlRouterProvider)
 		url: '/wrapup',
 		controller: 'GameWrapup',
 		templateUrl: 'views/game/wrapup.html'
+	}).state('blockSandbox', {
+		url: '/blockSandbox',
+		controller: 'BlockEditor',
+		templateUrl: 'views/blockSandbox.html'
 	});
 
 	$urlRouterProvider.otherwise('/');

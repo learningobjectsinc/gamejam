@@ -1,0 +1,19 @@
+.programBlock {
+  background-color: #ddffdd;
+  padding: 1px 5px;
+  margin: 15px 0;
+
+  .delete {
+  	cursor: pointer;
+
+  	:hover {
+  		color: red;
+  	}
+  }
+}
+
+.programBlockContainer {
+  > div:nth-child(2n) .programBlock {
+    background-color: #bbffbb;
+  }
+}

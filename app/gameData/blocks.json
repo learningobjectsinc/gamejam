@@ -1,5 +1,4 @@
-var gameData = gameData || {};
-gameData["blocks"] = [
+[
 	{
 		"shortName": "moveForward",
 		"name": "Move Forward",
@@ -27,11 +26,4 @@ gameData["blocks"] = [
 		"name": "If/Else",
 		"branches": ["if", "else"]
 	}
-];
-gameData["levels"] = [
-	{
-		"id": 123,
-		"name": "Just Dig!",
-		"description": "Number of Lemmings: 10"
-	}
-];
+]
