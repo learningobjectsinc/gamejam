@@ -7,7 +7,7 @@ function Processor(statements, io) {
     this.pc = 0;
     this.halted = false;
     this.stack = [{}];
-    this.subroutines = _.indexBy(_.filter(statements, function(statement) {
+    this.functions = _.indexBy(_.filter(statements, function(statement) {
             return statement instanceof FunctionStatement;
         }), 'name');
 }
@@ -16,7 +16,8 @@ Processor.prototype.step = function() {
     var statement = this.statements[this.pc];
     ++ this.pc; // I have to preincrement this because the statement may change the PC
     try {
-        if (statement.invalid) {
+        var invalid = (typeof statement.invalid == 'function') ? statement.invalid(this) : statement.invalid;
+        if (invalid) {
             throw "Invalid statement: " + statement.source;
         }
         statement.execute(this);

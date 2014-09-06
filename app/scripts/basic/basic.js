@@ -27,11 +27,13 @@ Statement.prototype.init = function(source, line) {
     this.source = source;
     this.line = line;
     var match = source.match(this.syntax);
-    this.invalid = !match;
-    if (!this.invalid) {
+    if (!match) {
+        this.invalid = true;
+    } else {
         try {
             this.initmatch(match);
         } catch (e) {
+            this.invalid = true;
             console.log('Init error', source, e);
         }
     }
@@ -65,6 +67,11 @@ Statement.prototype.startsBlock = false;
 
 Statement.prototype.endsBlock = false;
 
+Statement.prototype.description = 'This statement does not have a helpful description.';
+
+Statement.prototype.syntaxHelp = '<span class="keyword">Syntax</span>';
+
+
 // BlankStatement
 
 function BlankStatement() {
@@ -77,30 +84,53 @@ BlankStatement.prototype.constructor = BlankStatement;
 BlankStatement.prototype.execute = function() {
 }
 
-BlankStatement.prototype.match = "^\\s*$";
+BlankStatement.prototype.keyword = "Blank";
 
 BlankStatement.prototype.syntax = "^\\s*$";
 
-// RemarkStatement
+BlankStatement.prototype.description = "The computer ignores blank lines.";
 
-function RemarkStatement() {
+// CommentStatement
+
+function CommentStatement() {
 }
 
-RemarkStatement.prototype = Object.create(Statement.prototype);
+CommentStatement.prototype = Object.create(Statement.prototype);
 
-RemarkStatement.prototype.constructor = RemarkStatement;
+CommentStatement.prototype.constructor = CommentStatement;
 
-RemarkStatement.prototype.initmatch = function(match) {
+CommentStatement.prototype.initmatch = function(match) {
     this.remark = match[1];
 }
 
-RemarkStatement.prototype.execute = function() {
+CommentStatement.prototype.execute = function() {
     console.log("REMARK", this.remark);
 }
 
-RemarkStatement.prototype.match = "^REM\\b";
+CommentStatement.prototype.keyword = "Comment";
 
-RemarkStatement.prototype.syntax = "^REM\\s*(.*)$";
+CommentStatement.prototype.syntax = "^//\\s*(.*)$";
+
+CommentStatement.prototype.description = "The computer ignores comments. They are used to help you or someone else understand the code.";
+
+// InvalidStatement
+
+function InvalidStatement() {
+}
+
+InvalidStatement.prototype = Object.create(Statement.prototype);
+
+InvalidStatement.prototype.constructor = InvalidStatement;
+
+InvalidStatement.prototype.initmatch = function(match) {
+    this.invalid = true;
+}
+
+InvalidStatement.prototype.keyword = "Invalid";
+
+InvalidStatement.prototype.syntax = "^(.*)$";
+
+InvalidStatement.prototype.description = "The computer does not understand what this statement means.";
 
 // LetStatement
 
@@ -120,9 +150,13 @@ LetStatement.prototype.execute = function(processor) {
     processor.variables[this.variable] = processor.evaluate(this.value);
 }
 
-LetStatement.prototype.match = "^LET\\b";
+LetStatement.prototype.keyword = "LET";
 
 LetStatement.prototype.syntax = "^LET\\s+(" + VARIABLE_REGEX + ")\\s*=\\s*(" + EXPRESSION_REGEX + ")\\s*$";
+
+LetStatement.prototype.description = "This statement assigns a value to variable.";
+
+LetStatement.prototype.syntaxHelp = '<span class="keyword">LET</span> <span class="variable">variable</span> = <span class="value">value</span>';
 
 // InterruptStatement
 
@@ -143,7 +177,7 @@ InterruptStatement.prototype.execute = function(processor) {
     processor.io.interrupt(code, parameters);
 }
 
-InterruptStatement.prototype.match = "^INTERRUPT\\b";
+InterruptStatement.prototype.keyword = "INTERRUPT";
 
 InterruptStatement.prototype.syntax = "^INTERRUPT\\s+(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
 
@@ -159,6 +193,10 @@ FunctionStatement.prototype.constructor = FunctionStatement;
 FunctionStatement.prototype.initmatch = function(match) {
     this.name = match[1];
     this.parameterNames = _parseParameterList(match[2]);
+}
+
+FunctionStatement.prototype.invalid = function(processor) {
+    return !processor.functions[this.name];
 }
 
 FunctionStatement.prototype.execute = function(processor) {
@@ -185,7 +223,7 @@ FunctionStatement.prototype.invoke = function(processor, parameters) {
 
 FunctionStatement.prototype.startsBlock = true;
 
-FunctionStatement.prototype.match = "^FUNCTION\\b";
+FunctionStatement.prototype.keyword = "FUNCTION";
 
 FunctionStatement.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*$";
 
@@ -206,7 +244,7 @@ EndFunctionStatement.prototype.execute = function(processor) {
 
 EndFunctionStatement.prototype.endsBlock = true;
 
-EndFunctionStatement.prototype.match = "^END FUNCTION\\b";
+EndFunctionStatement.prototype.keyword = "END FUNCTION";
 
 EndFunctionStatement.prototype.syntax = "^END FUNCTION\\s*$";
 
@@ -234,7 +272,7 @@ ForStatement.prototype.execute = function(processor) {
 
 ForStatement.prototype.startsBlock = true;
 
-ForStatement.prototype.match = "^FOR\\b";
+ForStatement.prototype.keyword = "FOR";
 
 ForStatement.prototype.syntax = "^FOR\\s+(" + VARIABLE_REGEX + ")\\s+=\\s+(" + EXPRESSION_REGEX + ")\\s+TO\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
@@ -268,7 +306,7 @@ NextStatement.prototype.execute = function(processor) {
 
 NextStatement.prototype.endsBlock = true;
 
-NextStatement.prototype.match = "^NEXT\\b";
+NextStatement.prototype.keyword = "NEXT";
 
 NextStatement.prototype.syntax = "^NEXT\\s+(" + VARIABLE_REGEX + ")\\s*$";
 
@@ -297,7 +335,7 @@ IfStatement.prototype.execute = function(processor) {
 
 IfStatement.prototype.startsBlock = true;
 
-IfStatement.prototype.match = "^IF\\b";
+IfStatement.prototype.keyword = "IF";
 
 IfStatement.prototype.syntax = "^IF\\s+(" + EXPRESSION_REGEX + ")\\s+THEN\\s*$";
 
@@ -315,7 +353,7 @@ EndIfStatement.prototype.execute = function(processor) {
 
 EndIfStatement.prototype.endsBlock = true;
 
-EndIfStatement.prototype.match = "^END\\s+IF\\b";
+EndIfStatement.prototype.keyword = "END IF";
 
 EndIfStatement.prototype.syntax = "^END\\s+IF\\s*$";
 
@@ -334,7 +372,7 @@ LoopStatement.prototype.execute = function(processor) {
 
 LoopStatement.prototype.startsBlock = true;
 
-LoopStatement.prototype.match = "^LOOP\\b";
+LoopStatement.prototype.keyword = "LOOP";
 
 LoopStatement.prototype.syntax = "^LOOP\\s*$";
 
@@ -365,7 +403,7 @@ UntilStatement.prototype.execute = function(processor) {
 
 UntilStatement.prototype.endsBlock = true;
 
-UntilStatement.prototype.match = "^UNTIL\\b";
+UntilStatement.prototype.keyword = "UNTIL";
 
 UntilStatement.prototype.syntax = "^UNTIL\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
@@ -396,7 +434,7 @@ WhileStatement.prototype.execute = function(processor) {
 
 WhileStatement.prototype.endsBlock = true;
 
-WhileStatement.prototype.match = "^WHILE\\b";
+WhileStatement.prototype.keyword = "WHILE";
 
 WhileStatement.prototype.syntax = "^WHILE\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
@@ -415,23 +453,21 @@ FunctionCall.prototype.initmatch = function(match) {
 }
 
 FunctionCall.prototype.execute = function(processor) {
-    var subroutine = processor.subroutines[this.subroutine];
-    if (!subroutine) {
-        throw "Unknown subroutine: " + this.source;
+    var fn = processor.functions[this.subroutine];
+    if (!fn) {
+        throw "Unknown function: " + this.source;
     }
     var parameters = _.map(this.parameters, processor.evaluate, processor);
-    subroutine.invoke(processor, parameters);
+    fn.invoke(processor, parameters);
 }
 
-FunctionCall.prototype.match = "^" + FUNCTION_REGEX + "\\b";
+FunctionCall.prototype.keyword = "Function Call";
 
 FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*$";
 
 // Basic
 
 Basic.statements = [
-    BlankStatement,
-    RemarkStatement,
     LetStatement,
     InterruptStatement,
     IfStatement,
@@ -442,20 +478,30 @@ Basic.statements = [
     WhileStatement,
     UntilStatement,
     FunctionStatement,
-    EndFunctionStatement,
-    FunctionCall // MUST BE LAST
+    EndFunctionStatement
 ];
 
 Basic.parseStatement = function(source, line) {
     source = $.trim(source);
     var statement = _.find(Basic.statements, function(s) {
-        return new RegExp(s.prototype.match).test(source);
+        var match = '^' + s.prototype.keyword.replace(' ', '\\s+') + '\\b';
+        return new RegExp(match).test(source);
     });
     if (!statement) {
-        throw "Unknown statement: " + source;
+        if (source == '') {
+            statement = BlankStatement;
+        } else if (source.indexOf('//') == 0) {
+            statement = CommentStatement;
+        } else {
+            var match = source.match('^(' + FUNCTION_REGEX + ')\\b');
+            if (!match) {
+                statement = InvalidStatement;
+            }  else {
+                statement = FunctionCall;
+            }
+        }
     }
     var stmt = new statement();
     stmt.init(source, line);
     return stmt;
 };
-
