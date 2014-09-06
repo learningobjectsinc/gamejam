@@ -79,7 +79,7 @@ gameData["levels"] = [
 					"y": 2
 				},
 				{
-					"type": "Owl",
+					"type": "Rock",
 					"x": 3,
 					"y": 3
 				},
@@ -112,7 +112,7 @@ gameData["levels"] = [
 					"y": 2
 				},
 				{
-					"type": "Owl",
+					"type": "Rock",
 					"x": 3,
 					"y": 3
 				}
@@ -140,7 +140,7 @@ gameData["levels"] = [
 					"y": 2
 				},
 				{
-					"type": "Owl",
+					"type": "Rock",
 					"x": 3,
 					"y": 3
 				}
@@ -168,7 +168,7 @@ gameData["levels"] = [
 					"y": 2
 				},
 				{
-					"type": "Owl",
+					"type": "Rock",
 					"x": 3,
 					"y": 3
 				}
@@ -196,7 +196,7 @@ gameData["levels"] = [
 					"y": 2
 				},
 				{
-					"type": "Owl",
+					"type": "Rock",
 					"x": 3,
 					"y": 3
 				}
