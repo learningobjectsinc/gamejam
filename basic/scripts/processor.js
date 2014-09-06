@@ -54,7 +54,7 @@ BasicIO.prototype = Object.create(IO.prototype);
 BasicIO.prototype.constructor = BasicIO;
 
 BasicIO.prototype.interrupt = function(code, parameters) {
-    if (code == 32) {
+    if (code == 'print') {
         console.log(parameters.join(', '));
     } else {
         throw "Unknown Interrupt: " + code;

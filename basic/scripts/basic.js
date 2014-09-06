@@ -92,7 +92,6 @@ function Interrupt(source, line) {
     Statement.call(this, source, line);
     var match = this.source.match(this.syntax);
     var params = _parseParameterList(match[1]);
-    this.code = eval(params.shift());
     this.parameters = _.map(params, Parser.parse);
 }
 
@@ -102,12 +101,13 @@ Interrupt.prototype.constructor = Interrupt;
 
 Interrupt.prototype.execute = function(processor) {
     var parameters = _.map(this.parameters, processor.evaluate, processor);
-    processor.io.interrupt(this.code, parameters);
+    var code = parameters.shift();
+    processor.io.interrupt(code, parameters);
 }
 
 Interrupt.prototype.match = "^INTERRUPT\\b";
 
-Interrupt.prototype.syntax = "^INTERRUPT\\s+(0x[0-9a-fA-F]{2}(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
+Interrupt.prototype.syntax = "^INTERRUPT\\s+(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
 
 // Subroutine
 
