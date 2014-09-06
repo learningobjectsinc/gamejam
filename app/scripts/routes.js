@@ -1,0 +1,29 @@
+'use strict';
+
+
+angular.module('gamejamApp').config(function($stateProvider, $urlRouterProvider){
+	$stateProvider.state('home',{
+		url: '/',
+		controller: 'HomeCtrl',
+		templateUrl: 'views/home.html'
+	}).state('game', {
+		url: '/game/:levelId',
+		controller: 'GameCtrl',
+		templateUrl: 'views/game/container.html',
+		abstract: true
+	}).state('game.intro', {
+		url: '/intro',
+		controller: 'GameIntro',
+		templateUrl: 'views/game/intro.html'
+	}).state('game.play', {
+		url: '/play',
+		controller: 'TheGame',
+		templateUrl: 'views/game/play.html'
+	}).state('game.wrapup', {
+		url: '/wrapup',
+		controller: 'GameWrapup',
+		tepmlateUrl: 'views/game/wrapup.html'
+	});
+
+	$urlRouterProvider.otherwise('/');
+});
