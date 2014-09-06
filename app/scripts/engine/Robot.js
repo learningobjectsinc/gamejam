@@ -16,6 +16,11 @@ var Robot = function(x,y) {
     this.image = rbImage;
     this.busy = false;
 
+    this.talking = false;
+    this.talkingText = '';
+    this.talkingDuration = 0;
+    this.talkingTotalDuration = 3000;
+
     this.moving = false;
     this.movingDistance = 0;
     this.totalMovingDistance = 0;
@@ -39,7 +44,12 @@ var Robot = function(x,y) {
     		// params[0] is the direction
             self.turning = true;
             self.turningDirection = params[0];
-    	}
+    	},
+        "talk": function(params) {
+            // params[0] is the text
+            self.talking = true;
+            self.talkingText = params[0];
+        }
     };
 
 };
@@ -72,10 +82,27 @@ Robot.prototype.update = function(time) {
     if (this.colliding) {
         this.$collide();
     }
+    if (this.talking) {
+        this.$talk(time);
+    }
 }
 
 Robot.prototype.isBusy = function() {
     return this.busy;
+}
+
+Robot.prototype.$talk = function(time, text) {
+    if (this.talkingDuration > 0) {
+        ctx.save();
+        ctx.translate(
+            this.x*squareSize.width - squareSize.width/2,
+            this.y*squareSize.height - squareSize.height/2
+        );
+        ctx.drawImage('images/robot/speech_bubble.svg', squareSize.width, squareSize.height, squareSize.width/2, squareSize.height/3); 
+        ctx.restore();   
+    } else {
+        this.talking = false;
+    }
 }
 
 Robot.prototype.$moveForward = function(time) {
