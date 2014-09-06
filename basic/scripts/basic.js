@@ -172,7 +172,7 @@ EndSub.prototype.syntax = "^END SUB\\s*$";
 
 function For(source, line) {
     Statement.call(this, source, line);
-    var match = source.match(new RegExp(this.syntax));
+    var match = source.match(this.syntax);
     this.variable = match[1];
     this.start = Parser.parse(match[2]);
     this.stop = Parser.parse(match[3]);
@@ -199,7 +199,7 @@ For.prototype.syntax = "^FOR\\s+(" + VARIABLE_REGEX + ")\\s+=\\s+(" + EXPRESSION
 
 function Next(source, line) {
     Statement.call(this, source, line);
-    var match = source.match(new RegExp(this.syntax));
+    var match = source.match(this.syntax);
     this.variable = match[1];
 }
 
@@ -228,11 +228,91 @@ Next.prototype.match = "^NEXT\\b";
 
 Next.prototype.syntax = "^NEXT\\s+(" + VARIABLE_REGEX + ")\\s*$";
 
+// Loop
+
+function Loop(source, line) {
+    Statement.call(this, source, line);
+}
+
+Loop.prototype = Object.create(Statement.prototype);
+
+Loop.prototype.constructor = Loop;
+
+Loop.prototype.execute = function(processor) {
+    processor.stack.push({ statement: this });
+}
+
+Loop.prototype.startsBlock = true;
+
+Loop.prototype.match = "^LOOP\\b";
+
+Loop.prototype.syntax = "^LOOP\\s*$";
+
+// Until
+
+function Until(source, line) {
+    Statement.call(this, source, line);
+    var match = source.match(this.syntax);
+    this.expression = Parser.parse(match[1]);
+}
+
+Until.prototype = Object.create(Statement.prototype);
+
+Until.prototype.constructor = Until;
+
+Until.prototype.execute = function(processor) {
+    var stack = processor.stack.pop();
+    if (!(stack.statement instanceof Loop)) {
+        throw("Error: Unexpected " + this.source);
+    }
+    var value = processor.evaluate(this.expression);
+    if (!value) {
+        processor.stack.push(stack);
+        processor.pc = stack.statement.line; // 1 offset so +1
+    }
+}
+
+Until.prototype.endsBlock = true;
+
+Until.prototype.match = "^UNTIL\\b";
+
+Until.prototype.syntax = "^UNTIL\\s+(" + EXPRESSION_REGEX + ")\\s*$";
+
+// While
+
+function While(source, line) {
+    Statement.call(this, source, line);
+    var match = source.match(this.syntax);
+    this.expression = Parser.parse(match[1]);
+}
+
+While.prototype = Object.create(Statement.prototype);
+
+While.prototype.constructor = While;
+
+While.prototype.execute = function(processor) {
+    var stack = processor.stack.pop();
+    if (!(stack.statement instanceof Loop)) {
+        throw("Error: Unexpected " + this.source);
+    }
+    var value = processor.evaluate(this.expression);
+    if (value) {
+        processor.stack.push(stack);
+        processor.pc = stack.statement.line; // 1 offset so +1
+    }
+}
+
+While.prototype.endsBlock = true;
+
+While.prototype.match = "^WHILE\\b";
+
+While.prototype.syntax = "^WHILE\\s+(" + EXPRESSION_REGEX + ")\\s*$";
+
 // Call
 
 function Call(source, line) {
     Statement.call(this, source, line);
-    var match = source.match(new RegExp(this.syntax));
+    var match = source.match(this.syntax);
     this.subroutine = match[1];
     this.parameters = _parseExpressionList(match[2]);
 }
@@ -265,6 +345,9 @@ Basic.statements = [
     Interrupt,
     For,
     Next,
+    Loop,
+    While,
+    Until,
     Subroutine,
     EndSub,
     Call // MUST BE LAST
