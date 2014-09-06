@@ -13,9 +13,19 @@ var Game = function(map) {
     bgImage.src = "images/backgroundTile.png";
     this.bgImage = bgImage;
 
+    var getAtLocation = function(x, y) {
+        for (var i = 0; i < self.objects.length; i++) {
+            var object = self.objects[i];
+            if ((object.x === x) && (object.y === y)) {
+                return object;
+            }
+        };
+        return null;
+    }
+
     _.each(map.objects, function(object) {
         // forgive me
-        var instance = new window[object.type](object.x, object.y);
+        var instance = new window[object.type](object.x, object.y, getAtLocation);
         self.objects.push(instance);
         //forgive me some more
         if(object.type === 'Robot'){
@@ -31,16 +41,6 @@ var Game = function(map) {
             width:squareWidth,
             height:squareHeight
         };
-    }
-
-    var getAtLocation = function(x, y) {
-        for (var i = 0; i < this.objects.length; i++) {
-            var object = this.objects[i];
-            if ((object.getX() === x) && (object.getY() === y)) {
-                return object;
-            }
-        };
-        return null;
     }
 }
 
