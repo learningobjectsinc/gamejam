@@ -8,5 +8,5 @@ GridObject.prototype.getX = function() {
 }
 
 GridObject.prototype.getY = function() {
-	return this.x;
+	return this.y;
 }

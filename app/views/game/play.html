@@ -1,6 +1,9 @@
 <div id="game">
 
-	<audio autoplay loop>
+	<button class="glyphicon glyphicon glyphicon-volume-up" ng-click="toggleSound()" ng-show="isSoundOn"></button>
+	<button class="glyphicon glyphicon glyphicon-volume-off" ng-click="toggleSound()" ng-hide="isSoundOn"></button>
+
+	<audio id="sound" autoplay loop>
 		<source src="sound/finalAct.wav" type="audio/wav">
 	</audio>
 
