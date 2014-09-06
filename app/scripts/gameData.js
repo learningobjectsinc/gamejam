@@ -58,6 +58,7 @@ gameData["levels"] = [
 		"name": "Level 1: Functions",
 		"description": "Number of Lemmings: 10",
 		"icon": "power",
+		"completed": "0.8",
 		"map": {
 			"width": 15,
 			"height": 10,
@@ -73,7 +74,7 @@ gameData["levels"] = [
 					"y": 2
 				},
 				{
-					"type": "Rock",
+					"type": "Owl",
 					"x": 3,
 					"y": 3
 				}
@@ -81,27 +82,115 @@ gameData["levels"] = [
 		}
 	},
 	{
-		"id": 223,
+		"id": 123,
 		"name": "Level 2: Variables",
 		"description": "Number of Lemmings: 10",
-		"icon": "settings"
+		"icon": "settings",
+		"completed": "0.6",
+		"map": {
+			"width": 15,
+			"height": 10,
+			"objects": [
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Owl",
+					"x": 3,
+					"y": 3
+				}
+			]
+		}
 	},
 	{
-		"id": 323,
+		"id": 123,
 		"name": "Level 3: Conditionals",
 		"description": "Number of Lemmings: 10",
-		"icon": "podium"
+		"icon": "podium",
+		"completed": "0.4",
+		"map": {
+			"width": 15,
+			"height": 10,
+			"objects": [
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Owl",
+					"x": 3,
+					"y": 3
+				}
+			]
+		}
 	},
 	{
-		"id": 423,
+		"id": 123,
 		"name": "Level 4: Loops",
 		"description": "Number of Lemmings: 10",
-		"icon": "spinner"
+		"icon": "spinner",
+		"completed": "0.2",
+		"map": {
+			"width": 15,
+			"height": 10,
+			"objects": [
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Owl",
+					"x": 3,
+					"y": 3
+				}
+			]
+		}
 	},
 	{
-		"id": 523,
-		"name": "Level 5: Everything",
+		"id": 123,
+		"name": "Level 5: Everything!",
 		"description": "Number of Lemmings: 10",
-		"icon": "rocket"
+		"icon": "rocket",
+		"completed": "0",
+		"map": {
+			"width": 15,
+			"height": 10,
+			"objects": [
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Owl",
+					"x": 3,
+					"y": 3
+				}
+			]
+		}
 	}
 ];
