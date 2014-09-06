@@ -1,7 +1,6 @@
 angular.module('gamejamApp').factory('Program', function($timeout){
 	var program = function(code){
 		this.code = code || '',
-		this.position = null,
 		this.statements = [],
 		this.processor = null
 	};
