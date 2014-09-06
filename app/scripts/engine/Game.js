@@ -1,13 +1,26 @@
+window.robots = [];
 var Game = function(map) {
     this.map = map;
     var self = this;
 
     this.objects = [];
 
+    // Game bg image
+    var bgImage = new Image();
+    bgImage.onload = function() {
+        
+    };
+    bgImage.src = "images/backgroundTile.png";
+    this.bgImage = bgImage;
+
     _.each(map.objects, function(object) {
         // forgive me
         var instance = new window[object.type](object.x, object.y);
         self.objects.push(instance);
+        //forgive me some more
+        if(object.type === 'Robot'){
+            robots.push(instance);
+        }
     });
 
     this.getSquareSizes = function(canvasSive){
@@ -35,8 +48,9 @@ Game.prototype.render = function(canvasSive, ctx) {
     var squareSize = this.getSquareSizes(canvasSive);
 
     //draw the background
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, canvasSive.width, canvasSive.height);
+    var ptrn = ctx.createPattern(this.bgImage, 'repeat'); // Create a pattern with this image, and set it to "repeat".
+    ctx.fillStyle = ptrn;
+    ctx.fillRect(0, 0, canvasSive.width, canvasSive.height); // context.fillRect(x, y, width, height);
 
     //draw the squares
     for(var x=0; x<this.map.width; x++){

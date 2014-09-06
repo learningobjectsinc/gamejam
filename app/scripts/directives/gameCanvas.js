@@ -1,5 +1,5 @@
 angular.module('gamejamApp')
-    .directive('gameCanvas', function() {
+    .directive('gameCanvas', ['GameService', function(gameService) {
         return {
             restrict: 'E',
             replace: true,
@@ -8,7 +8,7 @@ angular.module('gamejamApp')
                 "level": "="
             },
             link: function(scope, element) {
-                var game = new Game(scope.level.map);
+                var game = gameService.getNewGame(scope.level.map);
 
                 var windowHeight = window.innerHeight;
                 var windowWidth = window.innerWidth;
@@ -19,17 +19,7 @@ angular.module('gamejamApp')
                 canvas.width = windowWidth * 2 / 3;
                 canvas.height = canvas.width * 2 / 3 ;
 
-
                 var then = Date.now();
-
-                // Robot image
-                var bgImage = new Image();
-                bgImage.onload = function() {
-                    var ptrn = ctx.createPattern(bgImage, 'repeat'); // Create a pattern with this image, and set it to "repeat".
-                    ctx.fillStyle = ptrn;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
-                };
-                bgImage.src = "images/backgroundTile.png";
 
                 // The main game loop
                 var mainGame = function() {
@@ -43,7 +33,6 @@ angular.module('gamejamApp')
 
                     game.update(delta / 1000);
 
-                    ctx.drawImage(bgImage, 0, 0);
                     game.render(canvasSize, ctx);
 
                     //console.log('robot! ', robot);
@@ -56,4 +45,4 @@ angular.module('gamejamApp')
                 mainGame();
             }
         };
-    });
+    }]);
