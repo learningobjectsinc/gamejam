@@ -11,78 +11,133 @@
 			"objects": [
 				{
 					"type": "Robot",
-					"x": 5,
-					"y": 5
-				},
-				{
-					"type": "Rock",
-					"x": 5,
-					"y": 4
-				},
-				{
-					"type": "Rock",
-					"x": 5,
+					"x": 2,
 					"y": 6
 				},
 				{
 					"type": "Rock",
-					"x": 5,
-					"y": 6
-				},
-				{
-					"type": "Rock",
-					"x": 5,
-					"y": 6
-				},
-				{
-					"type": "Rock",
-					"x": 5,
-					"y": 6
-				},
-				{
-					"type": "Rock",
-					"x": 5,
-					"y": 6
-				},
-				{
-					"type": "Rock",
-					"x": 5,
-					"y": 6
-				},
-				{
-					"type": "Rock",
-					"x": 5,
-					"y": 6
-				},
-				{
-					"type": "Rock",
-					"x": 5,
-					"y": 6
-				},
-				{
-					"type": "Rock",
-					"x": 4,
-					"y": 6
-				},
-				{
-					"type": "Rock",
-					"x": 4,
-					"y": 5
-				},
-				{
-					"type": "Rock",
-					"x": 4,
+					"x": 6,
 					"y": 4
 				},
 				{
 					"type": "Rock",
 					"x": 6,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 4,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 3,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 1,
 					"y": 6
 				},
 				{
 					"type": "Rock",
+					"x": 1,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 3,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 4,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 5,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 7
+				},
+				{
+					"type": "Rock",
 					"x": 7,
-					"y": 6
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 8,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 5,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 4,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 3,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 5,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 2
 				},
 				{
 					"type": "Rock",
