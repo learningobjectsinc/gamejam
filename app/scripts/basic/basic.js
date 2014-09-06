@@ -180,7 +180,7 @@ TellStatement.prototype.execute = function(processor) {
 
 TellStatement.prototype.keyword = "TELL";
 
-TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s+(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
+TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
 
 // FunctionStatement
 
