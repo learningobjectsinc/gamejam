@@ -1,7 +1,7 @@
 <div class="basicEditor">
-    <textarea class="pc" readonly="readonly" resizable="false" ng-model="pc" ng-trim="false">
-    </textarea>
-    <textarea class="source" ng-model="program.code">
+    <div ui-ace="{onLoad: aceLoaded}" class="source" ng-model="program.code">
+    </div>
+    <textarea class="prefill" style="display: none;">
 LET x = 1
 
 IF x &lt; 2 THEN

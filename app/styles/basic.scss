@@ -7,7 +7,7 @@
 }
 .source {
     float: left;
-    width: 40%;
+    width: 60%;
     height: 400px;
 }
 .console, .variables {
@@ -15,12 +15,16 @@
     background-color: #ccc;
     color: #030;
     float: left;
-    width: 40%;
-    margin-left: 10px;
+    width: 38%;
+    margin-left: 1%;
     height: 199px;
 }
 .compile, .step, .run {
     clear: both;
     background-color: green;
     color: white;
+}
+
+.ace_gutter-cell.current {
+    background-color: yellow!important;
 }
