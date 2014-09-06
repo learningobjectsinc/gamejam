@@ -27,7 +27,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				}, '');
 			};
 		}, link: function(scope, el){
-			var existingSource = el.find('.prefill').val();
+			var existingSource = el.find('.source').val();
 			scope.program.code = existingSource;
 		}
 	};
