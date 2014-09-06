@@ -40,9 +40,17 @@
 </textarea>
 <textarea class="source">
 
+REM this is nothing
+
 LET x = 1
 
-Print 'hello, world'
+IF x &lt; 2 THEN
+  Print 'hello, world'
+END IF
+
+IF x &gt; 2 THEN
+  Print 'goodbye, world'
+END IF
 
 LOOP
   LET x = x + 1
@@ -63,7 +71,7 @@ END FUNCTION
     </div>
     
     <input class="compile" type="button" value="COMPILE" />
-    <input class="step" type="button" value="STEP" />
-    <input class="run" type="button" value="RUN" />
+    <input class="step" type="button" value="STEP" disabled="disabled" />
+    <input class="run" type="button" value="RUN" disabled="disabled" />
   </body>
 </html>

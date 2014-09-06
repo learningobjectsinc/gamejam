@@ -57,7 +57,28 @@ gameData["levels"] = [
 		"id": 123,
 		"name": "Level 1: Functions",
 		"description": "Number of Lemmings: 10",
-		"icon": "power"
+		"icon": "power",
+		"map": {
+			"width": 15,
+			"height": 10,
+			"objects": [
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Rock",
+					"x": 3,
+					"y": 3
+				}
+			]
+		}
 	},
 	{
 		"id": 223,
