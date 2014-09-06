@@ -7,5 +7,11 @@ $(function() {
         });
 
         console.log(statements);
+
+        var processor = new Processor(statements);
+
+        while (!processor.halted()) {
+            processor.step();
+        }
     });
 });
