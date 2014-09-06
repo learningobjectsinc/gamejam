@@ -147,6 +147,66 @@ EndSub.prototype.match = "^END SUB\\b";
 
 EndSub.prototype.syntax = "^END SUB\\s*$";
 
+// For
+
+function For(source, line) {
+    Statement.call(this, source, line);
+    var match = source.match(new RegExp(this.syntax));
+    this.variable = match[1];
+    this.start = Parser.parse(match[2]);
+    this.stop = Parser.parse(match[3]);
+}
+
+For.prototype = Object.create(Statement.prototype);
+
+For.prototype.constructor = For;
+
+For.prototype.execute = function(processor) {
+    var start = processor.evaluate(this.start);
+    var stop = processor.evaluate(this.stop);
+    processor.variables[this.variable] = start;
+    processor.stack.push({ statement: this, stop: stop });
+}
+
+For.prototype.startsBlock = true;
+
+For.prototype.match = "^FOR\\b";
+
+For.prototype.syntax = "^FOR\\s+(" + VAR + ")\\s+=\\s+(" + EXPR + ")\\s+TO\\s+(" + EXPR + ")\\s*$";
+
+// Next
+
+function Next(source, line) {
+    Statement.call(this, source, line);
+    var match = source.match(new RegExp(this.syntax));
+    this.variable = match[1];
+}
+
+Next.prototype = Object.create(Statement.prototype);
+
+Next.prototype.constructor = Next;
+
+Next.prototype.execute = function(processor) {
+    var entry = processor.stack.pop();
+    if (!(entry.statement instanceof For)) {
+        throw("Error: Unexpected " + this.source);
+    } else if (entry.statement.variable != this.variable) {
+        throw("Error: Mismatched " + this.source);
+    }
+    var value = 1 + processor.variables[this.variable];
+    if (value <= entry.stop) {
+        processor.variables[this.variable] = value;
+        processor.stack.push(entry);
+        processor.pc = entry.statement.line; // 1 offset so +1
+    }
+}
+
+Next.prototype.endsBlock = true;
+
+Next.prototype.match = "^NEXT\\b";
+
+Next.prototype.syntax = "^NEXT\\s+(" + VAR + ")\\s*$";
+
 // Call
 
 function Call(source, line) {
@@ -181,6 +241,8 @@ Basic.statements = [
     Blank,
     Remark,
     Interrupt,
+    For,
+    Next,
     Subroutine,
     EndSub,
     Call // MUST BE LAST
