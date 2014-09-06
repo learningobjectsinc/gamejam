@@ -6,6 +6,9 @@ angular.module('gamejamApp').config(function($stateProvider, $urlRouterProvider)
 		url: '/',
 		controller: 'HomeCtrl',
 		templateUrl: 'views/home.html'
+	}).state('about', {
+		url: '/about',
+		templateUrl: 'views/about.html'
 	}).state('game', {
 		url: '/game/:levelId',
 		controller: 'GameCtrl',
@@ -22,7 +25,7 @@ angular.module('gamejamApp').config(function($stateProvider, $urlRouterProvider)
 	}).state('game.wrapup', {
 		url: '/wrapup',
 		controller: 'GameWrapup',
-		tepmlateUrl: 'views/game/wrapup.html'
+		templateUrl: 'views/game/wrapup.html'
 	});
 
 	$urlRouterProvider.otherwise('/');
