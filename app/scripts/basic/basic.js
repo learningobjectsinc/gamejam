@@ -29,6 +29,23 @@ Statement.prototype.execute = function(context) {
     throw "Unimplemented: " + this.source;
 };
 
+Statement.prototype.skipBlock = function(processor) {
+    var depth = 1, statement;
+    while (depth && (processor.pc < processor.statements.length)) {
+        statement = processor.statements[processor.pc];
+        ++ processor.pc;
+        if (statement.startsBlock) {
+            ++ depth;
+        } else if (statement.endsBlock) {
+            -- depth;
+        }
+    }
+    if (depth) {
+        throw "Unexpected end of file: " + this.source;
+    }
+    return statement;
+};
+
 Statement.prototype.startsBlock = false;
 
 Statement.prototype.endsBlock = false;
@@ -126,7 +143,11 @@ FunctionStatement.prototype = Object.create(Statement.prototype);
 
 FunctionStatement.prototype.constructor = FunctionStatement;
 
-FunctionStatement.prototype.execute = function() {
+FunctionStatement.prototype.execute = function(processor) {
+    var statement = this.skipBlock(processor);
+    if (!(statement instanceof EndFunctionStatement)) {
+        throw "Unexpected: " + statement.sourc;
+    }
 }
 
 FunctionStatement.prototype.invoke = function(processor, parameters) {
@@ -232,6 +253,53 @@ NextStatement.prototype.match = "^NEXT\\b";
 
 NextStatement.prototype.syntax = "^NEXT\\s+(" + VARIABLE_REGEX + ")\\s*$";
 
+// IfStatement
+
+function IfStatement(source, line) {
+    Statement.call(this, source, line);
+    var match = source.match(this.syntax);
+    this.expression = Parser.parse(match[1]);
+}
+
+IfStatement.prototype = Object.create(Statement.prototype);
+
+IfStatement.prototype.constructor = IfStatement;
+
+IfStatement.prototype.execute = function(processor) {
+    var expression = processor.evaluate(this.expression);
+    if (!expression) {
+        var statement = this.skipBlock(processor);
+        if (!(statement instanceof EndIfStatement)) {
+            throw "Unexpected: " + statement.sourc;
+        }
+    }
+}
+
+IfStatement.prototype.startsBlock = true;
+
+IfStatement.prototype.match = "^IF\\b";
+
+IfStatement.prototype.syntax = "^IF\\s+(" + EXPRESSION_REGEX + ")\\s+THEN\\s*$";
+
+// EndIfStatement
+
+function EndIfStatement(source, line) {
+    Statement.call(this, source, line);
+}
+
+EndIfStatement.prototype = Object.create(Statement.prototype);
+
+EndIfStatement.prototype.constructor = EndIfStatement;
+
+EndIfStatement.prototype.execute = function(processor) {
+}
+
+EndIfStatement.prototype.endsBlock = true;
+
+EndIfStatement.prototype.match = "^END\\s+IF\\b";
+
+EndIfStatement.prototype.syntax = "^END\\s+IF\\s*$";
+
 // LoopStatement
 
 function LoopStatement(source, line) {
@@ -334,8 +402,6 @@ FunctionCall.prototype.execute = function(processor) {
     subroutine.invoke(processor, parameters);
 }
 
-FunctionCall.prototype.startsBlock = true;
-
 FunctionCall.prototype.match = "^" + FUNCTION_REGEX + "\\b";
 
 FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*$";
@@ -347,6 +413,8 @@ Basic.statements = [
     RemarkStatement,
     LetStatement,
     InterruptStatement,
+    IfStatement,
+    EndIfStatement,
     ForStatement,
     NextStatement,
     LoopStatement,

@@ -16,6 +16,7 @@ $(function() {
 
         $('.pc').val('>');
         $('.console').text('');
+        $('.step,.run').attr('disabled', null);
     });
 
     $('.step').click(function() {

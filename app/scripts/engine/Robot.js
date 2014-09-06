@@ -75,9 +75,14 @@ Robot.prototype.isBusy = function() {
 Robot.prototype.$moveForward = function(time) {
     if (this.movingDistance > 0) {
         var modifier = this.speed * time;
-        this.movingDistance -= modifier;
-        this.x+= Math.cos(this.angle) * modifier;
-        this.y+= Math.sin(this.angle) * modifier;
+        if(modifier > this.movingDistance){
+            modifier = this.movingDistance;
+            this.movingDistance = 0;
+        } else {
+            this.movingDistance -= modifier;
+        }
+        this.x += Math.cos(this.angle) * modifier;
+        this.y += Math.sin(this.angle) * modifier;
     } else {
         this.moving = false;
         this.movingDistance = 0;
@@ -121,7 +126,7 @@ Robot.prototype.$turn = function() {
 }
 
 // RobotIO
-
+/*
 function RobotIO() {
     IO.call(this);
 }
@@ -133,3 +138,4 @@ RobotIO.prototype.constructor = RobotIO;
 RobotIO.prototype.interrupt = function(code, parameters) {
     Robot.doSomething(code, parameters);
 }
+*/
