@@ -1,0 +1,32 @@
+<div class="basicEditor">
+    <textarea class="pc" readonly="readonly" resizable="false" ng-model="pc" ng-trim="false">
+    </textarea>
+    <textarea class="source" ng-model="program.code">
+LET x = 1
+
+IF x &lt; 2 THEN
+  Print 'hello, world'
+END IF
+
+IF x &gt; 2 THEN
+  Print 'goodbye, world'
+END IF
+
+LOOP
+  LET x = x + 1
+WHILE x &lt; 5
+
+FOR i = 1 TO 5
+  Print i
+NEXT i
+
+FUNCTION Print i
+  INTERRUPT 'print', i
+END FUNCTION
+
+    </textarea>
+    <div class="variables" ng-bind-html="variables()">
+    </div>
+    <div class="console">
+    </div>
+</div>

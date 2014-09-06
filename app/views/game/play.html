@@ -11,15 +11,25 @@
 				{{ block.name }}
 			</button>
 		</div>
-		<div class="programBlockContainer" block-container="program">
+		<div class="programBlockContainer" block-container="blockProgram">
 			<h2>Your Program</h2>
 			<div ng-if="!program.length">
 				Add some blocks!<br>Y U NO CODE!?!?
 			</div>
-			<div ng-repeat="block in program track by block.id" block="block"></div>
+			<div ng-repeat="block in blockProgram track by block.id" block="block"></div>
 		</div>
 
-		<button class="btn" ui-sref="^.wrapup">WIN</button>
+		<div class="codeEditor">
+			<h2>Code</h2>
+			<div basic-editor="program"></div>
+			
+			<input ng-click="program.compile()" class="compile" type="button" value="COMPILE" />
+			<input ng-click="program.step()" class="step" type="button" ng-disabled="!program.statements.length" value="STEP" />
+			<input ng-click="program.run()" class="run" type="button" ng-disabled="!program.statements.length" value="RUN" />
+		</div>
+
+		<button ui-sref="^.wrapup">Run</button>
+		<button ui-sref="^.wrapup">WIN</button>
 	</div>
 
 	<game-canvas></game-canvas>
