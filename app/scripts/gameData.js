@@ -3,6 +3,7 @@ gameData["levels"] = [
 	{
 		"id": 123,
 		"name": "Just Dig!",
-		"description": "Number of Lemmings: 10"
+		"description": "Number of Lemmings: 10",
+		"icon": "brain"
 	}
 ];

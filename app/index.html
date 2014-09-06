@@ -12,6 +12,7 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/icons.css">
     <!-- endbuild -->
   </head>
   <body ng-app="gamejamApp">
@@ -21,19 +22,7 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
-          <li ui-sref-active="active"><a ui-sref="about">About</a></li>
-        </ul>
-        <h3 class="text-muted">gamejam</h3>
-      </div>
-
       <div ui-view></div>
-
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
     </div>
 
 

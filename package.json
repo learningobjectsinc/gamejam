@@ -6,7 +6,7 @@
     "grunt-notify": "^0.3.1"
   },
   "devDependencies": {
-    "grunt": "^0.4.1",
+    "grunt": "^0.4.2",
     "grunt-autoprefixer": "1.0.1",
     "grunt-concurrent": "1.0.0",
     "grunt-contrib-clean": "^0.6.0",
