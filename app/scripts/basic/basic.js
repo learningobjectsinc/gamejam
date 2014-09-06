@@ -126,22 +126,7 @@ FunctionStatement.prototype = Object.create(Statement.prototype);
 
 FunctionStatement.prototype.constructor = FunctionStatement;
 
-FunctionStatement.prototype.execute = function(processor) {
-    var depth = 1, statement;
-    while (depth && (processor.pc < processor.statements.length)) {
-        statement = processor.statements[processor.pc];
-        ++ processor.pc;
-        if (statement.startsBlock) {
-            ++ depth;
-        } else if (statement.endsBlock) {
-            -- depth;
-        }
-    }
-    if (depth) {
-        throw "Unexpected end of file: " + this.source;
-    } else if (!(statement instanceof EndFunctionStatement)) {
-        throw "Unexpected: " + statement.sourc;
-    }
+FunctionStatement.prototype.execute = function() {
 }
 
 FunctionStatement.prototype.invoke = function(processor, parameters) {
