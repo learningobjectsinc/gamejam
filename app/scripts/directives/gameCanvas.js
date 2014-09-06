@@ -6,11 +6,13 @@ angular.module('gamejamApp')
             templateUrl: 'scripts/directives/gameCanvas.html',
             link: function(scope, element) {
                 var windowHeight = window.innerHeight;
+                var windowWidth = window.innerWidth;
 
                 var canvas = $(element).get(0);
                 var ctx = canvas.getContext("2d");
-                canvas.height = windowHeight;
-                canvas.width = windowHeight * 4 / 3;
+                
+                canvas.width = windowWidth * 2 / 3;
+                canvas.height = canvas.width * 2 / 3 ;
 
 
                 var robot = new Robot(100, 100);
