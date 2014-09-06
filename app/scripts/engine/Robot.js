@@ -44,12 +44,22 @@ Robot.prototype.doSomething = function(functionName, params) {
     this.instructions[functionName](params);
 }
 
-Robot.prototype.render = function(ctx) {
+Robot.prototype.render = function(canvasSize, squareSize, ctx) {
     ctx.save();
-    ctx.translate(this.x,this.y);
+    ctx.translate(
+        this.x*squareSize.width - squareSize.width/2,
+        this.y*squareSize.height - squareSize.height/2
+    );
     ctx.rotate(this.angle);
-    ctx.drawImage(this.image, -this.image.width/2, -this.image.height/2);
-    ctx.restore();      
+
+    ctx.drawImage(this.image, -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);
+
+    ctx.beginPath();
+    ctx.arc(0, 0, 5, 0, 2 * Math.PI, false);
+    ctx.fillStyle = 'red';
+    ctx.fill();
+
+    ctx.restore();
 }
 
 Robot.prototype.update = function(time) {
@@ -88,4 +98,18 @@ Robot.prototype.$turn = function(time) {
         this.turnedDistance = 0;
         this.busy = false;
     }
+}
+
+// RobotIO
+
+function RobotIO() {
+    IO.call(this);
+}
+
+RobotIO.prototype = Object.create(IO.prototype);
+
+RobotIO.prototype.constructor = RobotIO;
+
+RobotIO.prototype.interrupt = function(code, parameters) {
+    Robot.doSomething(code, parameters);
 }

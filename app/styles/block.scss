@@ -1,0 +1,28 @@
+.programBlock {
+  background-color: #ddffdd;
+  padding: 1px 5px;
+  margin: 15px 0;
+
+  .delete {
+  	cursor: pointer;
+  	float: right;
+
+  	:hover {
+  		color: red;
+  	}
+  }
+}
+
+.programBlockContainer {
+  background: #dedeff;
+  margin-top: 0.5em;
+  
+  > div:nth-child(2n) .programBlock {
+    background-color: #bbffbb;
+  }
+}
+
+.blockLibrary {
+	background: #dedede; 
+	padding-bottom: 0.5em;
+}

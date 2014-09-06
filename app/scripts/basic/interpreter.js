@@ -28,4 +28,12 @@ $(function() {
             return str + '<div>' + variable + ' = ' + value + '</div>';
         }, ''));
     });
+
+    $('.run').click(function() {
+        if (processor.halted) {
+            return;
+        }
+        $('.step').click();
+        setTimeout(function() { $('.run').click(); }, 250);
+    });
 });

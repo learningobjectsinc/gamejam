@@ -1,3 +1,11 @@
+
+var robot = new Robot(5, 5);
+var game = new Game({
+    height:10,
+    width:15
+},[
+    robot
+]);
 angular.module('gamejamApp')
     .directive('gameCanvas', function() {
         return {
@@ -15,7 +23,6 @@ angular.module('gamejamApp')
                 canvas.height = canvas.width * 2 / 3 ;
 
 
-                var robot = new Robot(100, 100);
                 var then = Date.now();
 
                 // Robot image
@@ -32,10 +39,16 @@ angular.module('gamejamApp')
                     var now = Date.now();
                     var delta = now - then;
 
+                    var canvasSize = {
+                        height:canvas.height,
+                        width:canvas.width
+                    };
+
                     robot.update(delta / 1000);
 
                     ctx.drawImage(bgImage, 0, 0);
-                    robot.render(ctx);
+                    game.render(canvasSize, ctx);
+
                     //console.log('robot! ', robot);
                     then = now;
 
