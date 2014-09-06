@@ -14,12 +14,13 @@ function Processor(statements, io) {
 
 Processor.prototype.step = function() {
     var statement = this.statements[this.pc];
-    ++ this.pc;
+    ++ this.pc; // I have to preincrement this because the statement may change the PC
     try {
         statement.execute(this);
         this.halted = this.pc >= this.statements.length;
     } catch (e) {
         this.halted = true;
+        -- this.pc;
         throw e;
     }
 }
