@@ -1,4 +1,6 @@
 var Owl = function(x,y) {
+    GridObject.apply(this, [x, y]);
+    
 	// Owl image
     var owlReady = false;
     var owlImage = new Image();
@@ -12,6 +14,8 @@ var Owl = function(x,y) {
     this.y = y;
     this.image = owlImage;
 };
+
+Owl.prototype = Object.create(GridObject.prototype);
 
 Owl.prototype.render = function(canvasSize, squareSize, ctx) {
     ctx.save();

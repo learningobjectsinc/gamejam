@@ -1,4 +1,6 @@
 var Rock = function(x,y) {
+    GridObject.apply(this, [x, y]);
+    
 	// Rock image
     var rockReady = false;
     var rockImage = new Image();
@@ -12,6 +14,8 @@ var Rock = function(x,y) {
     this.y = y;
     this.image = rockImage;
 };
+
+Rock.prototype = Object.create(GridObject.prototype);
 
 Rock.prototype.render = function(canvasSize, squareSize, ctx) {
     ctx.save();

@@ -1,5 +1,6 @@
 var Robot = function(x,y) {
-
+    GridObject.apply(this, [x, y]);
+    
     // Robot image
     var rbReady = false;
     var rbImage = new Image();
@@ -38,6 +39,8 @@ var Robot = function(x,y) {
     };
 
 };
+
+Robot.prototype = Object.create(GridObject.prototype);
 
 Robot.prototype.doSomething = function(functionName, params) {
     this.instructions[functionName](params);
