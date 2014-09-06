@@ -3,6 +3,27 @@
 		"id": 123,
 		"name": "Just Dig!",
 		"description": "Number of Lemmings: 10",
-		"icon": "brain"
+		"icon": "brain",
+		"map": {
+			"width": 15,
+			"height": 10,
+			"objects": [
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Owl",
+					"x": 3,
+					"y": 3
+				}
+			]
+		}
 	}
 ]
