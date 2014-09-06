@@ -36,6 +36,7 @@ var Robot = function(x,y) {
             self.turningDirection = params[0];
     	}
     };
+
 };
 
 Robot.prototype.doSomething = function(functionName, params) {
@@ -81,8 +82,20 @@ Robot.prototype.$moveForward = function(time) {
         } else {
             this.movingDistance -= modifier;
         }
-        this.x += Math.cos(this.angle) * modifier;
-        this.y += Math.sin(this.angle) * modifier;
+        switch (this.direction){
+            case 'right':
+                this.x += modifier;
+                break;
+            case 'left':
+                this.x -= modifier;
+                break;
+            case 'up':
+                this.y -= modifier;
+                break;
+            case 'down':
+                this.y += modifier;
+                break;
+        }
     } else {
         this.moving = false;
         this.movingDistance = 0;
