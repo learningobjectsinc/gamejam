@@ -19,6 +19,16 @@ var Game = function(map) {
             height:squareHeight
         };
     }
+
+    var getAtLocation = function(x, y) {
+        for (var i = 0; i < this.objects.length; i++) {
+            var object = this.objects[i];
+            if ((object.getX() === x) && (object.getY() === y)) {
+                return object;
+            }
+        };
+        return null;
+    }
 }
 
 Game.prototype.render = function(canvasSive, ctx) {
