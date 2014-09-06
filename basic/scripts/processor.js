@@ -1,7 +1,8 @@
 // Processor
 
-function Processor(statements) {
+function Processor(statements, io) {
     this.statements = statements;
+    this.io = io;
     this.variables = {};
     this.pc = 0;
     this.stack = [{}];
@@ -29,3 +30,26 @@ Processor.prototype.evaluate = function(expr) {
     return expr.evaluate(this.variables);
 }
 
+// IO
+
+function IO() {
+}
+
+IO.prototype.interrupt = function(code, parameters) {
+    throw "Unimplemented";
+}
+
+
+// BasicIO
+
+function BasicIO() {
+    IO.call(this);
+}
+
+BasicIO.prototype = Object.create(IO.prototype);
+
+BasicIO.prototype.constructor = BasicIO;
+
+BasicIO.prototype.interrupt = function(code, parameters) {
+    console.log('Interrupt!', code, parameters);
+}

@@ -81,7 +81,7 @@ Interrupt.prototype.constructor = Interrupt;
 
 Interrupt.prototype.execute = function(processor) {
     var parameters = _.map(this.parameters, processor.evaluate, processor);
-    console.log('Interrupt', this.code, parameters);
+    processor.io.interrupt(this.code, parameters);
 }
 
 Interrupt.prototype.match = "^INT\\b";

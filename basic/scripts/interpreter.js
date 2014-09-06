@@ -8,7 +8,9 @@ $(function() {
 
         console.log(statements);
 
-        var processor = new Processor(statements);
+        var io = new BasicIO();
+
+        var processor = new Processor(statements, io);
 
         while (!processor.halted()) {
             processor.step();
