@@ -1,0 +1,15 @@
+<div class="programBlock">
+  <div class="delete pull-right" ng-click="delete()">&times;</div>
+  <h4>{{ block.name }}</h4>
+  <form class="form-horizontal" ng-if="block.params">
+    <div class="form-group" ng-repeat="param in block.params">
+      <label for="{{ param.shortName }}_{{ block.id }}" class="col-sm-2 control-label">{{ param.name }}</label>
+      <div class="col-sm-10">
+        <div class="input-group">
+          <input id="{{ param.shortName }}_{{ block.id }}" type="text" class="form-control">
+          <span class="input-group-addon">{{ param.units }}</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

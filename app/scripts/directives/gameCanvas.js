@@ -1,5 +1,5 @@
 
-var robot = new Robot(7, 5);
+var robot = new Robot(5, 5);
 var game = new Game({
     height:10,
     width:10

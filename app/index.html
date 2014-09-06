@@ -13,7 +13,7 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/icons.css">
+    <link rel="stylesheet" href="styles/block.css">
     <!-- endbuild -->
   </head>
   <body ng-app="gamejamApp">
@@ -87,13 +87,19 @@
     <script src="scripts/controllers/game/TheGame.js"></script>
     <script src="scripts/controllers/game/gameWrapup.js"></script>
 
+    <script src="scripts/controllers/blockEditor.js"></script>
+
+    <script src="scripts/directives/block.js"></script>
+    <script src="scripts/directives/blockContainer.js"></script>
+    <script src="scripts/directives/gameCanvas.js"></script>
+
+    <script src="scripts/services/blockService.js"></script>
     <script src="scripts/services/levelService.js"></script>
     <script src="scripts/services/instructionService.js"></script>
 
-    <script src="scripts/directives/gameCanvas.js"></script>
+    <script src="scripts/types/Block.js"></script>        
 
-    <!-- endbuild -->
-
+    <script src="scripts/engine/Robot.js"></script>
     <!-- endbuild -->
 </body>
 </html>
