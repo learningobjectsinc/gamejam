@@ -33,103 +33,103 @@ Statement.prototype.startsBlock = false;
 
 Statement.prototype.endsBlock = false;
 
-// Blank
+// BlankStatement
 
-function Blank(source, line) {
+function BlankStatement(source, line) {
     Statement.call(this, source, line);
 }
 
-Blank.prototype = Object.create(Statement.prototype);
+BlankStatement.prototype = Object.create(Statement.prototype);
 
-Blank.prototype.constructor = Blank;
+BlankStatement.prototype.constructor = BlankStatement;
 
-Blank.prototype.execute = function() {
+BlankStatement.prototype.execute = function() {
 }
 
-Blank.prototype.match = "^\\s*$";
+BlankStatement.prototype.match = "^\\s*$";
 
-Blank.prototype.syntax = "^\\s*$";
+BlankStatement.prototype.syntax = "^\\s*$";
 
-// Remark
+// RemarkStatement
 
-function Remark(source, line) {
+function RemarkStatement(source, line) {
     Statement.call(this, source, line);
     var match = this.source.match(this.syntax);
     this.remark = match[1];
 }
 
-Remark.prototype = Object.create(Statement.prototype);
+RemarkStatement.prototype = Object.create(Statement.prototype);
 
-Remark.prototype.constructor = Remark;
+RemarkStatement.prototype.constructor = RemarkStatement;
 
-Remark.prototype.execute = function() {
+RemarkStatement.prototype.execute = function() {
     console.log("REMARK", this.remark);
 }
 
-Remark.prototype.match = "^REM\\b";
+RemarkStatement.prototype.match = "^REM\\b";
 
-Remark.prototype.syntax = "^REM\\s*(.*)$";
+RemarkStatement.prototype.syntax = "^REM\\s*(.*)$";
 
-// Let
+// LetStatement
 
-function Let(source, line) {
+function LetStatement(source, line) {
     Statement.call(this, source, line);
     var match = this.source.match(this.syntax);
     this.variable = match[1];
     this.value = Parser.parse(match[2]);
 }
 
-Let.prototype = Object.create(Statement.prototype);
+LetStatement.prototype = Object.create(Statement.prototype);
 
-Let.prototype.constructor = Let;
+LetStatement.prototype.constructor = LetStatement;
 
-Let.prototype.execute = function(processor) {
+LetStatement.prototype.execute = function(processor) {
     processor.variables[this.variable] = processor.evaluate(this.value);
 }
 
-Let.prototype.match = "^LET\\b";
+LetStatement.prototype.match = "^LET\\b";
 
-Let.prototype.syntax = "^LET\\s+(" + VARIABLE_REGEX + ")\\s*=\\s*(" + EXPRESSION_REGEX + ")\\s*$";
+LetStatement.prototype.syntax = "^LET\\s+(" + VARIABLE_REGEX + ")\\s*=\\s*(" + EXPRESSION_REGEX + ")\\s*$";
 
-// Interrupt
+// InterruptStatement
 
-function Interrupt(source, line) {
+function InterruptStatement(source, line) {
     Statement.call(this, source, line);
     var match = this.source.match(this.syntax);
     this.parameters = _parseExpressionList(match[1]);
 }
 
-Interrupt.prototype = Object.create(Statement.prototype);
+InterruptStatement.prototype = Object.create(Statement.prototype);
 
-Interrupt.prototype.constructor = Interrupt;
+InterruptStatement.prototype.constructor = InterruptStatement;
 
-Interrupt.prototype.execute = function(processor) {
+InterruptStatement.prototype.execute = function(processor) {
     var parameters = _.map(this.parameters, processor.evaluate, processor);
     var code = parameters.shift();
     processor.io.interrupt(code, parameters);
 }
 
-Interrupt.prototype.match = "^INTERRUPT\\b";
+InterruptStatement.prototype.match = "^INTERRUPT\\b";
 
-Interrupt.prototype.syntax = "^INTERRUPT\\s+(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
+InterruptStatement.prototype.syntax = "^INTERRUPT\\s+(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
 
-// Subroutine
+// FunctionStatement
 
-function Subroutine(source, line) {
+function FunctionStatement(source, line) {
     Statement.call(this, source, line);
     var match = this.source.match(this.syntax);
     this.name = match[1];
     this.parameterNames = _parseParameterList(match[2]);
 }
 
-Subroutine.prototype = Object.create(Statement.prototype);
+FunctionStatement.prototype = Object.create(Statement.prototype);
 
-Subroutine.prototype.constructor = Subroutine;
+FunctionStatement.prototype.constructor = FunctionStatement;
 
-Subroutine.prototype.execute = function() {
+FunctionStatement.prototype.execute = function() {
 }
 
-Subroutine.prototype.invoke = function(processor, parameters) {
+FunctionStatement.prototype.invoke = function(processor, parameters) {
     if (parameters.length != this.parameterNames.length) {
         throw 'Incorrect parameters: ' + this.source + ' (received: ' + parameters.join(', ') + ')';
     }
@@ -144,37 +144,37 @@ Subroutine.prototype.invoke = function(processor, parameters) {
     }, {});
 }
 
-Subroutine.prototype.startsBlock = true;
+FunctionStatement.prototype.startsBlock = true;
 
-Subroutine.prototype.match = "^FUNCTION\\b";
+FunctionStatement.prototype.match = "^FUNCTION\\b";
 
-Subroutine.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*$";
+FunctionStatement.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*$";
 
-// End Subroutine
+// End FunctionStatement
 
-function EndSub(source, line) {
+function EndFunctionStatement(source, line) {
     Statement.call(this, source, line);
 }
 
-EndSub.prototype = Object.create(Statement.prototype);
+EndFunctionStatement.prototype = Object.create(Statement.prototype);
 
-EndSub.prototype.constructor = EndSub;
+EndFunctionStatement.prototype.constructor = EndFunctionStatement;
 
-EndSub.prototype.execute = function(processor) {
+EndFunctionStatement.prototype.execute = function(processor) {
     var stack = processor.stack.pop();
     processor.pc = stack.caller.line; // implicit + 1
     processor.variables = stack.variables;
 }
 
-EndSub.prototype.endsBlock = true;
+EndFunctionStatement.prototype.endsBlock = true;
 
-EndSub.prototype.match = "^END FUNCTION\\b";
+EndFunctionStatement.prototype.match = "^END FUNCTION\\b";
 
-EndSub.prototype.syntax = "^END FUNCTION\\s*$";
+EndFunctionStatement.prototype.syntax = "^END FUNCTION\\s*$";
 
-// For
+// ForStatement
 
-function For(source, line) {
+function ForStatement(source, line) {
     Statement.call(this, source, line);
     var match = source.match(this.syntax);
     this.variable = match[1];
@@ -182,38 +182,38 @@ function For(source, line) {
     this.stop = Parser.parse(match[3]);
 }
 
-For.prototype = Object.create(Statement.prototype);
+ForStatement.prototype = Object.create(Statement.prototype);
 
-For.prototype.constructor = For;
+ForStatement.prototype.constructor = ForStatement;
 
-For.prototype.execute = function(processor) {
+ForStatement.prototype.execute = function(processor) {
     var start = processor.evaluate(this.start);
     var stop = processor.evaluate(this.stop);
     processor.variables[this.variable] = start;
     processor.stack.push({ statement: this, stop: stop });
 }
 
-For.prototype.startsBlock = true;
+ForStatement.prototype.startsBlock = true;
 
-For.prototype.match = "^FOR\\b";
+ForStatement.prototype.match = "^FOR\\b";
 
-For.prototype.syntax = "^FOR\\s+(" + VARIABLE_REGEX + ")\\s+=\\s+(" + EXPRESSION_REGEX + ")\\s+TO\\s+(" + EXPRESSION_REGEX + ")\\s*$";
+ForStatement.prototype.syntax = "^FOR\\s+(" + VARIABLE_REGEX + ")\\s+=\\s+(" + EXPRESSION_REGEX + ")\\s+TO\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
-// Next
+// NextStatement
 
-function Next(source, line) {
+function NextStatement(source, line) {
     Statement.call(this, source, line);
     var match = source.match(this.syntax);
     this.variable = match[1];
 }
 
-Next.prototype = Object.create(Statement.prototype);
+NextStatement.prototype = Object.create(Statement.prototype);
 
-Next.prototype.constructor = Next;
+NextStatement.prototype.constructor = NextStatement;
 
-Next.prototype.execute = function(processor) {
+NextStatement.prototype.execute = function(processor) {
     var entry = processor.stack.pop();
-    if (!(entry.statement instanceof For)) {
+    if (!(entry.statement instanceof ForStatement)) {
         throw("Error: Unexpected " + this.source);
     } else if (entry.statement.variable != this.variable) {
         throw("Error: Mismatched " + this.source);
@@ -226,47 +226,47 @@ Next.prototype.execute = function(processor) {
     }
 }
 
-Next.prototype.endsBlock = true;
+NextStatement.prototype.endsBlock = true;
 
-Next.prototype.match = "^NEXT\\b";
+NextStatement.prototype.match = "^NEXT\\b";
 
-Next.prototype.syntax = "^NEXT\\s+(" + VARIABLE_REGEX + ")\\s*$";
+NextStatement.prototype.syntax = "^NEXT\\s+(" + VARIABLE_REGEX + ")\\s*$";
 
-// Loop
+// LoopStatement
 
-function Loop(source, line) {
+function LoopStatement(source, line) {
     Statement.call(this, source, line);
 }
 
-Loop.prototype = Object.create(Statement.prototype);
+LoopStatement.prototype = Object.create(Statement.prototype);
 
-Loop.prototype.constructor = Loop;
+LoopStatement.prototype.constructor = LoopStatement;
 
-Loop.prototype.execute = function(processor) {
+LoopStatement.prototype.execute = function(processor) {
     processor.stack.push({ statement: this });
 }
 
-Loop.prototype.startsBlock = true;
+LoopStatement.prototype.startsBlock = true;
 
-Loop.prototype.match = "^LOOP\\b";
+LoopStatement.prototype.match = "^LOOP\\b";
 
-Loop.prototype.syntax = "^LOOP\\s*$";
+LoopStatement.prototype.syntax = "^LOOP\\s*$";
 
-// Until
+// UntilStatement
 
-function Until(source, line) {
+function UntilStatement(source, line) {
     Statement.call(this, source, line);
     var match = source.match(this.syntax);
     this.expression = Parser.parse(match[1]);
 }
 
-Until.prototype = Object.create(Statement.prototype);
+UntilStatement.prototype = Object.create(Statement.prototype);
 
-Until.prototype.constructor = Until;
+UntilStatement.prototype.constructor = UntilStatement;
 
-Until.prototype.execute = function(processor) {
+UntilStatement.prototype.execute = function(processor) {
     var stack = processor.stack.pop();
-    if (!(stack.statement instanceof Loop)) {
+    if (!(stack.statement instanceof LoopStatement)) {
         throw("Error: Unexpected " + this.source);
     }
     var value = processor.evaluate(this.expression);
@@ -276,27 +276,27 @@ Until.prototype.execute = function(processor) {
     }
 }
 
-Until.prototype.endsBlock = true;
+UntilStatement.prototype.endsBlock = true;
 
-Until.prototype.match = "^UNTIL\\b";
+UntilStatement.prototype.match = "^UNTIL\\b";
 
-Until.prototype.syntax = "^UNTIL\\s+(" + EXPRESSION_REGEX + ")\\s*$";
+UntilStatement.prototype.syntax = "^UNTIL\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
-// While
+// WhileStatement
 
-function While(source, line) {
+function WhileStatement(source, line) {
     Statement.call(this, source, line);
     var match = source.match(this.syntax);
     this.expression = Parser.parse(match[1]);
 }
 
-While.prototype = Object.create(Statement.prototype);
+WhileStatement.prototype = Object.create(Statement.prototype);
 
-While.prototype.constructor = While;
+WhileStatement.prototype.constructor = WhileStatement;
 
-While.prototype.execute = function(processor) {
+WhileStatement.prototype.execute = function(processor) {
     var stack = processor.stack.pop();
-    if (!(stack.statement instanceof Loop)) {
+    if (!(stack.statement instanceof LoopStatement)) {
         throw("Error: Unexpected " + this.source);
     }
     var value = processor.evaluate(this.expression);
@@ -306,26 +306,26 @@ While.prototype.execute = function(processor) {
     }
 }
 
-While.prototype.endsBlock = true;
+WhileStatement.prototype.endsBlock = true;
 
-While.prototype.match = "^WHILE\\b";
+WhileStatement.prototype.match = "^WHILE\\b";
 
-While.prototype.syntax = "^WHILE\\s+(" + EXPRESSION_REGEX + ")\\s*$";
+WhileStatement.prototype.syntax = "^WHILE\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
-// Call
+// FunctionCall
 
-function Call(source, line) {
+function FunctionCall(source, line) {
     Statement.call(this, source, line);
     var match = source.match(this.syntax);
     this.subroutine = match[1];
     this.parameters = _parseExpressionList(match[2]);
 }
 
-Call.prototype = Object.create(Statement.prototype);
+FunctionCall.prototype = Object.create(Statement.prototype);
 
-Call.prototype.constructor = Call;
+FunctionCall.prototype.constructor = FunctionCall;
 
-Call.prototype.execute = function(processor) {
+FunctionCall.prototype.execute = function(processor) {
     var subroutine = processor.subroutines[this.subroutine];
     if (!subroutine) {
         throw "Unknown subroutine: " + this.source;
@@ -334,27 +334,27 @@ Call.prototype.execute = function(processor) {
     subroutine.invoke(processor, parameters);
 }
 
-Call.prototype.startsBlock = true;
+FunctionCall.prototype.startsBlock = true;
 
-Call.prototype.match = "^" + FUNCTION_REGEX + "\\b";
+FunctionCall.prototype.match = "^" + FUNCTION_REGEX + "\\b";
 
-Call.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*$";
+FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*$";
 
 // Basic
 
 Basic.statements = [
-    Blank,
-    Remark,
-    Let,
-    Interrupt,
-    For,
-    Next,
-    Loop,
-    While,
-    Until,
-    Subroutine,
-    EndSub,
-    Call // MUST BE LAST
+    BlankStatement,
+    RemarkStatement,
+    LetStatement,
+    InterruptStatement,
+    ForStatement,
+    NextStatement,
+    LoopStatement,
+    WhileStatement,
+    UntilStatement,
+    FunctionStatement,
+    EndFunctionStatement,
+    FunctionCall // MUST BE LAST
 ];
 
 Basic.parseStatement = function(source, line) {
