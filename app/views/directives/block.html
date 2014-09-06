@@ -1,6 +1,9 @@
-<div class="programBlock">
+<div class="programBlock" ng-if="!isBlank">
   <div class="delete pull-right" ng-click="delete()">&times;</div>
-  <h4>{{ block.name }}</h4>
+  <h4>{{ block.keyword }}</h4>
+  <span class="description">
+    {{ block.description }}
+  </span>
   <form class="form-horizontal" ng-if="block.params">
     <div class="form-group" ng-repeat="param in block.params">
       <label for="{{ param.shortName }}_{{ block.id }}" class="col-sm-2 control-label">{{ param.name }}</label>

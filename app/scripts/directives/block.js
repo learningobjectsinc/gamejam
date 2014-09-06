@@ -11,6 +11,9 @@ angular.module('gamejamApp').directive('block', function(){
 		link: function(scope, el, attr, container){
 			var block = scope.block;
 
+			var type = block.constructor.name;
+			scope.isBlank = type === 'BlankStatement';
+
 			scope.delete = function(){
 				container.deleteBlock(block);
 			};
