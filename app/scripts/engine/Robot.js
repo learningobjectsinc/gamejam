@@ -6,7 +6,7 @@ var Robot = function(x,y) {
     rbImage.onload = function () {
         rbReady = true;
     };
-    rbImage.src = "images/robot/robot-down.svg";//resources/robot.bmp";
+    rbImage.src = "images/robot/robot-right.svg";
 
 	var self = this;
     this.x = x;
@@ -108,30 +108,38 @@ Robot.prototype.$turn = function() {
         switch(this.direction)     {
             case 'up':
                 this.direction = 'right';
+                this.image.src = "images/robot/robot-right.svg";
                 break;
             case 'right':
                 this.direction = 'down';
+                this.image.src = "images/robot/robot-down.svg";
                 break;
             case 'down':
                 this.direction = 'left';
+                this.image.src = "images/robot/robot-left.svg";
                 break;
             case 'left':
                 this.direction = 'up';
+                this.image.src = "images/robot/robot-up.svg";
                 break;
         }
     } else {
         switch(this.direction)     {
             case 'up':
                 this.direction = 'left';
+                this.image.src = "images/robot/robot-left.svg";
                 break;
             case 'right':
                 this.direction = 'up';
+                this.image.src = "images/robot/robot-up.svg";
                 break;
             case 'down':
                 this.direction = 'right';
+                this.image.src = "images/robot/robot-right.svg";
                 break;
             case 'left':
                 this.direction = 'down';
+                this.image.src = "images/robot/robot-down.svg";
                 break;
         }
     }
