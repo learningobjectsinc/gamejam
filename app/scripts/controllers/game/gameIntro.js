@@ -10,6 +10,6 @@ angular.module('gamejamApp')
 
 
 angular.module('gamejamApp')
-  .controller('GameIntro', function ($scope) {
-  	angular.noop();
+  .controller('GameIntro', function ($scope, $stateParams, instructionService) {
+  	$scope.instructions = instructionService.getInstructions($stateParams.levelId);
   });

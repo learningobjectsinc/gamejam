@@ -1,2 +1,8 @@
-INTRODUCTION
+<ul rn-carousel rn-carousel-indicator="true">
+	<li ng-repeat="page in instructions.pages">
+		<h2>{{page.title}}</h2>
+        <p>{{page.body}}</p>
+	</li>
+</ul>
+
 <button class="btn" ui-sref="^.play">PLAY ME</button>
