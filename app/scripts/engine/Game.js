@@ -5,6 +5,8 @@ var Game = function(map) {
 
     this.objects = [];
 
+    this.debugMode = true;
+
     // Game bg image
     var bgImage = new Image();
     bgImage.onload = function() {
@@ -42,6 +44,15 @@ var Game = function(map) {
             height:squareHeight
         };
     }
+
+    window.addEventListener("keydown", function(e){
+        console.log(e.keyCode);
+        if(e.keyCode === 81){
+            self.debugMode = !self.debugMode;
+        }
+    }, true);
+
+
 }
 
 Game.prototype.render = function(canvasSive, ctx) {
@@ -63,11 +74,13 @@ Game.prototype.render = function(canvasSive, ctx) {
         this.objects[i].render(canvasSive, squareSize, ctx);
     }
 
-    //draw the coordinates
-    for(var x=0; x<this.map.width; x++){
-        for(var y=0; y<this.map.height; y++){
-            ctx.fillStyle = "Red";
-            ctx.fillText(x + ", " + y, x*squareSize.width + 5, y*squareSize.height - 5);
+    if(this.debugMode){
+        //draw the coordinates
+        for(var x=0; x<this.map.width; x++){
+            for(var y=0; y<this.map.height; y++){
+                ctx.fillStyle = "blue";
+                ctx.fillText(x + ", " + y, x*squareSize.width + 5, y*squareSize.height + 15);
+            }
         }
     }
     
