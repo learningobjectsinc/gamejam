@@ -1,4 +1,4 @@
-var Robot = function(x,y) {
+var Robot = function(x,y, getAtLocation) {
     GridObject.apply(this, [x, y]);
     
     // Robot image
@@ -12,6 +12,7 @@ var Robot = function(x,y) {
 	var self = this;
     this.x = x;
     this.y = y;
+    this.getAtLocation = getAtLocation
     this.direction = 'right';
     this.image = rbImage;
     this.busy = false;
@@ -129,6 +130,8 @@ Robot.prototype.$moveForward = function(time) {
                 break;
         }
     } else {
+        this.x = Math.round(this.x);
+        this.y = Math.round(this.y);
         this.totalMovingDistance--;
         if (this.totalMovingDistance === 0) {
             this.moving = false;
@@ -136,13 +139,30 @@ Robot.prototype.$moveForward = function(time) {
             this.busy = false;   
         } else {
             console.log(this.x, this.y);
-            if (this.x === 7 && this.y === 5) { //TODO real collision
+            if (this.$getInFront() != null) { //TODO real collision
                 this.moving = false;
                 this.colliding = true;
             } else {
                 this.movingDistance = 1;
             }
         }
+    }
+}
+
+Robot.prototype.$getInFront = function() {
+    switch (this.direction){
+        case 'right':
+            return this.getAtLocation(this.x + 1, this.y);
+            break;
+        case 'left':
+            return this.getAtLocation(this.x - 1, this.y);
+            break;
+        case 'up':
+            return this.getAtLocation(this.x, this.y - 1);
+            break;
+        case 'down':
+            return this.getAtLocation(this.x, this.y + 1);
+            break;
     }
 }
 

@@ -26,6 +26,9 @@ function Statement() {
 Statement.prototype.init = function(source, line) {
     this.source = source;
     this.line = line;
+
+    this.id = +_.uniqueId();
+
     var match = source.match(this.syntax);
     if (!match) {
         this.invalid = true;

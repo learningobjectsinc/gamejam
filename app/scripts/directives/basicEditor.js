@@ -8,7 +8,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 			'program': '=basicEditor'
 		},
 		controller: function($scope){
-			var program = $scope.program; 
+			var program = $scope.program;
 
 			$scope.pc = '';
 			$scope.$watch('program.processor.pc', function(){
@@ -35,7 +35,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				    return str + '<div>' + variable + ' = ' + value + '</div>';
 				}, '');
 			};
-			
+
 		}, link: function(scope, el){
 			var existingSource = el.find('.source').val();
 			scope.program.code = existingSource;
