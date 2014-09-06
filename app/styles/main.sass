@@ -1,0 +1,581 @@
+@import url(http://fonts.googleapis.com/css?family=Oxygen:400,300,700)
+//@import '../bower_components/lo-style-library/app/styles/lo-style-library'
+@import variables
+@import circles
+
+h1, h2, h3, h4, h5
+  font-weight: 300
+
+a
+  color: inherit
+  text-decoration: none
+
+html
+  margin: 0
+  padding: 0
+  height: 100%
+
+body
+  margin: 0
+  padding: 0
+  background: url(/images/ps_neutral.png) $color-light
+  font-family: 'Oxygen', sans-serif
+  font-size: 16px
+  color: $color-body-text
+  box-sizing: border-box
+
+header
+  width: 100%
+  //background: fade-out($color-white,0.18)
+  background: $color-primary
+  //color: $color-primary
+  color: $color-white
+  display: table
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.08)
+  line-height: 1
+
+  #main-logo
+    margin: 0.425em 2em
+    float: left
+    display: table-cell
+
+    p
+      font-size: 2em
+      margin: 0
+      padding: 0
+      line-height: 1
+
+  #main-nav
+    display: table-cell
+    vertical-align: top
+    text-align: right
+    
+    ul
+      margin: 0.85em 2em
+      padding: 0
+
+      li
+        list-style: none
+        display: inline
+        margin-left: 0.5em
+        padding: 0.5em 1em
+        //background: $color-white
+        border-radius: 0.33em
+        line-height: 1
+        font-size: 0.9em
+        cursor: pointer
+        transition: background ease $trans-speed
+        //text-shadow: 0 1px 0 $color-white
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.08)
+
+        &:hover, &.active
+          background: fade-out($color-primary-light,0.67)
+
+.comp-head
+  background: $color-secondary
+  width: 100%
+  //display: inline-block
+  float: left
+  position: relative
+  overflow: hidden
+  box-shadow: 0 1px 0 rgba(255,255,255,0.5)
+
+  .comp-title
+    padding: 1.25em 5% 0.75em
+    margin: 0
+    font-weight: 200
+    font-size: 2.5em
+    display: block
+    position: absolute
+    width: 90%
+    z-index: 3
+    color: $color-white
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.15)
+    //white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+    .c100
+      font-size: 1.33em
+      margin: 0 0.425em 0 0
+      border: 0.05em solid $color-white
+
+      .icon
+        font-size: 0.5em
+
+      &.p100 .icon
+        color: darken($color-success,5%)
+        text-shadow: 0 1px 0 $color-white
+
+    .crumb
+      opacity: 0.67
+      transition: opacity ease $trans-speed
+
+      &:hover
+        opacity: 1
+
+      &:before
+        content: "/"
+        margin: 0 0.5rem
+
+      &.crumb0
+        font-size: 0.55em
+
+      &.crumb1
+        font-size: 0.425em
+
+      &.crumb2
+        font-size: 0.33em
+
+    .btn
+      float: right
+      margin-top: 0.33em
+
+  > p
+    padding: 2% 2.5%
+    width: 85%
+    margin: 7.5em 5% 0
+    background: rgba(255,255,255,0.15)
+    display: block
+    position: relative
+    z-index: 2
+    font-size: 1.15em
+    font-weight: 200
+    color: $color-white
+    border-radius: 0.5em 0.5em 0 0
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.15)
+
+    .icon
+      position: absolute
+      font-size: 3em
+      left: 5%
+      height: 1em
+      width: 1em
+      top: 0
+      bottom: 0
+      margin: auto
+
+  .comp-head-img
+    position: absolute
+    width: 100%
+    height: auto
+    top: -25%
+    left: 0
+    z-index: 1
+
+    img
+      width: 100%
+      height: auto
+      opacity: 0.15
+
+.comp-list-wrap
+  display: inline-block
+  width: 100%
+
+  h2
+    font-size: 1.75em
+    color: $color-primary
+    margin: 1.5em 5% 0em
+    padding: 0
+
+.comp-list
+  display: inline-block
+  width: 94%
+  margin: 3%
+  padding: 0
+  font-size: 1em
+
+  li.comp-list-item
+    width: 21%
+    min-width: 12em
+    //width: 28.9%
+    margin: 2%
+    display: inline-block
+    list-style: none
+    text-align: center
+    background: fade-out($color-white,0.5)
+    box-shadow: 0 0 2px rgba(0,0,0,0.15) inset
+    border-radius: 0.5em
+    transition: background ease $trans-speed
+    overflow: hidden
+    cursor: pointer
+
+    &:hover .c100
+      cursor: pointer
+      > span
+        font-size: 0.425em
+      &:after
+        top: $circle-width-hover
+        left: $circle-width-hover
+        width: 1 - 2 * $circle-width-hover
+        height: 1 - 2 * $circle-width-hover
+      .comp-percent
+        //opacity: 1
+
+    &.collapse
+      .comp-left:after
+        top: 4.5em
+
+      .comp-name
+        font-size: 1.33em
+        padding: 2em 1em
+
+      .activity-list
+        display: none
+
+  .comp-name
+    margin: 1em 1em 0
+    padding: 0.5em
+    font-size: 0.925em
+    color: $color-primary-dark
+    background: $color-white
+    border-radius: 0.33em
+    box-shadow: 0 1px 1px rgba(0,0,0,0.08)
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+.comp-item
+  position: relative
+  background: $color-white
+  height: 6.25em
+  width: 6.25em
+  margin: 1em 0
+  list-style: none
+  -moz-border-radius: 50%
+  -webkit-border-radius: 50%
+  border-radius: 50%
+  display: inline-block
+  box-shadow: 0 1px 1px rgba(0,0,0,0.08)
+  font-size: 1.5em
+
+.c100
+  position: relative
+  z-index: 1
+  margin: 0.067em
+  cursor: pointer
+
+  .comp-percent
+    position: absolute
+    margin: auto
+    padding: 0
+    font-size: 0.33em
+    font-weight: 200
+    height: 1em
+    width: 2.33em
+    line-height: 1
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    z-index: 1
+    opacity: 0
+    transition: opacity ease $trans-speed
+    text-shadow: 0 1px 0 $color-white
+
+    &:after
+      content: "%"
+      font-size: 0.5em
+
+  &.p100
+    &:after
+      background-color: lighten($color-success,40%)
+
+    .comp-percent
+      opacity: 1
+      color: darken($color-success,5%)
+
+    .icon
+      color: $color-white
+      opacity: 0.75
+      font-size: 0.575em
+
+      &:before
+        content: "\e614"
+
+    .slice
+      .fill, .bar
+        color: $color-success
+        border-color: $color-success
+
+.comp-content
+  display: inline-block
+  width: 100%
+
+  h2
+    margin: 2.5% 5% 1.5%
+    font-size: 2em
+    color: $color-secondary
+    text-shadow: 0 1px 0 $color-white
+
+  p
+    margin: 2.5% 5%
+    font-size: 1em
+    line-height: 1.5em
+
+  .comp-intro
+    padding: 5% 2.5% 2.5%
+    margin: 0 5% 2.5%
+    color: $color-primary-dark
+    line-height: 1.33em
+    background: fade-out($color-white,0.33)
+    display: inline-block
+    border-radius: 0 0 0.5em 0.5em
+    vertical-align: top
+    width: 85%
+
+    .inline-img
+      float: left
+      width: 33%
+      margin-bottom: 0.5em
+
+      img
+        width: 100%
+        height: auto
+        border-radius: 0.33em
+        overflow: hidden
+
+    .inline-desc
+      float: right
+      width: 64%
+      margin: 0 0 0 3%
+      padding: 0
+      line-height: 1.5em
+
+      h2
+        font-size: 2em
+        padding: 0 0 0.5em
+        margin: 0.25em 0 0.33em
+        color: $color-secondary
+        line-height: 1
+
+      p
+        margin: 0
+        padding: 0
+
+      .btn
+        font-size: 0.85em
+        margin-top: 1.25em
+        padding: 0.5em 1em
+
+    p
+      display: inline-block
+      margin: 1em 0
+
+    .inline-video
+      display: inline-block
+      width: 100%
+
+      h2
+        margin: 1.5em 0 0.5em
+
+      object
+        width: 100%
+        height: auto
+
+  .comp-list
+    li.comp-list-item
+      width: 96%
+      margin-bottom: 3.33%
+      display: table
+      background: fade-out($color-white, 0.5)
+      cursor: default
+
+      &:hover
+        background: fade-out($color-white, 0.5)
+
+    .comp-left, .comp-right
+      display: table-cell
+
+    .comp-left
+      width: 18%
+      background: fade-out($color-primary,0.33)
+      vertical-align: middle
+      position: relative
+
+      &:after
+        border-top: 0.5em solid transparent
+        border-left: 0.5em solid $color-primary
+        border-bottom: 0.5em solid transparent
+        border-right: 0.5em solid transparent
+        width: 0
+        height: 0
+        content: ""
+        display: block
+        position: absolute
+        left: 100%
+        margin: auto
+        top: 2.75em
+
+    .comp-right
+      vertical-align: top
+
+      .c100
+        cursor: default
+
+      .comp-name
+        font-size: 1.25em
+        font-weight: 200
+        padding: 0.85em 0.75em
+        text-align: left
+        margin-bottom: 1em
+        background: none
+        box-shadow: none
+        line-height: 1.5em
+        white-space: normal
+
+  .comp-item
+    font-size: 1.15em
+
+  .c100
+    cursor: default
+
+  .done-100
+    .comp-left
+      background: fade-out($color-success,0.25)
+
+      &:after
+        border-left-color: fade-out($color-success,0.25)
+
+      .icon
+        color: darken($color-success,5%)
+
+      .comp-name
+        color: $color-success
+
+.activity-list
+  margin: 1em 0
+  padding: 0
+  position: relative
+  display: block
+
+.activity-item
+  list-style: none
+  display: table
+  width: 90%
+  padding: 1%
+  margin: 0.25em 4%
+  border-radius: 0.5em
+  overflow: hidden
+  transition: all ease $trans-speed
+  cursor: pointer
+  font-size: 1em
+  //border-bottom: 1px dotted fade-out($color-primary,0.5)
+
+  &:nth-child(odd)
+    background: fade-out($color-white, 0.25)
+
+  &:hover
+    background: $color-white
+    box-shadow: 1px 2px rgba(0,0,0,0.08)
+
+    .icon
+      box-shadow: none
+
+  &.done-100
+    .icon
+      background: fade-out($color-success, 0.25)
+
+      &:before
+        content: "\e614"
+        color: $color-white
+
+  .icon, p.activity-title, .activity-time
+    display: table-cell
+    vertical-align: middle
+    color: $color-primary-dark
+
+  .icon
+    width: 10%
+    background: $color-white
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08)
+    border-radius: 0.33em
+    font-size: 1.75em
+    padding: 0.33em 0
+
+    &:before
+      color: $color-primary
+
+  p.activity-title
+    padding: 0 3.5%
+    margin: 0
+    font-size: 0.925em
+    width: 71%
+    text-align: left
+    color: $color-body-text
+
+  .activity-time
+    font-size: 0.85em
+    width: 12%
+
+    p
+      margin: 0
+      padding: 0.5em
+      font-size: 0.85em
+      background: $color-primary
+      border-radius: 0.33em
+      color: $color-white
+
+.uses-wrap
+  display: inline-block
+  width: 90%
+  margin: 2.5% 5%
+
+  .uses-item
+    display: inline-block
+    width: 22%
+    margin: 0 1%
+    text-align: center
+    background: fade-out($color-white,0.5)
+    border-radius: 0.5em
+    padding: 1.5em 0 0.5em
+    box-shadow: 0 0 2px rgba(0,0,0,0.08)
+
+    .icon
+      color: $color-secondary
+      font-size: 5em
+
+    p
+      margin: 0
+      padding: 1em
+      color: $color-primary
+
+
+/**** Color Calc ****/
+
+$num-colors: 100
+$base-color: desaturate($color-accent,25)
+$spectrum: 270deg
+$offset: 0deg
+
+@for $i from 0 to $num-colors
+  .container
+    .done-#{$i}
+      $adjusted-color: adjust-hue($base-color, $offset - $spectrum / $num-colors * $i)
+
+      &.comp-list-item
+        &:hover, &:active
+          background: $adjusted-color
+
+      .comp-percent
+        color: $adjusted-color
+
+      .icon, .bar, .fill, .comp-name
+        color: $adjusted-color
+        border-color: $adjusted-color
+
+      .comp-left
+        background: fade-out($adjusted-color,0.33)
+
+        &:after
+          border-left-color: fade-out($adjusted-color,0.33)
+
+  .comp-list .comp-list-item
+    &.done-100
+      background: fade-out($color-success,0.67)
+
+      &:hover
+        background: $color-success
+
+      .comp-name
+        color: $color-success
