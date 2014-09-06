@@ -7,7 +7,7 @@ var Rock = function(x,y) {
     rockImage.onload = function () {
         rockReady = true;
     };
-    rockImage.src = "images/objects/rock.png";
+    rockImage.src = "images/objects/wall.png";
 
     var self = this;
     this.x = x;
