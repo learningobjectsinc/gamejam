@@ -1,12 +1,15 @@
 
 var robot = new Robot(5, 5);
 var rock = new Rock(10, 10);
+var owl = new Owl(2, 3);
+
 var game = new Game({
     height:10,
     width:15
 },[
     robot,
-    rock
+    rock,
+    owl
 ]);
 angular.module('gamejamApp')
     .directive('gameCanvas', function() {
