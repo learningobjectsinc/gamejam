@@ -73,7 +73,7 @@ gameData["levels"] = [
 					"y": 2
 				},
 				{
-					"type": "Rock",
+					"type": "Owl",
 					"x": 3,
 					"y": 3
 				}
