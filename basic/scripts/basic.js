@@ -1,8 +1,8 @@
-var EXPR = "[^,]+";
+var EXPRESSION_REGEX = "[^,]+";
 
-var VAR = "[a-z][a-z_0-9]*";
+var VARIABLE_REGEX = "[a-z][a-z_0-9]*";
 
-var FUNCTION = "[A-Z][A-Za-z_0-9]*";
+var FUNCTION_REGEX = "[A-Z][A-Za-z_0-9]*";
 
 var Basic = {
 };
@@ -65,6 +65,27 @@ Remark.prototype.match = "^REM\\b";
 
 Remark.prototype.syntax = "^REM\\s*(.*)$";
 
+// Let
+
+function Let(source, line) {
+    Statement.call(this, source, line);
+    var match = this.source.match(this.syntax);
+    this.variable = match[1];
+    this.value = Parser.parse(match[2]);
+}
+
+Let.prototype = Object.create(Statement.prototype);
+
+Let.prototype.constructor = Let;
+
+Let.prototype.execute = function(processor) {
+    processor.variables[this.variable] = processor.evaluate(this.value);
+}
+
+Let.prototype.match = "^LET\\b";
+
+Let.prototype.syntax = "^LET\\s+(" + VARIABLE_REGEX + ")\\s*=\\s*(" + EXPRESSION_REGEX + ")\\s*$";
+
 // Interrupt
 
 function Interrupt(source, line) {
@@ -86,7 +107,7 @@ Interrupt.prototype.execute = function(processor) {
 
 Interrupt.prototype.match = "^INT\\b";
 
-Interrupt.prototype.syntax = "^INT\\s+(0x[0-9a-fA-F]{2}(?:,\\s*" + EXPR + ")*)\\s*$";
+Interrupt.prototype.syntax = "^INT\\s+(0x[0-9a-fA-F]{2}(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
 
 // Subroutine
 
@@ -123,7 +144,7 @@ Subroutine.prototype.startsBlock = true;
 
 Subroutine.prototype.match = "^SUB\\b";
 
-Subroutine.prototype.syntax = "^SUB\\s+(" + FUNCTION + ")\\b\\s*(" + VAR + "(?:\\s*,\\s*" + VAR + ")*)?\\s*$";
+Subroutine.prototype.syntax = "^SUB\\s+(" + FUNCTION_REGEX + ")\\b\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*$";
 
 // End Subroutine
 
@@ -172,7 +193,7 @@ For.prototype.startsBlock = true;
 
 For.prototype.match = "^FOR\\b";
 
-For.prototype.syntax = "^FOR\\s+(" + VAR + ")\\s+=\\s+(" + EXPR + ")\\s+TO\\s+(" + EXPR + ")\\s*$";
+For.prototype.syntax = "^FOR\\s+(" + VARIABLE_REGEX + ")\\s+=\\s+(" + EXPRESSION_REGEX + ")\\s+TO\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
 // Next
 
@@ -205,7 +226,7 @@ Next.prototype.endsBlock = true;
 
 Next.prototype.match = "^NEXT\\b";
 
-Next.prototype.syntax = "^NEXT\\s+(" + VAR + ")\\s*$";
+Next.prototype.syntax = "^NEXT\\s+(" + VARIABLE_REGEX + ")\\s*$";
 
 // Call
 
@@ -231,15 +252,16 @@ Call.prototype.execute = function(processor) {
 
 Call.prototype.startsBlock = true;
 
-Call.prototype.match = "^" + FUNCTION + "\\b";
+Call.prototype.match = "^" + FUNCTION_REGEX + "\\b";
 
-Call.prototype.syntax = "^(" + FUNCTION + ")\\s*(" + EXPR + "(,\\s*" + EXPR + ")*)?\\s*$";
+Call.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*$";
 
 // Basic
 
 Basic.statements = [
     Blank,
     Remark,
+    Let,
     Interrupt,
     For,
     Next,
