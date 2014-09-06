@@ -23,9 +23,9 @@ FOR i = 1 TO 10
   Print i
 NEXT i
 
-SUB Print i
-  INT 0x20, i
-END SUB
+FUNCTION Print i
+  INTERRUPT 0x20, i
+END FUNCTION
 
 </textarea>
     <div class="console">

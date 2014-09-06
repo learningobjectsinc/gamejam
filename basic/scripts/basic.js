@@ -105,9 +105,9 @@ Interrupt.prototype.execute = function(processor) {
     processor.io.interrupt(this.code, parameters);
 }
 
-Interrupt.prototype.match = "^INT\\b";
+Interrupt.prototype.match = "^INTERRUPT\\b";
 
-Interrupt.prototype.syntax = "^INT\\s+(0x[0-9a-fA-F]{2}(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
+Interrupt.prototype.syntax = "^INTERRUPT\\s+(0x[0-9a-fA-F]{2}(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
 
 // Subroutine
 
@@ -130,7 +130,7 @@ Subroutine.prototype.invoke = function(processor, parameters) {
         throw 'Incorrect parameters: ' + this.source + ' (received: ' + parameters.join(', ') + ')';
     }
     processor.stack.push({
-        ret: processor.pc,
+        caller: processor.statements[processor.pc - 1],
         variables: processor.variables
     });
     processor.pc = this.line;
@@ -142,9 +142,9 @@ Subroutine.prototype.invoke = function(processor, parameters) {
 
 Subroutine.prototype.startsBlock = true;
 
-Subroutine.prototype.match = "^SUB\\b";
+Subroutine.prototype.match = "^FUNCTION\\b";
 
-Subroutine.prototype.syntax = "^SUB\\s+(" + FUNCTION_REGEX + ")\\b\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*$";
+Subroutine.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*$";
 
 // End Subroutine
 
@@ -158,15 +158,15 @@ EndSub.prototype.constructor = EndSub;
 
 EndSub.prototype.execute = function(processor) {
     var stack = processor.stack.pop();
-    processor.pc = stack.ret;
+    processor.pc = stack.caller.line; // implicit + 1
     processor.variables = stack.variables;
 }
 
 EndSub.prototype.endsBlock = true;
 
-EndSub.prototype.match = "^END SUB\\b";
+EndSub.prototype.match = "^END FUNCTION\\b";
 
-EndSub.prototype.syntax = "^END SUB\\s*$";
+EndSub.prototype.syntax = "^END FUNCTION\\s*$";
 
 // For
 

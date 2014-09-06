@@ -5,20 +5,23 @@ function Processor(statements, io) {
     this.io = io;
     this.variables = {};
     this.pc = 0;
+    this.halted = false;
     this.stack = [{}];
     this.subroutines = _.indexBy(_.filter(statements, function(statement) {
             return statement instanceof Subroutine;
         }), 'name');
 }
 
-Processor.prototype.halted = function() {
-    return this.pc >= this.statements.length;
-}
-
 Processor.prototype.step = function() {
     var statement = this.statements[this.pc];
     ++ this.pc;
-    statement.execute(this);
+    try {
+        statement.execute(this);
+        this.halted = this.pc >= this.statements.length;
+    } catch (e) {
+        this.halted = true;
+        throw e;
+    }
 }
 
 Processor.prototype.log = function() {
@@ -51,5 +54,9 @@ BasicIO.prototype = Object.create(IO.prototype);
 BasicIO.prototype.constructor = BasicIO;
 
 BasicIO.prototype.interrupt = function(code, parameters) {
-    console.log('Interrupt!', code, parameters);
+    if (code == 32) {
+        console.log(parameters.join(', '));
+    } else {
+        throw "Unknown Interrupt: " + code;
+    }
 }

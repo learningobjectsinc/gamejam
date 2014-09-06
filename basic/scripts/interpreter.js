@@ -19,7 +19,7 @@ $(function() {
     });
 
     $('.step').click(function() {
-        if (processor.halted()) {
+        if (processor.halted) {
             return;
         }
         processor.step();
