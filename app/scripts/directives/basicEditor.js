@@ -26,6 +26,9 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				    return str + '<div>' + variable + ' = ' + value + '</div>';
 				}, '');
 			};
+		}, link: function(scope, el){
+			var existingSource = el.find('.prefill').val();
+			scope.program.code = existingSource;
 		}
 	};
 });

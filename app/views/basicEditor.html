@@ -1,7 +1,7 @@
 <div class="basicEditor">
     <textarea class="pc" readonly="readonly" resizable="false" ng-model="pc" ng-trim="false">
     </textarea>
-    <textarea class="source" ng-model="program.code">
+    <textarea class="prefill">
 LET x = 1
 
 IF x &lt; 2 THEN
@@ -23,7 +23,8 @@ NEXT i
 FUNCTION Print i
   INTERRUPT 'print', i
 END FUNCTION
-
+    </textarea>
+    <textarea class="source" ng-model="program.code">
     </textarea>
     <div class="variables" ng-bind-html="variables()">
     </div>
