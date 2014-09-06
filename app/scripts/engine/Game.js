@@ -5,7 +5,7 @@ var Game = function(map) {
 
     this.objects = [];
 
-    this.debugMode = true;
+    this.debugMode = false;
 
     // Game bg image
     var bgImage = new Image();
@@ -79,7 +79,7 @@ Game.prototype.render = function(canvasSive, ctx) {
         for(var x=0; x<this.map.width; x++){
             for(var y=0; y<this.map.height; y++){
                 ctx.fillStyle = "blue";
-                ctx.fillText(x + ", " + y, x*squareSize.width + 5, y*squareSize.height + 15);
+                ctx.fillText((x + 1) + ", " + (y + 1), x*squareSize.width + 5, y*squareSize.height + 15);
             }
         }
     }

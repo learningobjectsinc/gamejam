@@ -69,6 +69,11 @@ gameData["levels"] = [
 					"y": 6
 				},
 				{
+					"type": "Flag",
+					"x": 2,
+					"y": 2
+				},
+				{
 					"type": "Rock",
 					"x": 6,
 					"y": 4
