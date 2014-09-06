@@ -13,20 +13,26 @@ angular.module('gamejamApp')
             replace: true,
             templateUrl: 'scripts/directives/gameCanvas.html',
             link: function(scope, element) {
+                var windowHeight = window.innerHeight;
+                var windowWidth = window.innerWidth;
+
                 var canvas = $(element).get(0);
                 var ctx = canvas.getContext("2d");
-                canvas.width = 512;
-                canvas.height = 480;
+                
+                canvas.width = windowWidth * 2 / 3;
+                canvas.height = canvas.width * 2 / 3 ;
+
 
                 var then = Date.now();
 
                 // Robot image
-                var bgReady = false;
                 var bgImage = new Image();
                 bgImage.onload = function() {
-                    bgReady = true;
+                    var ptrn = ctx.createPattern(bgImage, 'repeat'); // Create a pattern with this image, and set it to "repeat".
+                    ctx.fillStyle = ptrn;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
                 };
-                bgImage.src = "images/background.png";
+                bgImage.src = "images/backgroundTile.png";
 
                 // The main game loop
                 var mainGame = function() {
@@ -39,6 +45,7 @@ angular.module('gamejamApp')
                     };
 
                     robot.update(delta / 1000);
+
                     ctx.drawImage(bgImage, 0, 0);
                     game.render(canvasSize, ctx);
 

@@ -8,7 +8,7 @@ function Processor(statements, io) {
     this.halted = false;
     this.stack = [{}];
     this.subroutines = _.indexBy(_.filter(statements, function(statement) {
-            return statement instanceof Subroutine;
+            return statement instanceof FunctionStatement;
         }), 'name');
 }
 
