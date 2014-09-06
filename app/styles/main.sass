@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Oxygen:400,300,700)
+@import url(http://fonts.googleapis.com/css?family=Aldrich|Press+Start+2P)
 //@import '../bower_components/lo-style-library/app/styles/lo-style-library'
 //@import '../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap'
 @import variables
@@ -21,8 +21,8 @@ html
 body
   margin: 0
   padding: 0
-  background: $color-light
-  font-family: 'Oxygen', sans-serif
+  background: url('/images/cream_pixels.png') $color-light
+  font-family: 'Aldrich', sans-serif
   font-size: 16px
   color: $color-body-text
   box-sizing: border-box
@@ -75,7 +75,7 @@ header
           background: fade-out($color-primary-light,0.67)
 
 .comp-head
-  background: $color-secondary
+  background: $color-primary-light
   width: 100%
   //display: inline-block
   float: left
@@ -84,19 +84,40 @@ header
   box-shadow: 0 1px 0 rgba(255,255,255,0.5)
 
   .comp-title
-    padding: 1.25em 5% 0.75em
+    padding: 0.75em 5% 0.75em
     margin: 0
     font-weight: 200
-    font-size: 2.5em
+    font-size: 3.33em
     display: block
-    position: absolute
+    position: relative
     width: 90%
     z-index: 3
     color: $color-white
     text-shadow: 0 -1px 0 rgba(0,0,0,0.15)
     //white-space: nowrap
-    overflow: hidden
-    text-overflow: ellipsis
+    text-align: center
+
+    .robojam
+      width: 6em
+      height: 6em
+      position: relative
+      display: inline-block
+      text-align: center
+      background: fade-out($color-white,0.5)
+      border-radius: 50%
+
+      img
+        width: 66.67%
+        height: auto
+        position: relative
+        top: 7%
+
+    .comp-title-text
+      font-family: 'Press Start 2p', sans-serif
+      font-size: 1.67em
+      margin-left: 0.5em
+      position: relative
+      top: -0.67em
 
     .c100
       font-size: 1.33em
@@ -137,16 +158,19 @@ header
   > p
     padding: 2% 2.5%
     width: 85%
-    margin: 7.5em 5% 0
+    margin: 0 5% 0
     background: rgba(255,255,255,0.15)
     display: block
     position: relative
+    text-align: center
     z-index: 2
     font-size: 1.15em
     font-weight: 200
     color: $color-white
     border-radius: 0.5em 0.5em 0 0
     text-shadow: 0 -1px 0 rgba(0,0,0,0.15)
+
+    display: none
 
     .icon
       position: absolute
@@ -162,13 +186,15 @@ header
     position: absolute
     width: 100%
     height: auto
-    top: -25%
+    top: 0
     left: 0
     z-index: 1
 
     img
-      width: 100%
+      width: auto
+      min-width: 100%
       height: auto
+      min-height: 100%
       opacity: 0.15
 
 .comp-list-wrap
@@ -189,10 +215,10 @@ header
   font-size: 1em
 
   li.comp-list-item
-    width: 21%
+    width: 18%
     min-width: 12em
     //width: 28.9%
-    margin: 2%
+    margin: 2% 1%
     display: inline-block
     list-style: none
     text-align: center

@@ -55,8 +55,32 @@ gameData["learningOutcomes"] = [
 gameData["levels"] = [
 	{
 		"id": 123,
-		"name": "Just Dig!",
+		"name": "Level 1: Functions",
 		"description": "Number of Lemmings: 10",
-		"icon": "brain"
+		"icon": "power"
+	},
+	{
+		"id": 223,
+		"name": "Level 2: Variables",
+		"description": "Number of Lemmings: 10",
+		"icon": "settings"
+	},
+	{
+		"id": 323,
+		"name": "Level 3: Conditionals",
+		"description": "Number of Lemmings: 10",
+		"icon": "podium"
+	},
+	{
+		"id": 423,
+		"name": "Level 4: Loops",
+		"description": "Number of Lemmings: 10",
+		"icon": "spinner"
+	},
+	{
+		"id": 523,
+		"name": "Level 5: Everything",
+		"description": "Number of Lemmings: 10",
+		"icon": "rocket"
 	}
 ];
