@@ -167,7 +167,7 @@ gameData["levels"] = [
 	},
 	{
 		"id": 123,
-		"name": "Level 5: Everything!",
+		"name": "Level 5: All the Things!",
 		"description": "Number of Lemmings: 10",
 		"icon": "rocket",
 		"completed": "0",
