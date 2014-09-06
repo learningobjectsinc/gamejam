@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
+    <link rel="stylesheet" href="bower_components/angular-carousel/dist/angular-carousel.css">
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
@@ -60,6 +61,7 @@
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="bower_components/angular-carousel/dist/angular-carousel.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -70,21 +72,24 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/routes.js"></script>
-        <script src="scripts/gameData.js"></script>
-        
-        <script src="scripts/controllers/home.js"></script>
-        <script src="scripts/controllers/game/gameCtrl.js"></script>
-        <script src="scripts/controllers/game/gameIntro.js"></script>
-        <script src="scripts/controllers/game/TheGame.js"></script>
-        <script src="scripts/controllers/game/gameWrapup.js"></script>
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/routes.js"></script>
+    <script src="scripts/gameData.js"></script>
+    
+    <script src="scripts/controllers/home.js"></script>
+    <script src="scripts/controllers/game/gameCtrl.js"></script>
+    <script src="scripts/controllers/game/gameIntro.js"></script>
+    <script src="scripts/controllers/game/TheGame.js"></script>
+    <script src="scripts/controllers/game/gameWrapup.js"></script>
 
         <script src="scripts/services/levelService.js"></script>
-
+        <script src="scripts/services/instructionService.js"></script>
         <script src="scripts/engine/Robot.js"></script>
         <script src="scripts/engine/game.js"></script>
         <!-- endbuild -->
+
+    <!-- endbuild -->
+>>>>>>> instructions
 </body>
 </html>

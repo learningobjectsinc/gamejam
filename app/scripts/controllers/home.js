@@ -13,7 +13,7 @@ angular.module('gamejamApp')
 
         $scope.loadLevel = function(level) {
             $state.go('level.intro', {
-                level: level.id
+                levelId: level.id
             });
         };
     });
