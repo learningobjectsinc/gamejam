@@ -1,17 +1,18 @@
 var Robot = function(x,y) {
-
+    GridObject.apply(this, [x, y]);
+    
     // Robot image
     var rbReady = false;
     var rbImage = new Image();
     rbImage.onload = function () {
         rbReady = true;
     };
-    rbImage.src = "images/robot/robot-complete.svg";//resources/robot.bmp";
+    rbImage.src = "images/robot/robot-right.svg";
 
 	var self = this;
     this.x = x;
     this.y = y;
-    this.angle = 0;
+    this.direction = 'right';
     this.image = rbImage;
     this.busy = false;
 
@@ -21,9 +22,7 @@ var Robot = function(x,y) {
     this.speed = 20;
 
     this.turning = false;
-    this.turnedDistance = 0;
-    // radians/second
-    this.turnSpeed = 5;
+    this.turningDirection = 'right';
 
     this.instructions = {
     	"moveForward": function(params) {
@@ -33,12 +32,15 @@ var Robot = function(x,y) {
             self.busy = true;
     	},
     	"turn": function(params) {
-    		// params[0] is the new angle
+    		// params[0] is the direction
             self.turning = true;
-            self.turnedDistance = params[0];
+            self.turningDirection = params[0];
     	}
     };
+
 };
+
+Robot.prototype = Object.create(GridObject.prototype);
 
 Robot.prototype.doSomething = function(functionName, params) {
     this.instructions[functionName](params);
@@ -50,7 +52,6 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
         this.x*squareSize.width - squareSize.width/2,
         this.y*squareSize.height - squareSize.height/2
     );
-    ctx.rotate(this.angle);
 
     ctx.drawImage(this.image, -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);
 
@@ -67,7 +68,7 @@ Robot.prototype.update = function(time) {
         this.$moveForward(time);
     }
     if (this.turning) {
-        this.$turn(time);
+        this.$turn();
     }
 }
 
@@ -84,8 +85,20 @@ Robot.prototype.$moveForward = function(time) {
         } else {
             this.movingDistance -= modifier;
         }
-        this.x += Math.cos(this.angle) * modifier;
-        this.y += Math.sin(this.angle) * modifier;
+        switch (this.direction){
+            case 'right':
+                this.x += modifier;
+                break;
+            case 'left':
+                this.x -= modifier;
+                break;
+            case 'up':
+                this.y -= modifier;
+                break;
+            case 'down':
+                this.y += modifier;
+                break;
+        }
     } else {
         this.moving = false;
         this.movingDistance = 0;
@@ -93,16 +106,47 @@ Robot.prototype.$moveForward = function(time) {
     }
 }
 
-Robot.prototype.$turn = function(time) {
-    if (this.turnedDistance > 0) {
-        var modifier = this.turnSpeed * time;
-        this.turnedDistance -= modifier;
-        this.angle += modifier;
+Robot.prototype.$turn = function() {
+    if (this.turningDirection == 'right') {
+        switch(this.direction)     {
+            case 'up':
+                this.direction = 'right';
+                this.image.src = "images/robot/robot-right.svg";
+                break;
+            case 'right':
+                this.direction = 'down';
+                this.image.src = "images/robot/robot-down.svg";
+                break;
+            case 'down':
+                this.direction = 'left';
+                this.image.src = "images/robot/robot-left.svg";
+                break;
+            case 'left':
+                this.direction = 'up';
+                this.image.src = "images/robot/robot-up.svg";
+                break;
+        }
     } else {
-        this.turning = false;
-        this.turnedDistance = 0;
-        this.busy = false;
+        switch(this.direction)     {
+            case 'up':
+                this.direction = 'left';
+                this.image.src = "images/robot/robot-left.svg";
+                break;
+            case 'right':
+                this.direction = 'up';
+                this.image.src = "images/robot/robot-up.svg";
+                break;
+            case 'down':
+                this.direction = 'right';
+                this.image.src = "images/robot/robot-right.svg";
+                break;
+            case 'left':
+                this.direction = 'down';
+                this.image.src = "images/robot/robot-down.svg";
+                break;
+        }
     }
+    this.turning = false;
 }
 
 // RobotIO

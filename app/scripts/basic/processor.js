@@ -16,6 +16,9 @@ Processor.prototype.step = function() {
     var statement = this.statements[this.pc];
     ++ this.pc; // I have to preincrement this because the statement may change the PC
     try {
+        if (statement.invalid) {
+            throw "Invalid statement: " + statement.source;
+        }
         statement.execute(this);
         this.halted = this.pc >= this.statements.length;
     } catch (e) {
