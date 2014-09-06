@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js"></script>
+    <script src="scripts/interpreter.js"></script>
+    <link href="styles/interpreter.css" rel="stylesheet" />
+  </head>
+  <body>
+<textarea class="source">
+
+FOR i = 1 TO 10
+  Print i
+NEXT i
+
+SUB Print i
+  INT 0x20, i
+END SUB
+
+</textarea>
+    <div class="console">
+    </div>
+    
+    <input class="run" type="button" value="RUN" />
+  </body>
+</html>

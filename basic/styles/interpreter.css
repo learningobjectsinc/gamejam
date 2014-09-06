@@ -1,0 +1,19 @@
+.source {
+    float: left;
+    width: 45%;
+    height: 400px;
+}
+.console {
+    border: 1px solid #aaa;
+    background-color: #ccc;
+    color: #030;
+    float: left;
+    width: 45%;
+    margin-left: 10px;
+    height: 400px;
+}
+.run {
+    clear: both;
+    background-color: green;
+    color: white;
+}
