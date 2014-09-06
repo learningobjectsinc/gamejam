@@ -62,6 +62,14 @@ Game.prototype.render = function(canvasSive, ctx) {
     for(var i=0; i<this.objects.length; i++ ){
         this.objects[i].render(canvasSive, squareSize, ctx);
     }
+
+    //draw the coordinates
+    for(var x=0; x<this.map.width; x++){
+        for(var y=0; y<this.map.height; y++){
+            ctx.fillStyle = "Red";
+            ctx.fillText(x + ", " + y, x*squareSize.width + 5, y*squareSize.height - 5);
+        }
+    }
     
 };
 
