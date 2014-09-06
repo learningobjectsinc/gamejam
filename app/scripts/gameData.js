@@ -82,6 +82,11 @@ gameData["levels"] = [
 					"type": "Owl",
 					"x": 3,
 					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 8,
+					"y": 5
 				}
 			]
 		}
@@ -194,11 +199,6 @@ gameData["levels"] = [
 					"type": "Owl",
 					"x": 3,
 					"y": 3
-				},
-				{
-					"type": "Rock",
-					"x": 8,
-					"y": 5
 				}
 			]
 		}
