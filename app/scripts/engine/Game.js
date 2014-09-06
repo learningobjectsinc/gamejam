@@ -1,7 +1,14 @@
-var Game = function(map, objects) {
+var Game = function(map) {
     this.map = map;
+    var self = this;
 
-    this.objects = objects;
+    this.objects = [];
+
+    _.each(map.objects, function(object) {
+        // forgive me
+        var instance = new window[object.type](object.x, object.y);
+        self.objects.push(instance);
+    });
 
     this.getSquareSizes = function(canvasSive){
         //figure out the width of each square
@@ -11,6 +18,16 @@ var Game = function(map, objects) {
             width:squareWidth,
             height:squareHeight
         };
+    }
+
+    var getAtLocation = function(x, y) {
+        for (var i = 0; i < this.objects.length; i++) {
+            var object = this.objects[i];
+            if ((object.getX() === x) && (object.getY() === y)) {
+                return object;
+            }
+        };
+        return null;
     }
 }
 
@@ -47,8 +64,8 @@ Game.prototype.update = function(canvasSive, ctx) {
 
 
 Game.prototype.getAtLocation = function(x, y) {
-    for (var i = 0; i < objects.length; i++) {
-        var object = objects[i];
+    for (var i = 0; i < this.objects.length; i++) {
+        var object = this.objects[i];
         if ((object.getX() === x) && (object.getY() === y)) {
             return object;
         }

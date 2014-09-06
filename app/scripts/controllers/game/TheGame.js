@@ -9,6 +9,6 @@ angular.module('gamejamApp')
     });
 
 angular.module('gamejamApp')
-  .controller('TheGame', function ($scope) {
-
+  .controller('TheGame', function ($scope, Program) {
+    $scope.program = new Program();
   });

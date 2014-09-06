@@ -18,17 +18,21 @@ var Robot = function(x,y) {
 
     this.moving = false;
     this.movingDistance = 0;
+    this.totalMovingDistance = 0;
     // pixels/second
     this.speed = 20;
 
     this.turning = false;
     this.turningDirection = 'right';
 
+    this.colliding = false;
+
     this.instructions = {
     	"moveForward": function(params) {
     		// params[0] is the distance
             self.moving = true;
-            self.movingDistance = params[0];
+            self.totalMovingDistance = params[0];
+            self.movingDistance = 1;
             self.busy = true;
     	},
     	"turn": function(params) {
@@ -55,11 +59,6 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
 
     ctx.drawImage(this.image, -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);
 
-    ctx.beginPath();
-    ctx.arc(0, 0, 5, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'red';
-    ctx.fill();
-
     ctx.restore();
 }
 
@@ -69,6 +68,9 @@ Robot.prototype.update = function(time) {
     }
     if (this.turning) {
         this.$turn();
+    }
+    if (this.colliding) {
+        this.$collide();
     }
 }
 
@@ -100,8 +102,30 @@ Robot.prototype.$moveForward = function(time) {
                 break;
         }
     } else {
-        this.moving = false;
-        this.movingDistance = 0;
+        this.totalMovingDistance--;
+        if (this.totalMovingDistance === 0) {
+            this.moving = false;
+            this.movingDistance = 0;
+            this.busy = false;   
+        } else {
+            console.log(this.x, this.y);
+            if (this.x === 7 && this.y === 5) { //TODO real collision
+                this.moving = false;
+                this.colliding = true;
+            } else {
+                this.movingDistance = 1;
+            }
+        }
+    }
+}
+
+Robot.prototype.$collide = function() {
+    if (this.totalMovingDistance > 0) {
+        this.totalMovingDistance--;
+        console.log('ouch');
+        //TODO noise;
+    } else {
+        this.colliding = false;
         this.busy = false;
     }
 }
