@@ -6,7 +6,39 @@
     <script src="scripts/basic.js"></script>
     <script src="scripts/processor.js"></script>
     <script src="scripts/interpreter.js"></script>
-    <link href="styles/interpreter.css" rel="stylesheet" />
+    <style type="text/css">
+.pc {
+    float: left;
+    width: 20px;
+    height: 400px;
+    resize: none;
+    text-align: right;
+}
+.source {
+    float: left;
+    width: 30%;
+    height: 400px;
+}
+.console {
+    border: 1px solid #aaa;
+    background-color: #ccc;
+    color: #030;
+    float: left;
+    width: 30%;
+    margin-left: 10px;
+    height: 400px;
+}
+.compile {
+    clear: both;
+    background-color: green;
+    color: white;
+}
+.step {
+    clear: both;
+    background-color: green;
+    color: white;
+}
+    </style>
   </head>
   <body>
 <textarea class="pc" readonly="readonly" resizable="false">
