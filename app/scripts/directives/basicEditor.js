@@ -10,13 +10,24 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 		controller: function($scope){
 			var program = $scope.program;
 
-			$scope.pc = '';
-			$scope.$watch('program.processor.pc', function(){
+			var prevLine = null;
+			$scope.$watch('program.processor.pc', function(line){
 				if(!program.processor){
 					return;
 				}
-				$scope.pc = new Array(program.processor.pc).join('\n') + '>';
+				ace.gotoLine(line+1);
+				ace.setHighlightActiveLine(true);
+
+				var session = ace.getSession();
+				session.removeGutterDecoration(prevLine, 'current');
+				session.addGutterDecoration(line, 'current');
+				prevLine = line;
 			});
+
+			var ace = null;
+			$scope.aceLoaded = function(editor){
+				ace = editor;
+			};
 
 			$scope.console = function(){
 				if(!program.io){
@@ -37,7 +48,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 			};
 
 		}, link: function(scope, el){
-			var existingSource = el.find('.source').val();
+			var existingSource = el.find('.prefill').val();
 			scope.program.code = existingSource;
 		}
 	};

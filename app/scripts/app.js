@@ -16,5 +16,6 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
+    'ui.ace',
     'angular-carousel'
   ]);
