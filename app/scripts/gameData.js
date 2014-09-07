@@ -69,192 +69,192 @@ gameData["levels"] = [
 					"y": 2
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 4
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 4,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 3,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 2,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 6
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 2,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 3,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 4,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 5,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 7,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 5,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 4,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 3,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 2,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 5,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 2
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 6
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 4
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 2
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 7,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 5,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 4,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 3,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 2,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 1
 				},
@@ -282,197 +282,197 @@ gameData["levels"] = [
 					"y": 2
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 4
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 4,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 3,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 2,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 6
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 2,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 3,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 4,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 5,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 7,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 7
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 5,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 4,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 3,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 2,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 5,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 2
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 6
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 5
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 4
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 3
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 2
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 8,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 7,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 6,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 5,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 4,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 3,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 2,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 4,
 					"y": 6
 				},
@@ -518,17 +518,17 @@ gameData["levels"] = [
 			"height": 10,
 			"objects": [
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 2,
 					"y": 2
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 3,
 					"y": 3
 				}
@@ -546,17 +546,17 @@ gameData["levels"] = [
 			"height": 10,
 			"objects": [
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 1,
 					"y": 1
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 2,
 					"y": 2
 				},
 				{
-					"type": "Rock",
+					"type": "Wall",
 					"x": 3,
 					"y": 3
 				}
