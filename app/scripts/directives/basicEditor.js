@@ -100,10 +100,14 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 			};
 
 		}, link: function(scope, el){
-			if(!scope.program.code){
-				var existingSource = el.find('.prefill').val();
-				scope.program.code = existingSource;				
-			}
+			$scope.variables = function(){
+				if(!program.processor){
+					return;
+				}
+				return _.reduce(program.processor.variables, function(str, value, variable) { 
+					return str + '<div>' + variable + ' = ' + value + '</div>';
+				}, '');
+			};
 		}
 	};
 });
