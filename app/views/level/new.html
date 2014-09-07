@@ -1,0 +1,22 @@
+<div id="game">
+	<h1>Create Level</h1>
+	<form>
+		<div>
+			<label>Level ID <input type="number" ng-model="levelId" min="1" required/></label>
+			<label>Level name <input type="text" ng-model="levelName" required/></label>
+		<div>
+			<label>Number of columns <input type="number" ng-model="numCols" min="1" disabled/></label>
+			<label>Number of rows <input type="number" ng-model="numRows" min="1" disabled/></label>
+			<button type="submit" ng-click="createLevel()">Create New Level</button>
+		</div>
+	</form>
+
+	<table style="border-collapse:collapse">
+		<tr ng-repeat="row in grid" style="border:1px solid black;">
+			<td ng-repeat="cell in row track by $index" style="border:1px solid black;text-align:center;">
+				<img ng-if="images[cell]" ng-src="{{images[cell]}}"/><br/>
+				<select ng-model="grid[$parent.$index][$index]" ng-options="ot as ot for ot in objectTypes" ng-required/>
+			</td>
+		</tr>
+	</table>
+</div>
