@@ -18,10 +18,10 @@ angular.module('gamejamApp').directive('block', function($timeout, blockService)
 			scope.isBlockHidden = blockService.dontShow;
 
 			// TODO: Refactor/combine these two
-			scope.addToParent = function(blockType){
+			scope.addToParent = function(blockType, after){
 				var newBlock = new blockType.constructor();
 				newBlock.init(blockType.cfg.src, block.program);
-				block.parent.addStatement(newBlock);
+				block.parent.addStatement(newBlock, after);
 			};
 
 			scope.addChild = function(blockType){
@@ -40,7 +40,7 @@ angular.module('gamejamApp').directive('block', function($timeout, blockService)
 				$('.ace_layer .stmt_' + block.id).addClass('active');
 			});
 
-
+            // Everything below this point is terrible
 			el.css({
 			    'overflow': 'hidden',
 			    'height': '0px',
@@ -49,10 +49,36 @@ angular.module('gamejamApp').directive('block', function($timeout, blockService)
 			    'transitionTimingFunction': 'ease-in-out'
 			});
 			$timeout(function(){
-				var y = el.contents('div').get()[0].clientHeight;
+				var cts = el.contents('div').get()[0];
+				if(!cts){
+					return;
+				}
+				var y = cts.clientHeight;
+
 				el.css('height', y + 'px');
 				$timeout(function(){
 					el.css('height','auto');
+				},200);
+			},0);
+		}
+	};
+}).animation('.blockContainer', function($timeout){
+	return {
+		leave: function(el, done){
+			var y = el.get()[0].clientHeight;
+
+			el.css({
+			    'overflow': 'hidden',
+			    'transitionProperty': 'height',
+			    'transitionDuration': '200ms',
+			    'transitionTimingFunction': 'ease-in-out'
+			});
+
+			el.css('height', y + 'px');
+			$timeout(function(){
+				el.css('height','0');
+				$timeout(function(){
+					done();
 				},200);
 			},0);
 		}

@@ -16,5 +16,5 @@
       <div child-blocks="block.children"></div>
     </div>
   </div>
-  <div ng-drop="true" ng-drop-success="addToParent($data,$event)" class="dropzone" ng-if="!block.endsBlock"></div>
+  <div ng-drop="true" ng-drop-success="addToParent($data,block)" class="dropzone" ng-if="!block.endsBlock"></div>
 </div>
