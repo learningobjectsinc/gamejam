@@ -65,7 +65,15 @@ angular.module('gamejamApp')
 
         block.init(blockType.cfg.src, programStmt);
 
-        programStmt.addStatement(block);
+        var insertAfter = null;
+        for(var i=programStmt.children.length-1; i >=0; i--){
+            insertAfter = programStmt.children[i];
+            if(!insertAfter.endsBlock){
+                break;
+            }
+        }
+
+        programStmt.addStatement(block, insertAfter);
     };
 
     $scope.$on('win', function() {
