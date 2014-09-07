@@ -61,5 +61,12 @@ angular.module('gamejamApp')
             stmt = stmt.nextStatement(true);
         }
     }
+
+    $scope.blockEditing = true;
+    $scope.switchCodingContext= function(){
+        $scope.blockEditing = !$scope.blockEditing;
+    }
+
+    
     
   });
