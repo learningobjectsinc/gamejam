@@ -76,7 +76,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 					}
 					++ index;
 				}
-                                session.setAnnotations(annotations);
+                session.setAnnotations(annotations);
 			});
 
 			var Range = ace.require('ace/range').Range;
