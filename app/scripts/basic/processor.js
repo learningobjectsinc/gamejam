@@ -12,9 +12,6 @@ program.processor = this; // TODO: Kill me: This is far ASK
     this.variables = {};
     this.halted = false;
     this.stack = [];
-    this.functions = _.indexBy(_.filter(program.children, function(statement) {
-        return (statement instanceof FunctionStatement) && !statement.invalid;
-    }), 'name');
 }
 
 Processor.prototype.step = function() {
@@ -25,9 +22,7 @@ Processor.prototype.step = function() {
         if (!statement) {
             this.halted = true; // done
         } else {
-            var invalid = (typeof statement.invalid == 'function')
-                ? statement.invalid(this) : statement.invalid;
-            if (invalid) {
+            if (statement.isInvalid()) {
                 throw "Invalid statement: " + statement.source;
             }
             statement.execute(this);

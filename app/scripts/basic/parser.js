@@ -36,6 +36,7 @@ var Parser = (function (scope) {
     var TOP2 = 2;
     var TVAR = 3;
     var TFUNCALL = 4;
+    var TMETHOD = 5;
 
     function Token(type_, index_, prio_, number_) {
         this.type_ = type_;
@@ -52,6 +53,8 @@ var Parser = (function (scope) {
                 return this.index_;
             case TFUNCALL:
                 return "CALL";
+            case TMETHOD:
+                return "INVOKE";
             default:
                 return "Invalid Token";
             }
@@ -897,6 +900,17 @@ var Parser = (function (scope) {
         isComma: function () {
             var code = this.expression.charCodeAt(this.pos);
             if (code === 44) { // ,
+                this.pos++;
+                this.tokenprio = -1;
+                this.tokenindex = ",";
+                return true;
+            }
+            return false;
+        },
+
+        isColon: function () {
+            var code = this.expression.charCodeAt(this.pos);
+            if (code === 58) { // :
                 this.pos++;
                 this.tokenprio = -1;
                 this.tokenindex = ",";

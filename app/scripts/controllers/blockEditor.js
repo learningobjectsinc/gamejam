@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('gamejamApp').controller('BlockEditor', function($scope, Block, Program, blockService){
+angular.module('gamejamApp').controller('BlockEditor', function($scope, Block, Program, blockService, GameService){
 
 	$scope.blockProgram = [];
 

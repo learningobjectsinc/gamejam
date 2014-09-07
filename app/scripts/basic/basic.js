@@ -16,6 +16,7 @@ function Statement() {
 
 Statement.prototype.init = function(source, program) {
     this.source = source;
+    this.program = program;
     this.parser = program.parser;
     this.id = +_.uniqueId();
     var match = source.match(this.syntax);
@@ -93,6 +94,10 @@ Statement.prototype.nextSibling = function() {
     return (index + 1 < siblings.length) ? siblings[index + 1] : null;
 }
 
+Statement.prototype.isInvalid = function() {
+    return this.invalid;
+}
+
 Statement.prototype.startsBlock = false;
 
 Statement.prototype.endsBlock = false;
@@ -110,6 +115,7 @@ Statement.prototype.tokenLabels = [];
 function ProgramStatement() {
     this.parser = new Parser();
     this.parser.functions = Object.create(this.parser.functions);
+    this.functions = {};
 }
 
 ProgramStatement.prototype = Object.create(Statement.prototype);
@@ -121,6 +127,19 @@ ProgramStatement.prototype.startsBlock = true;
 ProgramStatement.prototype.keyword = "Program";
 
 ProgramStatement.prototype.syntax = "";
+
+ProgramStatement.prototype.addStatement = function(statement) {
+    Statement.prototype.addStatement.call(this, statement);
+    if ((statement instanceof FunctionStatement) && !statement.isInvalid()) {
+        this.functions[statement.name] = statement;
+    }
+}
+
+ProgramStatement.prototype.addLibrary = function(library) {
+    _.each(library.functions, function(fn) {
+        this.functions[fn.name] = this.functions[fn.name] || fn;
+    });
+}
 
 // EndProgramStatement
 
@@ -190,8 +209,8 @@ InvalidStatement.prototype = Object.create(Statement.prototype);
 
 InvalidStatement.prototype.constructor = InvalidStatement;
 
-InvalidStatement.prototype.initmatch = function(match) {
-    this.invalid = true;
+InvalidStatement.prototype.isInvalid = function() {
+    return true;
 }
 
 InvalidStatement.prototype.keyword = "Invalid";
@@ -560,7 +579,7 @@ FunctionCall.prototype.initmatch = function(match) {
 }
 
 FunctionCall.prototype.execute = function(processor) {
-    var fn = processor.functions[this.name];
+    var fn = this.program.functions[this.name];
     if (!fn) {
         throw "Unknown function: " + this.source;
     }
@@ -568,8 +587,8 @@ FunctionCall.prototype.execute = function(processor) {
     fn.invoke(processor, parameters);
 }
 
-FunctionCall.prototype.invalid = function(processor) {
-    return !processor.functions[this.name];
+FunctionCall.prototype.isInvalid = function() {
+    return this.invalid || !this.program.functions[this.name];
 }
 
 FunctionCall.prototype.keyword = "Function Call";
