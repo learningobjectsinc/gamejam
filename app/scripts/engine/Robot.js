@@ -64,45 +64,16 @@ var Robot = function(x, y, getAtLocation, angularScope) {
             self.talking = true;
             self.talkingText = params[0];
             self.talkingDuration = self.talkingTotalDuration;
+            angularScope.$broadcast('robot.talk', { uttering: self.talkingText });
             if ('speechSynthesis' in window) {
                 var utterance = new SpeechSynthesisUtterance(self.talkingText);
                 window.speechSynthesis.speak(utterance);
             }
         },
-        "fireLaser": function(params) {
-            var obstacle = null;
+        "fireLaser": function(params) {            
             self.doSomething("talk", ["PEW PEW PEW"]);
-            switch (self.direction){
-                case 'right':
-                    var i = self.x + 1;
-                    while (self.getAtLocation(i, self.y) == null) {
-                        i++;
-                    }
-                    obstacle = self.getAtLocation(i, self.y);
-                    break;
-                case 'left':
-                    var i = self.x - 1;
-                    while (self.getAtLocation(i, self.y) == null) {
-                        i--;
-                    }
-                    obstacle = self.getAtLocation(i, self.y);
-                    break;
-                case 'up':
-                    var i = self.y - 1;
-                    while (self.getAtLocation(self.x, i) == null) {
-                        i--;
-                    }
-                    obstacle = self.getAtLocation(self.x, i);
-                    break;
-                case 'down':
-                    var i = self.y + 1;
-                    while (self.getAtLocation(self.x, i) == null) {
-                        i++;
-                    }
-                    obstacle = self.getAtLocation(self.x, i);
-                    break;
-            }
-            if (typeof obstacle.destroy != undefined) {
+            var obstacle = self.$getNextInFront();
+            if (obstacle && (typeof obstacle.destroy != undefined)) {
                 obstacle.destroy();
             }
         }
@@ -258,6 +229,41 @@ Robot.prototype.$getInFront = function() {
             return this.getAtLocation(this.x, this.y + 1);
             break;
     }
+}
+
+Robot.prototype.$getNextInFront = function() {
+    var obstacle = null;
+    switch (self.direction){
+        case 'right':
+            var i = self.x + 1;
+            while (self.getAtLocation(i, self.y) == null) {
+                i++;
+            }
+            obstacle = self.getAtLocation(i, self.y);
+            break;
+        case 'left':
+            var i = self.x - 1;
+            while (self.getAtLocation(i, self.y) == null) {
+                i--;
+            }
+            obstacle = self.getAtLocation(i, self.y);
+            break;
+        case 'up':
+            var i = self.y - 1;
+            while (self.getAtLocation(self.x, i) == null) {
+                i--;
+            }
+            obstacle = self.getAtLocation(self.x, i);
+            break;
+        case 'down':
+            var i = self.y + 1;
+            while (self.getAtLocation(self.x, i) == null) {
+                i++;
+            }
+            obstacle = self.getAtLocation(self.x, i);
+            break;
+    }
+    return obstacle;
 }
 
 Robot.prototype.$collide = function() {
