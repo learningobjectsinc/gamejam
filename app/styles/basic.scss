@@ -19,10 +19,13 @@
     margin-left: 1%;
     height: 199px;
 }
-.compile, .step, .run {
+.code-controls input, .code-controls button {
     clear: both;
     background-color: green;
     color: white;
+    &[disabled] {
+        opacity: 0.5;
+    }
 }
 
 .ace_gutter-cell.current {
