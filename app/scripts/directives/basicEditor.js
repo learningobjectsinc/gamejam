@@ -28,13 +28,12 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				if(!program.processor){
 					return;
 				}
-			        var session = editor.getSession();
+			    var session = editor.getSession();
 				session.removeGutterDecoration(prevCrash, 'crashed');
-                                if (crashed) {
-                                    program.processor.io.interrupt('Talk', [ 'Ayeeeeeeeeeeeeeeee!' ]);
+                if (crashed) {
 				    session.addGutterDecoration(program.processor.pc, 'crashed');
-                                    prevCrash = program.processor.pc;
-                                }
+                    prevCrash = program.processor.pc;
+                }
 			});
 
 			$scope.$watch('program.statements', function(statements){
@@ -68,7 +67,8 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 							var range = new Range(stmt.line, offset, lastChild.line, line.length);
 						} else {
 							line = session.getLine(stmt.line);
-							offset = line.match(firstChar).index;
+                                                        var match = line.match(firstChar);
+							offset = match ? match.index : 0;
 							var range = new Range(stmt.line, offset, stmt.line, line.length);
 						}
 

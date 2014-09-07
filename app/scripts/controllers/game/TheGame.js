@@ -11,10 +11,34 @@ angular.module('gamejamApp')
     });
 
 angular.module('gamejamApp')
+
   .controller('TheGame', function ($scope, $state, Program, levelService, GameService, blockService) {
+
+    
+    var func = new FunctionCall();
+    func.name = "Step";
+    func.parameters = [];
+
+    var func2 = new FunctionCall();
+    func2.name = "TurnRight";
+    func2.parameters = [];
+
+    var func3 = new FunctionCall();
+    func3.name = "TurnLeft";
+    func3.parameters = [];
+
+    
+    console.log($scope.program);
+
     console.log($scope.level.defaultCode);
-    $scope.program = new Program($scope.level.defaultCode);
+    $scope.program = new Program("Step()\n", null);
+
+
     $scope.program.compile();
+
+    
+
+    console.log($scope.program);
 
     $scope.errorMessage = "";
 
@@ -38,6 +62,7 @@ angular.module('gamejamApp')
         }
         var programStmt = $scope.program.statements;
         var block = new blockType.constructor();
+
         block.init(blockType.cfg.src, programStmt);
 
         programStmt.addStatement(block);
@@ -68,8 +93,9 @@ angular.module('gamejamApp')
 
     $scope.runProgram = function(){
         GameService.resetGameFromLastMap();
-        $scope.convertToCode();
-        $scope.program.compile();
+        if (!$scope.blockEditing) {
+            $scope.program.compile();
+        }
         $scope.program.run();
     };
 

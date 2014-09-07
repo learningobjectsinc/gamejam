@@ -117,8 +117,10 @@ angular.module('gamejamApp')
                                 scope.moveObject(laser, position.x, position.y)
                             }
 
-                            laser.x = position.x;
-                            laser.y = position.y;
+                            scope.$apply(function() {
+                                laser.x = position.x;
+                                laser.y = position.y;
+                            });
 
                             position.remaining--;
 

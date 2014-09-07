@@ -1,13 +1,19 @@
 <div ng-if="!isBlockHidden(block)">
   <div class="programBlock">
     <div class="delete pull-right" ng-click="delete()">&times;</div>
-    <h4>{{ block.keyword }}</h4>
+    <h4>{{ block.name || block.keyword }}</h4>
     <span class="description">
-      {{ block.description }}
+      {{ cfg.description || block.description }}
     </span>
-    <form class="form-horizontal" ng-if="block.tokenLabels">
+    <form class="form-horizontal" ng-if="!cfg.parameters && block.tokenLabels">
       <div ng-repeat="token in block.tokenLabels">
         <label for="{{ token }}_{{ block.id }}">{{ token }}</label>
+        <input id="{{ token }}_{{ block.id }}" ng-model="block.matches[$index+1]" type="text" class="form-control">
+      </div>
+    </form>
+    <form class="form-horizontal" ng-if="cfg.parameters">
+      <div ng-repeat="token in cfg.parameters">
+        <label for="{{ token }}_{{ block.id }}">{{ token.description }}</label>
         <input id="{{ token }}_{{ block.id }}" ng-model="block.matches[$index+1]" type="text" class="form-control">
       </div>
     </form>

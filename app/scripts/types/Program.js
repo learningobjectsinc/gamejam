@@ -2,6 +2,33 @@
 
 angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, RobotIO){
 	var program = function(code){
+    
+        this.library = Basic.parseProgram([
+            "// Turn the robot right", 
+            "FUNCTION TurnRight()",
+            "  TELL robot : Turn('right')", 
+            "  Wait()",
+            "END FUNCTION",
+
+            "// Turn the robot left", 
+            "FUNCTION TurnLeft()",
+            "  TELL robot : Turn('left')", 
+            "  Wait()",
+            "END FUNCTION",
+
+            "// Move the robot forward one block;", 
+            "FUNCTION Step()",
+            "  TELL robot : MoveForward(1)", 
+            "  Wait()",
+            "END FUNCTION",
+
+            "// Wait for the robot to finish",
+            "FUNCTION Wait()",
+            "  WHILE ASK('Busy')",
+            "    // Just wait",
+            "  END WHILE", 
+            "END FUNCTION"
+        ]);
 		this.code = code || '';
 		this.statements = null;
 		this.processor = null;
@@ -10,16 +37,17 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 		this.paused = false;
 	};
 
-	program.prototype.init = function(src) {
-		src = src || [];
-	    this.statements = Basic.parseProgram(src);
-
-            console.log(this.statements);
+    program.prototype.init = function(src) {
+	src = src || [];
+	this.statements = Basic.parseProgram(src);
+        this.statements.addLibrary(this.library);
+        console.log(this.statements);
 
 	    this.io = RobotIO;
 	    this.paused = false;
 	    this.sleeper = null;
 	    this.processor = new Processor(this.statements, this.io, $rootScope);
+this.library.processor = this.processor; // TODO: KILLME: HACK
 	};
 
 	program.prototype.compile = function(){

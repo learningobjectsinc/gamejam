@@ -98,6 +98,7 @@ gameData["levels"] = [
 		"map": {
 			"width": 8,
 			"height": 7,
+			"music": "sound/skySanctuary.wav",
 			"objects": [
 				{
 					"type": "Laser",
@@ -372,6 +373,8 @@ gameData["levels"] = [
 				"availableFns": "moveForward",
 				"src": "TELL robot : MoveForward(1)"
 			}
+		}, "availableFunctions": {
+			"Step": {}
 		}
 	},
 	{
@@ -628,11 +631,11 @@ gameData["levels"] = [
 				}
 			]
 		},
-		"availableBlocks": {
-			"TellStatement": {
-				"availableFns": "moveForward",
-				"src": "TELL robot : MoveForward(1)"
-			}
+		"availableBlocks": {},
+		"availableFunctions": {
+			"Step":{},
+			"TurnLeft": {},
+			"TurnRight": {}
 		}
 	},
 	{
@@ -1073,11 +1076,12 @@ gameData["levels"] = [
 				// }
 			]
 		},
-		"availableBlocks": {
-			"TellStatement": {
-				"availableFns": "moveForward",
-				"src": "TELL robot : MoveForward(1)"
-			}
+		"availableBlocks": {},
+		"availableFunctions": {
+			"Step":{},
+			"TurnLeft": {},
+			"TurnRight": {},
+			"Fire": {}
 		}
 	},
 	{
