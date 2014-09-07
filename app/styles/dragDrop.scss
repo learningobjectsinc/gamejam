@@ -1,0 +1,24 @@
+.dropzone {
+	height: 24px;
+	background: none;
+	position: relative;
+}
+.dropzone.drag-enter {
+	&:after {
+		height: 4px;
+		background: red;
+		content: ' ';
+		display: block;
+		position: relative;
+		top: 10px;
+	}
+}
+
+.btn.dragging{
+	cursor: default;
+}
+.btn.drag-over {
+	background: #1a80b6;
+	border: 1px solid #ddf;
+	cursor: pointer;
+}

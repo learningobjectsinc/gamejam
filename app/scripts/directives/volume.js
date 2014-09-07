@@ -9,13 +9,13 @@ angular.module('gamejamApp').directive('volume', function($cookies){
             var audio = $('#music')[0];
             if (scope.isMusicOn) {
                 audio.autoplay = "autoplay";
+                audio.volume = 0.5;
             } else {
                 audio.mute = "mute";
             }
 
             scope.toggleMusic = function() {
                 scope.isMusicOn = !scope.isMusicOn;
-                var audio = $('#music')[0];
                 if (scope.isMusicOn) {
                     audio.play();
                 } else {

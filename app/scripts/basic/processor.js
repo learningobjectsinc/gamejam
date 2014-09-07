@@ -42,7 +42,7 @@ Processor.prototype.step = function() {
         this.angularScope.$broadcast('processor.step');
     } catch (e) {
         this.halted = true;
-        this.crashed = e;
+        this.crashed = e.message || e;
     }
 }
 

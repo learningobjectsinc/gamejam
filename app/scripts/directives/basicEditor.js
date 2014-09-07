@@ -31,7 +31,6 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 			        var session = editor.getSession();
 				session.removeGutterDecoration(prevCrash, 'crashed');
                                 if (crashed) {
-                                    program.processor.io.interrupt('Talk', [ 'Ayeeeeeeeeeeeeeeee!' ]);
 				    session.addGutterDecoration(program.processor.pc, 'crashed');
                                     prevCrash = program.processor.pc;
                                 }
@@ -100,7 +99,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				}).join('');
 			};
 
-		}, link: function(scope, el){
+		}, link: function($scope, el){
 			$scope.variables = function(){
 				if(!program.processor){
 					return;
