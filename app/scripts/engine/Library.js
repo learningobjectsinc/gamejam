@@ -63,6 +63,8 @@ angular.module('gamejamApp').constant('libraryFunctions', {
         "source" : [
             'FUNCTION Fire()',
             '  TELL robot : FireLaser(\'left\')',
+            '  FOR j = 1 TO 50',
+            '  NEXT j',
             'END FUNCTION'
         ],
         "example": "Fire()",
