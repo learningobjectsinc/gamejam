@@ -55,7 +55,7 @@
 
 .programBlockContainer
   //background: fade-out($color-success,0.5)
-  max-height: 500px
+  //max-height: 500px
   overflow-y: scroll
   position: relative
 
@@ -109,40 +109,44 @@
       display: inline-block
       font-size: 0.85em
 
-.wrapBottomCtrl
-  position: fixed
-  bottom: 4em
+#game .sidebar
+  .wrapBottomCtrl
+    position: fixed
+    width: 31.67%
+    bottom: 4em
+    background: url('/images/hexabump.png') $color-dark
+    box-shadow: 3px -2px 6px rgba(0,0,0,0.5)
 
-.instructionSub
-  position: relative
-  display: inline-block
-  width: 97%
-  padding: 1.5%
-  min-height: 4.15em
-  background: fade-out($color-secondary,0.85)
+  .instructionSub
+    position: relative
+    display: inline-block
+    width: 97%
+    padding: 1.5%
+    min-height: 4.15em
+    background: fade-out($color-secondary,0.85)
 
-  /*&:after
-    border-bottom: 0.33em solid fade-out($color-accent,0.5)
-    border-right: 0.33em solid fade-out($color-accent,0.5)
-    border-top: 0.33em solid transparent
-    border-left: 0.33em solid transparent
-    width: 0
-    height: 0
-    content: ""
-    display: block
-    position: absolute
-    right: 0
-    margin: auto
-    bottom: 0*/
+    /*&:after
+      border-bottom: 0.33em solid fade-out($color-accent,0.5)
+      border-right: 0.33em solid fade-out($color-accent,0.5)
+      border-top: 0.33em solid transparent
+      border-left: 0.33em solid transparent
+      width: 0
+      height: 0
+      content: ""
+      display: block
+      position: absolute
+      right: 0
+      margin: auto
+      bottom: 0*/
 
-  button, btn
-    padding: 0.5em 0.75em
-    background: $color-primary-light
-    border-radius: 0.25em
-    margin: 1em 0.25em
+    button, btn
+      padding: 0.5em 0.75em
+      background: $color-primary-light
+      border-radius: 0.25em
+      margin: 0.5em 0.5em
 
-    &:hover
-      background: $color-secondary
+      &:hover
+        background: $color-secondary
 
 .codeEditor
   background: #ffdede
