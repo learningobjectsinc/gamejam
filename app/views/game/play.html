@@ -1,6 +1,6 @@
 <div id="game">
 
-	<audio id="music" mute loop>
+	<audio id="music" autoplay loop>
 		<source src="sound/finalAct.wav" type="audio/wav">
 	</audio>
 	<button ng-click="toggleMusic()" ng-show="isMusicOn">Turn Music Off</button>
@@ -12,38 +12,48 @@
         </div>
 
 	<div class="sidebar">
-		<div class="blockLibrary">
-			<h2>Block Library</h2>
-			<button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-click="addToProgram(block)">
-				{{ block.constructor.prototype.keyword }}
-			</button>
-		</div>
-		<div class="programBlockContainer" block-container="program">
-			<h2>Your Program</h2>
-			<div ng-if="!program.statements.children.length">
-				Add some blocks!<br>Y U NO CODE!?!?
+		<div ng-if="blockEditing">
+			<div class="blockLibrary">
+				<h2>Block Library</h2>
+				<button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-click="addToProgram(block)">
+					{{ block.constructor.prototype.keyword }}
+				</button>
 			</div>
-			<div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt"></div>
-			<button ng-click="convertToCode()" type="button" class="btn btn-block btn-primary">Convert to code</button>
+			<div class="programBlockContainer" block-container="program">
+				<h2>Your Program</h2>
+				<div ng-if="!program.statements.children.length">
+					Add some blocks!<br>Y U NO CODE!?!?
+				</div>
+				<div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt"></div>
+				<button ng-click="convertToCode()" type="button" class="btn btn-block btn-primary">Convert to code</button>
+			</div>
 		</div>
-
-		<div class="codeEditor">
-			<h2>Code</h2>
-			<div basic-editor="program"></div>
-			<div class="code-controls">		
-				<!-- These should probably move eventually? -->
-				<input ng-click="program.compile()" class="compile" type="button" value="COMPILE" />
-				<input ng-click="program.step()" class="step" type="button" ng-disabled="!program.statements.children && !program.processor.halted" value="STEP" />
-				<input ng-click="program.run()" class="run" type="button" ng-disabled="!program.statements.children || program.isRunning()" value="RUN" />
-				<input ng-click="program.pause()" class="pause" type="button" ng-disabled="!program.statements.children || program.processor.halted || !program.isRunning() || program.isPaused()" value="PAUSE" />
-				<input ng-click="program.resume()" class="resume" type="button" ng-disabled="!program.statements.children || program.processor.halted || !program.isRunning() || (program.isRunning() && !program.isPaused())" value="RESUME" />
-				<input ng-click="program.kill()" class="kill" type="button" ng-disabled="!program.statements.children || program.processor.halted || !program.isRunning()" value="STOP" />
+		<div ng-if="!blockEditing">
+			<div class="codeEditor">
+				<h2>Code</h2>
+				<div basic-editor="program"></div>
+				<div class="code-controls">		
+					<!-- These should probably move eventually? -->
+					<input ng-click="program.compile()" class="compile" type="button" value="COMPILE" />
+					<input ng-click="program.step()" class="step" type="button" ng-disabled="!program.statements.children && !program.processor.halted" value="STEP" />
+					<input ng-click="program.run()" class="run" type="button" ng-disabled="!program.statements.children || program.isRunning()" value="RUN" />
+					<input ng-click="program.pause()" class="pause" type="button" ng-disabled="!program.statements.children || program.processor.halted || !program.isRunning() || program.isPaused()" value="PAUSE" />
+					<input ng-click="program.resume()" class="resume" type="button" ng-disabled="!program.statements.children || program.processor.halted || !program.isRunning() || (program.isRunning() && !program.isPaused())" value="RESUME" />
+					<input ng-click="program.kill()" class="kill" type="button" ng-disabled="!program.statements.children || program.processor.halted || !program.isRunning()" value="STOP" />
+				</div>
+				<h2 ng-show="program.isRunning()">Variables</h2>
+                                <div class="variables" ng-bind-html="program.variables()" ng-show="program.isRunning()">
+                                </div>
 			</div>
 		</div>
 
 		<button ui-sref="^.wrapup">Run</button>
 		<button ui-sref="^.wrapup">WIN</button>
         <input ng-click="resetGame()" class="reset" type="button" value="RESET" ng-disabled="program.isRunning()" />
+		<button ng-click="switchCodingContext()">
+			<span ng-if="blockEditing">Code view</span>
+			<span ng-if="!blockEditing">Block view</span>
+		</button>
 	</div>
 
 	<game-table level="level"></game-table>

@@ -13,7 +13,7 @@ angular.module('gamejamApp')
 angular.module('gamejamApp')
   .controller('TheGame', function ($scope, $state, Program, levelService, GameService) {
     $scope.program = new Program();
-    $scope.isMusicOn = false;
+    $scope.isMusicOn = true;
 
     $scope.errorMessage = "";
 
@@ -56,10 +56,20 @@ angular.module('gamejamApp')
     $scope.convertToCode = function(){
         console.log($scope.program.statements.children);
         var stmt = $scope.program.statements.children[0];
+        var src = '';
         while (stmt) {
-            console.log(stmt.getSource());
+            delete stmt.source;
+            src += stmt.getSource() + '\n';
             stmt = stmt.nextStatement(true);
         }
+        $scope.program.code = src;
     }
+
+    $scope.blockEditing = true;
+    $scope.switchCodingContext= function(){
+        $scope.blockEditing = !$scope.blockEditing;
+    }
+
+    
     
   });

@@ -17,6 +17,8 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
             console.log(this.statements);
 
 	    this.io = RobotIO;
+	    this.paused = false;
+	    this.sleeper = null;
 	    this.processor = new Processor(this.statements, this.io, $rootScope);
 	};
 
@@ -65,6 +67,15 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 	program.prototype.isRunning = function(){
 		return !!this.sleeper && !this.processor.halted;
 	};
+
+	program.prototype.variables = function(){
+            if(!this.processor){
+                return;
+            }
+            return _.reduce(this.processor.variables, function(str, value, variable) {
+                return str + '<div>' + variable + ' = ' + value + '</div>';
+            }, '');
+        };
 
 	return program;
 });
