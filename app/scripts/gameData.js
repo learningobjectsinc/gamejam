@@ -34,7 +34,7 @@ gameData["instructions"] = [
         "pages": [
 			{
 				"title": "Let's Move!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Solve the epidemic of robot obesity by getting Tobor to move.</p>"
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div>"
 			},
 			{
 				"title": "Level 0: Let's Move!",
@@ -94,7 +94,7 @@ gameData["levels"] = [
 		"description": "Solve the epidemic of robot obesity by getting Tobor to move",
 		"icon": "rocket",
 		"completed": "0",
-		"defaultCode": "Forward()\nForward()\n\nFUNCTION Forward()\n  TELL robot : MoveForward(1)\n  Wait()\nEND FUNCTION\nFUNCTION Wait()\n  WHILE ASK('Busy')\n  END WHILE\nEND FUNCTION",
+		"defaultCode": "",
 		"map": {
 			"width": 8,
 			"height": 7,
@@ -375,6 +375,7 @@ gameData["levels"] = [
 		"description": "Learn to turn",
 		"icon": "rocket",
 		"completed": "0",
+		"defaultCode": "TELL robot : MoveForward(1)\nTELL robot : Turn('right')\nTELL robot : Turn('right')\nTELL robot : MoveForward(1)",
 		"map": {
 			"width": 8,
 			"height": 7,
@@ -621,6 +622,12 @@ gameData["levels"] = [
 					"y": 7
 				}
 			]
+		},
+		"availableBlocks": {
+			"TellStatement": {
+				"availableFns": "moveForward",
+				"src": "TELL robot : MoveForward(1)"
+			}
 		}
 	},
 	{
@@ -867,8 +874,9 @@ gameData["levels"] = [
 			]
 		},
 		"availableBlocks": {
-			"tell": {
-				"allow": "moveForward"
+			"TellStatement": {
+				"availableFns": "moveForward",
+				"src": "TELL robot : MoveForward(1)"
 			}
 		}
 	},

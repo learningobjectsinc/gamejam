@@ -38,3 +38,17 @@
     color: #500!important;
     font-style: italic;
 }
+
+.gameIntroText{
+    font-size:3em;
+    text-align:center;
+}
+.robotProfile{
+    height:5em;
+    
+}
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}

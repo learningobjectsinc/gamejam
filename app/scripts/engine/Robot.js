@@ -60,7 +60,7 @@ var Robot = function(attrs, getAtLocation, angularScope) {
             return self.moving || self.turning || self.talking;
         },
         "FireLaser": function(params) {            
-            self.invoke("talk", ["PEW PEW PEW"]);
+            self.invoke("Talk", ["PEW PEW PEW"]);
             var obstacle = self.$getInFront();
             if (obstacle && (typeof obstacle.destroy != undefined)) {
                 obstacle.destroy();
@@ -68,12 +68,8 @@ var Robot = function(attrs, getAtLocation, angularScope) {
         }
     };
 
-    angularScope.$on('processor.step', function() {
-        self.drainBattery();
-    });
-
     angularScope.$on('processor.win', function() {
-        self.invoke("talk", ["Woohoo"]);
+        self.invoke("Talk", ["Woohoo"]);
     });
 
 };
@@ -81,6 +77,7 @@ var Robot = function(attrs, getAtLocation, angularScope) {
 Robot.prototype = Object.create(GridObject.prototype);
 
 Robot.prototype.invoke = function(functionName, params) {
+    this.drainBattery();
     var op = this.instructions[functionName];
     if (!op) {
         throw "Unknown method: " + functionName;
@@ -141,7 +138,7 @@ Robot.prototype.drainBattery = function(amount) {
     this.batteryPower -= amount;
 
     if (this.batteryPower == 0) {
-        this.invoke("talk", ["Powering down"]);
+//      this.invoke("Talk", ["Powering down"]);
     }
 
     return this.batteryPower;

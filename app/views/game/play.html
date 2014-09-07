@@ -8,6 +8,9 @@
     <div class="sidebar">
         <div ng-if="blockEditing">
             <div class="blockLibrary">
+            	<div>
+            	    <img class="robotProfile" src="/images/robot/robot-down.svg"/>Mr. Roboto
+            	</div>
                 <h2 style="margin-bottom:0px;">Robot Instructions</h2>
                 (click on an instruction to add it to my task list)
                 <div style="margin-top:10px; min-height: 50px;">
@@ -31,7 +34,7 @@
             <div class="codeEditor">
                 <h2>Code</h2>
                 <div basic-editor="program"></div>
-                <div class="code-controls">     
+                <div class="code-controls">
                     <!-- These should probably move eventually? -->
                     <input ng-click="program.compile()" class="compile" type="button" value="COMPILE" />
                     <input ng-click="program.step()" class="step" type="button" ng-disabled="!program.statements.children && !program.processor.halted" value="STEP" />
@@ -45,7 +48,7 @@
 
         <button class="btn btn-success btn-huge" ng-click="runProgram()" ng-disabled="program.isRunning()">Run</button>
         <!-- <button ui-sref="^.wrapup">WIN</button> -->
-        <input class="btn btn-primary" ng-click="resetGame()" class="reset" type="button" value="Reset" ng-disabled="program.isRunning()" />
+        <!--<input class="btn btn-primary" ng-click="resetGame()" class="reset" type="button" value="Reset" ng-disabled="program.isRunning()" />-->
         <button class="btn btn-primary" ng-click="switchCodingContext()">
             <span ng-if="blockEditing">Code view</span>
             <span ng-if="!blockEditing">Block view</span>

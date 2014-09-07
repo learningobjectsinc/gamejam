@@ -17,6 +17,7 @@ angular.module('gamejamApp').directive('block', function($timeout, blockService)
 
 			scope.isBlockHidden = blockService.dontShow;
 
+			// TODO: Refactor/combine these two
 			scope.addToParent = function(blockType){
 				var newBlock = new blockType.constructor();
 				newBlock.init(blockType.cfg.src, block.program);

@@ -58,11 +58,13 @@ angular.module('gamejamApp')
     }
 
     $scope.blockEditing = true;
-    $scope.switchCodingContext= function(){
+    $scope.switchCodingContext = function(){
+        $scope.program.compile();
         $scope.blockEditing = !$scope.blockEditing;
     };
 
     $scope.runProgram = function(){
+        GameService.resetGameFromLastMap();
         $scope.convertToCode();
         $scope.program.compile();
         $scope.program.run();
