@@ -132,10 +132,11 @@
 				{
 					"type": "Robot",
 					"x": 1,
-					"y": 4
+					"y": 4,
+					"direction": "right"
 				},
 				{
-					"type": "Flag",
+					"type": "Goal",
 					"x": 8,
 					"y": 4
 				},
@@ -273,7 +274,7 @@
 			"height": 7,
 			"objects": [
 				{
-					"type": "Flag",
+					"type": "Goal",
 					"x": 2,
 					"y": 2
 				},
@@ -475,7 +476,8 @@
 				{
 					"type": "Robot",
 					"x": 2,
-					"y": 6
+					"y": 6,
+					"direction": "right"
 				}
 			]
 		}
@@ -491,7 +493,7 @@
 			"height": 7,
 			"objects": [
 				{
-					"type": "Flag",
+					"type": "Goal",
 					"x": 2,
 					"y": 2
 				},

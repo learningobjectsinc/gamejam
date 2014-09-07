@@ -204,10 +204,11 @@ gameData["levels"] = [
 				{
 					"type": "Robot",
 					"x": 1,
-					"y": 4
+					"y": 4,
+					"direction": "right"
 				},
 				{
-					"type": "Flag",
+					"type": "Goal",
 					"x": 8,
 					"y": 4
 				},
@@ -345,7 +346,7 @@ gameData["levels"] = [
 			"height": 7,
 			"objects": [
 				{
-					"type": "Flag",
+					"type": "Goal",
 					"x": 2,
 					"y": 2
 				},
@@ -547,7 +548,8 @@ gameData["levels"] = [
 				{
 					"type": "Robot",
 					"x": 2,
-					"y": 6
+					"y": 6,
+					"direction": "right"
 				}
 			]
 		}
@@ -563,7 +565,7 @@ gameData["levels"] = [
 			"height": 7,
 			"objects": [
 				{
-					"type": "Flag",
+					"type": "Goal",
 					"x": 2,
 					"y": 2
 				},

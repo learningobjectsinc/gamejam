@@ -6,6 +6,8 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 		this.statements = [];
 		this.processor = null;
 		this.io = null;
+		this.sleeper = null;
+		this.paused = false;
 	};
 
 	program.prototype.compile = function(){
@@ -30,8 +32,35 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 	    if (this.processor.halted) {
 	        return;
 	    }
-            this.step();
-            $timeout(_.bind(this.run, this), 25);
+        this.step();
+		this.paused = false;
+        this.sleeper = $timeout(_.bind(this.run, this), 25);
+	};
+
+	program.prototype.kill = function(){
+		if(this.isRunning()){
+			$timeout.cancel(this.sleeper);
+			this.paused = false;
+			this.sleeper = null;
+			this.compile(); // TODO: just reset function pointer to start, don't recompile
+		}
+	};
+
+	program.prototype.pause = function(){
+		this.paused = true;
+		$timeout.cancel(this.sleeper);
+	};
+
+	program.prototype.resume = function(){
+		this.run();
+	};
+
+	program.prototype.isPaused = function(){
+		return this.isRunning() && !!this.paused;
+	};
+
+	program.prototype.isRunning = function(){
+		return !!this.sleeper && !this.processor.halted;
 	};
 
 	return program;
