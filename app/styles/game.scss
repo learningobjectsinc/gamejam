@@ -10,10 +10,24 @@
 		}
 	}
 
-	canvas {
+	canvas, table {
 		margin: 1em;
 		// border: 3px solid $color-primary;
 		border: 3px solid;
-		border-radius: 0.5vem;
+		border-radius: 0.5em;
+	}
+
+	table {
+		table-layout: fixed;
+
+		td, img {
+			width: 6em;
+			height: 6em;
+		}
+	}
+
+	td {
+		background: $color-lightest;
+		height: 7em;
 	}
 }

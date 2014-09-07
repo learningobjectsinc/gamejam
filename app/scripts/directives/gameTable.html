@@ -1,0 +1,14 @@
+<div>
+	<table>
+		<tr ng-repeat="row in grid.data track by $index">
+			<td ng-repeat="cell in row track by $index">
+				<div ng-if="cell">
+					<img ng-src="{{cell.image}}" />
+				</div>
+				<div ng-if"!cell">
+					
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
