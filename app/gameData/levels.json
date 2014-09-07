@@ -1,6 +1,6 @@
 [
 	{
-		"id": 123,
+		"id": 1,
 		"name": "Level 1: Functions",
 		"description": "Number of Lemmings: 10",
 		"icon": "power",
@@ -213,7 +213,7 @@
 		}
 	},
 	{
-		"id": 123,
+		"id": 2,
 		"name": "Level 2: Variables",
 		"description": "Number of Lemmings: 10",
 		"icon": "settings",
@@ -241,7 +241,7 @@
 		}
 	},
 	{
-		"id": 123,
+		"id": 3,
 		"name": "Level 3: Conditionals",
 		"description": "Number of Lemmings: 10",
 		"icon": "podium",
@@ -269,7 +269,7 @@
 		}
 	},
 	{
-		"id": 123,
+		"id": 4,
 		"name": "Level 4: Loops",
 		"description": "Number of Lemmings: 10",
 		"icon": "spinner",
@@ -297,7 +297,7 @@
 		}
 	},
 	{
-		"id": 123,
+		"id": 5,
 		"name": "Level 5: All the Things!",
 		"description": "Number of Lemmings: 10",
 		"icon": "rocket",
