@@ -68,7 +68,13 @@ angular.module('gamejamApp')
     $scope.blockEditing = true;
     $scope.switchCodingContext= function(){
         $scope.blockEditing = !$scope.blockEditing;
-    }
+    };
+
+    $scope.runProgram = function(){
+        $scope.convertToCode();
+        $scope.program.compile();
+        $scope.program.run();
+    };
 
     
     
