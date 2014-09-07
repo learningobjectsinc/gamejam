@@ -60,7 +60,11 @@ Statement.prototype.addStatement = function(statement) {
         this.children = [];
     }
     this.children.push(statement);
-    statement.parent = this;
+    statement.setParent(this);
+}
+
+Statement.prototype.setParent = function(parent) {
+    this.parent = parent;
 };
 
 Statement.prototype.nextStatement = function(children) {
