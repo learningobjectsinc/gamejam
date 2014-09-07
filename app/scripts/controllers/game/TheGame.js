@@ -33,7 +33,6 @@ angular.module('gamejamApp')
     };
 
     $scope.resetGame = function(){
-        //TODO: andrew add in 'program.kill()'
         GameService.resetGameFromLastMap();
     };
 
@@ -52,4 +51,15 @@ angular.module('gamejamApp')
     $scope.$on('win', function() {
         $state.go('^.wrapup');
     });
+
+
+    $scope.convertToCode = function(){
+        console.log($scope.program.statements.children);
+        var stmt = $scope.program.statements.children[0];
+        while (stmt) {
+            console.log(stmt.getSource());
+            stmt = stmt.nextStatement(true);
+        }
+    }
+    
   });

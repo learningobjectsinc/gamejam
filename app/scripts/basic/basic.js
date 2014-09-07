@@ -102,6 +102,14 @@ Statement.prototype.getSyntax = function() {
     return "Syntax: " + this.syntaxHelp;
 }
 
+Statement.prototype.getSource = function() {
+    return this.source || this.toSource();
+}
+
+Statement.prototype.toSource = function() {
+    throw "Unimplemented";
+}
+
 Statement.prototype.startsBlock = false;
 
 Statement.prototype.endsBlock = false;
@@ -164,6 +172,10 @@ EndProgramStatement.prototype.execute = function(processor) {
     processor.halted = true;
 }
 
+EndProgramStatement.prototype.toSource = function() {
+    return "";
+}
+
 // BlankStatement
 
 function BlankStatement() {
@@ -182,6 +194,10 @@ BlankStatement.prototype.syntax = "^\\s*$";
 
 BlankStatement.prototype.description = "The computer ignores blank lines.";
 
+BlankStatement.prototype.toSource = function() {
+    return "";
+}
+
 // CommentStatement
 
 function CommentStatement() {
@@ -196,6 +212,10 @@ CommentStatement.prototype.initmatch = function(match) {
 }
 
 CommentStatement.prototype.execute = function() {
+}
+
+CommentStatement.prototype.toSource = function() {
+    return "// " + this.remark;
 }
 
 CommentStatement.prototype.keyword = "Comment";
@@ -251,6 +271,11 @@ LetStatement.prototype.description = "This statement assigns a value to variable
 
 LetStatement.prototype.syntaxHelp = '<span class="sy-keyword">LET</span> <span class="sy-variable">variable</span> = <span class="sy-expression">expression</span>';
 
+LetStatement.prototype.toSource = function() {
+    var code = "LET " + this.variable + " = " + this.value.toString();
+    return code;
+}
+
 // TellStatement
 
 function TellStatement() {
@@ -278,6 +303,11 @@ TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" +
 TellStatement.prototype.tokenLabels = ["Object to call", "Function to call", "Value to pass in"];
 
 TellStatement.prototype.syntaxHelp = '<span class="sy-keyword">TELL</span> <span class="sy-variable">object</span> : <span class="sy-function">Function</span>(<span class="sy-expression">expression</span>, ...)'
+
+TellStatement.prototype.toSource = function() {
+    var code = this.keyword + " " + this.recipient + " : " + this.parameters;
+    return code;
+}
 
 // FunctionStatement
 
@@ -335,6 +365,11 @@ FunctionStatement.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\
 
 FunctionStatement.prototype.tokenLabels = ["Name", "Input Parameter"];
 
+FunctionStatement.prototype.toSource = function() {
+    var code = this.keyword + " " + this.name + "(" + this.parameterNames + ")";
+    return code;
+}
+
 // End FunctionStatement
 
 function EndFunctionStatement() {
@@ -355,6 +390,11 @@ EndFunctionStatement.prototype.endsBlock = true;
 EndFunctionStatement.prototype.keyword = "END FUNCTION";
 
 EndFunctionStatement.prototype.syntax = "^END FUNCTION\\s*$";
+
+EndFunctionStatement.prototype.toSource = function() {
+    var code = this.keyword;
+    return code;
+}
 
 // ForStatement
 
@@ -383,6 +423,11 @@ ForStatement.prototype.keyword = "FOR";
 ForStatement.prototype.syntax = "^FOR\\s+(" + VARIABLE_REGEX + ")\\s+=\\s+(" + EXPRESSION_REGEX + ")\\s+TO\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
 ForStatement.prototype.tokenLabels = ["Variable to loop", "Start at", "Go to"];
+
+ForStatement.prototype.toSource = function() {
+    var code = this.keyword + " " + this.start.toString() + " TO " + this.stop.toString();
+    return code;
+}
 
 // NextStatement
 
@@ -419,6 +464,11 @@ NextStatement.prototype.syntax = "^NEXT\\s+(" + VARIABLE_REGEX + ")\\s*$";
 
 NextStatement.prototype.tokenLabels = ["Variable"];
 
+NextStatement.prototype.toSource = function() {
+    var code = this.keyword + " " + this.variable.toString();
+    return code;
+}
+
 // IfStatement
 
 function IfStatement() {
@@ -452,6 +502,11 @@ IfStatement.prototype.tokenLabels = ["Expression"];
 
 IfStatement.prototype.syntaxHelp = '<span class="sy-keyword">IF</span> <span class="sy-expression">expression</span> <span class="sy-keyword">THEN</span>';
 
+IfStatement.prototype.toSource = function() {
+    var code = this.keyword + " " + this.expression.toString() + " THEN";
+    return code;
+}
+
 // EndIfStatement
 
 function EndIfStatement() {
@@ -470,6 +525,11 @@ EndIfStatement.prototype.keyword = "END IF";
 
 EndIfStatement.prototype.syntax = "^END\\s+IF\\s*$";
 
+EndIfStatement.prototype.toSource = function() {
+    var code = this.keyword;
+    return code;
+}
+
 // RepeatStatement
 
 function RepeatStatement() {
@@ -487,6 +547,11 @@ RepeatStatement.prototype.startsBlock = true;
 RepeatStatement.prototype.keyword = "REPEAT";
 
 RepeatStatement.prototype.syntax = "^REPEAT\\s*$";
+
+RepeatStatement.prototype.toSource = function() {
+    var code = this.keyword;
+    return code;
+}
 
 // UntilStatement
 
@@ -519,6 +584,11 @@ UntilStatement.prototype.syntax = "^UNTIL\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
 UntilStatement.prototype.tokenLabels = ["Expression"];
 
+UntilStatement.prototype.toSource = function() {
+    var code = this.keyword + " " + this.expression;
+    return code;
+}
+
 // WhileStatement
 
 function WhileStatement() {
@@ -547,6 +617,11 @@ WhileStatement.prototype.syntax = "^WHILE\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
 WhileStatement.prototype.tokenLabels = ["Expression"];
 
+WhileStatement.prototype.toSource = function() {
+    var code = this.keyword + " " + this.expression;
+    return code;
+}
+
 // EndWhileStatement
 
 function EndWhileStatement() {
@@ -571,6 +646,11 @@ EndWhileStatement.prototype.endsBlock = true;
 EndWhileStatement.prototype.keyword = "END WHILE";
 
 EndWhileStatement.prototype.syntax = "^END\\s+WHILE\\s*$";
+
+EndWhileStatement.prototype.toSource = function() {
+    var code = this.keyword;
+    return code;
+}
 
 // FunctionCall
 
@@ -612,8 +692,13 @@ FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*\\(\\s*(" + EXPRES
 
 FunctionCall.prototype.tokenLabels = ['Function to call', 'Parameters'];
 
+
 FunctionCall.prototype.syntaxHelp = '<span class="sy-function">Function</span>(<span class="sy-expression">expression</span>, ...)';
 
+FunctionCall.prototype.toSource = function() {
+    var code = this.name + "(" + this.parameters + ")";
+    return code;
+}
 
 // Basic
 
