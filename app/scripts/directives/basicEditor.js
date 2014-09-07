@@ -100,7 +100,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				}).join('');
 			};
 
-		}, link: function(scope, el){
+		}, link: function($scope, el){
 			$scope.variables = function(){
 				if(!program.processor){
 					return;

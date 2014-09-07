@@ -55,18 +55,16 @@ Statement.prototype.skipBlock = function(processor) {
     return l ? this.children[l - 1] : null;
 };
 
-Statement.prototype.addStatement = function(statement, linear) {
+Statement.prototype.addStatement = function(statement, after) {
     if (!this.startsBlock) {
         throw "Cannot add to: " + this.source;
     }
     if (this.children == Statement.prototype.children) {
         this.children = [];
     }
-    if (linear) {
-        this.children.push(statement);
-    } else {
-        this.children.splice(-1,0,statement);
-    }
+    var index = (after === true) ? this.children.length
+        : after ? (_.indexOf(this.children, after) + 1) : 0;
+    this.children.splice(index,0,statement);
     statement.setParent(this);
 };
 
