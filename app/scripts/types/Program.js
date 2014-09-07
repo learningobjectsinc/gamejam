@@ -39,10 +39,10 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 
 	program.prototype.kill = function(){
 		if(this.isRunning()){
-			this.processor.halted = true;
 			$timeout.cancel(this.sleeper);
 			this.paused = false;
 			this.sleeper = null;
+			this.compile(); // TODO: just reset function pointer to start, don't recompile
 		}
 	};
 
