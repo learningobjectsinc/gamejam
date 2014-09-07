@@ -1,9 +1,10 @@
 // Processor
 
-function Processor(program, io) {
+function Processor(program, io, angularScope) {
     this.program = program;
     this.pc = 0;
     this.io = io;
+    this.angularScope = angularScope;
     this.nextStatement = program.children[0];
     this.variables = {};
     this.halted = false;
@@ -38,6 +39,8 @@ Processor.prototype.step = function() {
                 context = context.nextStatement(true);
             }
         }
+
+        this.angularScope.$broadcast('processor.step');
     } catch (e) {
         this.halted = true;
         throw e;
