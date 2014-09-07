@@ -15,7 +15,7 @@
 		</div>
 		<div class="programBlockContainer" block-container="blockProgram">
 			<h2>Your Program</h2>
-			<div ng-if="!program.statements.length">
+			<div ng-if="!program.statements.children.length">
 				Add some blocks!<br>Y U NO CODE!?!?
 			</div>
 			<div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt"></div>
