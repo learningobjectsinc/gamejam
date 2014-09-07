@@ -68,10 +68,6 @@ var Robot = function(attrs, getAtLocation, angularScope) {
         }
     };
 
-    angularScope.$on('processor.step', function() {
-        self.drainBattery();
-    });
-
     angularScope.$on('processor.win', function() {
         self.invoke("Talk", ["Woohoo"]);
     });
@@ -81,6 +77,7 @@ var Robot = function(attrs, getAtLocation, angularScope) {
 Robot.prototype = Object.create(GridObject.prototype);
 
 Robot.prototype.invoke = function(functionName, params) {
+    this.drainBattery();
     var op = this.instructions[functionName];
     if (!op) {
         throw "Unknown method: " + functionName;
