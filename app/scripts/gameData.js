@@ -94,7 +94,7 @@ gameData["levels"] = [
 		"description": "Solve the epidemic of robot obesity by getting Tobor to move",
 		"icon": "rocket",
 		"completed": "0",
-		"defaultCode": "Forward()\nForward()\n\nFUNCTION Forward()\nTELL robot : MoveForward(1)\nWait()\nEND FUNCTION\nFUNCTION Wait()\nWHILE ASK('Busy')\nEND WHILE\nEND FUNCTION",
+		"defaultCode": "",
 		"map": {
 			"width": 8,
 			"height": 7,
@@ -874,8 +874,9 @@ gameData["levels"] = [
 			]
 		},
 		"availableBlocks": {
-			"tell": {
-				"allow": "moveForward"
+			"TellStatement": {
+				"availableFns": "moveForward",
+				"src": "TELL robot : MoveForward(1)"
 			}
 		}
 	},

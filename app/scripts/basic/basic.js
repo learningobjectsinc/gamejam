@@ -319,7 +319,7 @@ TellStatement.prototype.keyword = "TELL";
 
 TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" + FUNCTION_REGEX + ")\\s*\\((\\s*" + EXPRESSION_REGEX + "\\s*(?:,\\s*" + EXPRESSION_REGEX + ")*)\\)\\s*$";
 
-TellStatement.prototype.tokenLabels = ["Who will do this task?", "What will they do?", "How much will they do this?"];
+TellStatement.prototype.tokenLabels = ["Who will do this task?", "What will they do?", "Parameters"];
 
 TellStatement.prototype.syntaxHelp = '<span class="sy-keyword">TELL</span> <span class="sy-variable">object</span> : <span class="sy-function">Function</span>(<span class="sy-expression">expression</span>, ...)'
 
