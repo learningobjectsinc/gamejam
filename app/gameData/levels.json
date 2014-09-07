@@ -993,7 +993,7 @@
 	},
 	{
 		"id": 3,
-		"name": "Level 3: Set it to get it!",
+		"name": "Level 3: Zap the Contrived Obstacle",
 		"description": "Number of Lemmings: 10",
 		"icon": "settings",
 		"completed": "0.6",
@@ -1218,7 +1218,7 @@
 	},
 	{
 		"id": 4,
-		"name": "Level 4: Gain some logic!",
+		"name": "Level 4: Set It To Get It",
 		"description": "Number of Lemmings: 10",
 		"icon": "podium",
 		"completed": "0.4",
@@ -1246,7 +1246,7 @@
 	},
 	{
 		"id": 5,
-		"name": "Level 5: Loops",
+		"name": "Level 5: What If",
 		"description": "Number of Lemmings: 10",
 		"icon": "spinner",
 		"completed": "0.2",
@@ -1274,7 +1274,7 @@
 	},
 	{
 		"id": 6,
-		"name": "Level 6: All the Things!",
+		"name": "Level 6: Begin again, again",
 		"description": "Number of Lemmings: 10",
 		"icon": "rocket",
 		"completed": "0",
