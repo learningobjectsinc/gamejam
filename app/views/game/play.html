@@ -18,7 +18,7 @@
 			<div ng-if="!program.statements.length">
 				Add some blocks!<br>Y U NO CODE!?!?
 			</div>
-			<div ng-repeat="stmt in program.statements track by stmt.id" block="stmt"></div>
+			<div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt"></div>
 		</div>
 
 		<div class="codeEditor">

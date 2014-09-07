@@ -11,6 +11,13 @@
   		color: red;
   	}
   }
+
+  .childBlocks {
+    margin-left: 1em;
+    .programBlock {
+      background-color: #ffdddd;
+    }
+  }
 }
 
 .programBlockContainer {
