@@ -333,6 +333,12 @@ gameData["levels"] = [
 					"y": 7
 				}
 			]
+		},
+		"availableBlocks": {
+			"TellStatement": {
+				"availableFns": "moveForward",
+				"src": "TELL robot : 'moveForward', 1"
+			}
 		}
 	},
 	{
@@ -552,6 +558,11 @@ gameData["levels"] = [
 					"direction": "right"
 				}
 			]
+		},
+		"availableBlocks": {
+			"tell": {
+				"allow": "moveForward"
+			}
 		}
 	},
 	{
@@ -770,6 +781,13 @@ gameData["levels"] = [
 					"y": 6
 				}
 			]
+		},
+		"availableBlocks": {
+			"tell": {
+				"allow": "moveForward",
+				"limit": 2
+			},
+			"let": {}
 		}
 	},
 	{
@@ -793,6 +811,11 @@ gameData["levels"] = [
 					"y": 6
 				}
 			]
+		},
+		"availableBlocks": {
+			"if": {},
+			"then": {},
+			"let": {}
 		}
 	},
 	{

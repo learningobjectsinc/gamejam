@@ -11,14 +11,14 @@
           {{ errorMessage }}
         </div>
 
-	<div class="sidebar" ng-controller="BlockEditor">
+	<div class="sidebar">
 		<div class="blockLibrary">
 			<h2>Block Library</h2>
-			<button type="button" class="btn btn-block btn-primary" ng-repeat="block in blockTypes">
-				{{ block.name }}
+			<button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-click="addToProgram(block)">
+				{{ block.constructor.prototype.keyword }}
 			</button>
 		</div>
-		<div class="programBlockContainer" block-container="blockProgram">
+		<div class="programBlockContainer" block-container="program">
 			<h2>Your Program</h2>
 			<div ng-if="!program.statements.children.length">
 				Add some blocks!<br>Y U NO CODE!?!?

@@ -10,6 +10,16 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 		this.paused = false;
 	};
 
+	//TODO: Get rid of this...
+	program.prototype.init = function() {
+	    this.statements = Basic.parseProgram([]);
+
+            console.log(this.statements);
+
+	    this.io = RobotIO;
+	    this.processor = new Processor(this.statements, this.io, $rootScope);
+	};
+
 	program.prototype.compile = function(){
 	    var source = this.code.split('\n');
 

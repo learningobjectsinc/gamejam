@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('gamejamApp')
     .config(function($stateProvider) {
     	$stateProvider
@@ -9,11 +11,13 @@ angular.module('gamejamApp')
     });
 
 angular.module('gamejamApp')
-  .controller('TheGame', function ($scope, $state, Program, GameService) {
+  .controller('TheGame', function ($scope, $state, Program, levelService, GameService) {
     $scope.program = new Program();
     $scope.isMusicOn = false;
 
     $scope.errorMessage = "";
+
+    $scope.availableBlocks = levelService.getBlocks($scope.level);
 
     $scope.$watch('program.processor.crashed', function(crashed){
         $scope.errorMessage = crashed;
@@ -31,7 +35,19 @@ angular.module('gamejamApp')
     $scope.resetGame = function(){
         //TODO: andrew add in 'program.kill()'
         GameService.resetGameFromLastMap();
-    }
+    };
+
+    $scope.addToProgram = function(blockType){
+
+        if(!$scope.program.statements.length){
+            $scope.program.init();
+        }
+        var programStmt = $scope.program.statements;
+        var block = new blockType.constructor();
+        block.init(blockType.cfg.src, $scope.program);
+
+        programStmt.addStatement(block);
+    };
 
     $scope.$on('win', function() {
         $state.go('^.wrapup');

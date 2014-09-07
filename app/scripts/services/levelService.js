@@ -8,5 +8,17 @@ angular.module('gamejamApp').factory('levelService', function(){
 	this.getLevel = function(levelId){
 		return _.findWhere(window.gameData.levels, {id: +levelId});
 	};
+
+	this.getBlocks = function(level){
+		var blocks = _.map(level.availableBlocks, function(val, key){
+			return {
+				constructor: window[key],
+				cfg: val
+			};
+		});
+
+		return blocks;
+	};
+
 	return this;
 });

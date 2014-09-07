@@ -62,9 +62,9 @@ Statement.prototype.addStatement = function(statement) {
     if (this.children == Statement.prototype.children) {
         this.children = [];
     }
-    this.children.push(statement);
+    this.children.splice(-1,0,statement);
     statement.setParent(this);
-}
+};
 
 Statement.prototype.setParent = function(parent) {
     this.parent = parent;
