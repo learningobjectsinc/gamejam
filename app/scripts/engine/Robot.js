@@ -72,8 +72,8 @@ var Robot = function(x, y, getAtLocation, angularScope) {
         "fireLaser": function(params) {            
             self.doSomething("talk", ["PEW PEW PEW"]);
             var obstacle = self.$getNextInFront();
-            if (obstacle && (typeof obstacle.destroy != undefined)) {
-                obstacle.destroy();
+            if (obstacle && (typeof obstacle.destructable != undefined)) {
+                delete obstacle;
             }
         }
     };
