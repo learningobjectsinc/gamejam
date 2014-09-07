@@ -622,6 +622,12 @@ gameData["levels"] = [
 					"y": 7
 				}
 			]
+		},
+		"availableBlocks": {
+			"TellStatement": {
+				"availableFns": "moveForward",
+				"src": "TELL robot : MoveForward(1)"
+			}
 		}
 	},
 	{
