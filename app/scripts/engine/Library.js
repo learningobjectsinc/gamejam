@@ -11,8 +11,10 @@ angular.module('gamejamApp').constant('libraryFunctions', {
     },
     "Move": {
         "source" : [
-            'FUNCTION Move(number)',
-            '  TELL robot : MoveForward(number)',
+            'FUNCTION Move(distance)',
+            '  FOR i = 1 TO distance',
+            '    TELL robot : MoveForward(1)',
+            '  NEXT i',
             'END FUNCTION'
         ],
         "example": "Move(5)",
