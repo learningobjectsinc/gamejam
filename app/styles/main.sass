@@ -6,6 +6,7 @@
 @import instructions
 @import game
 @import basic
+@import forms
 
 h1, h2, h3, h4, h5
   font-weight: 300
@@ -27,16 +28,38 @@ body
   font-size: 16px
   color: $color-body-text
   box-sizing: border-box
+  height: 100%
 
-header
-  width: 100%
+.header
+  width: 95%
+  padding: 0 2.5%
   //background: fade-out($color-white,0.18)
-  background: $color-primary
+  background: $color-primary-light url('/images/header-bg.png')
   //color: $color-primary
   color: $color-white
   display: table
   text-shadow: 0 -1px 0 rgba(0,0,0,0.08)
   line-height: 1
+
+  .c100
+    font-size: 2.5em
+    border: 0.05em solid $color-white
+    margin: 0.1em 0
+
+    .icon
+      font-size: 0.5em
+
+  .robojam
+    height: 2.75em
+    width: 2.75em
+    display: inline-block
+    margin: 0.25em 0
+
+  h1
+    font-family: 'Press Start 2p', sans-serif
+    margin: 1.15em 0.75em 0
+    display: inline-block
+    font-size: 1em
 
   #main-logo
     margin: 0.425em 2em
@@ -50,30 +73,100 @@ header
       line-height: 1
 
   #main-nav
-    display: table-cell
-    vertical-align: top
-    text-align: right
-    
-    ul
-      margin: 0.85em 2em
-      padding: 0
+    float: right
+    margin: 0.925em 0 0
 
-      li
-        list-style: none
-        display: inline
-        margin-left: 0.5em
-        padding: 0.5em 1em
-        //background: $color-white
+    .icon 
+      font-size: 1.5em
+      margin-left: 1em
+      color: fade-out($color-white,0.33)
+      transition: color ease $trans-speed
+
+      &:hover
+        color: $color-white
+
+.rn-carousel-container
+  height: 100%
+
+  .rn-carousel-slide
+    margin: 3.33% 0 
+
+    h2, & > div
+      margin-left: 5%
+      margin-right: 5%
+      width: 90%
+      display: inline-block
+
+    h2
+      text-align: center
+      font-size: 2em
+      font-family: 'Press Start 2p', sans-serif
+      color: $color-secondary
+      margin: 1.33em 5%
+
+    & > div
+      line-height: 1.5em
+      font-size: 1.25em
+
+  .rn-carousel-indicator
+    position: fixed
+    bottom: 0
+    background: $color-white
+    height: auto
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08) inset
+
+    span 
+      padding: 0.25em 0.33em
+      display: inline-block
+
+      &.active
+        color: $color-primary-light
+
+  .robojam
+    margin: 0 auto 2em
+    display: block
+    background: fade-out($color-secondary,0.5)
+    height: 10em
+    width: 10em
+
+  dl
+    display: table
+    margin: 0 auto
+    counter-reset: my-badass-counter
+
+    dt
+      font-size: 1.25em
+      line-height: 3.33em
+
+      &:before
+        background: $color-primary
+        content: counter(my-badass-counter)
+        counter-increment: my-badass-counter
+        padding: 0.5em
+        margin-right: 1em
         border-radius: 0.33em
+        color: $color-white
+        text-align: center
+        height: 1em
+        width: 1em
+        display: inline-block
         line-height: 1
-        font-size: 0.9em
-        cursor: pointer
-        transition: background ease $trans-speed
-        //text-shadow: 0 1px 0 $color-white
-        text-shadow: 0 -1px 0 rgba(0,0,0,0.08)
 
-        &:hover, &.active
-          background: fade-out($color-primary-light,0.67)
+
+.robojam
+  width: 6em
+  height: 6em
+  position: relative
+  display: inline-block
+  text-align: center
+  background: fade-out($color-white,0.5)
+  border-radius: 50%
+
+  img
+    width: 66.67%
+    height: auto
+    position: relative
+    top: 7%
 
 .comp-head
   background: $color-primary-light
@@ -97,21 +190,6 @@ header
     text-shadow: 0 -1px 0 rgba(0,0,0,0.15)
     //white-space: nowrap
     text-align: center
-
-    .robojam
-      width: 6em
-      height: 6em
-      position: relative
-      display: inline-block
-      text-align: center
-      background: fade-out($color-white,0.5)
-      border-radius: 50%
-
-      img
-        width: 66.67%
-        height: auto
-        position: relative
-        top: 7%
 
     .comp-title-text
       font-family: 'Press Start 2p', sans-serif
@@ -613,3 +691,28 @@ $offset: 0deg
 
       .comp-name
         color: $color-success
+
+
+/**** Media Queries ****/
+
+$break-small: 320px
+$break-med: 480px
+$break-large: 1024px
+$break-huge: 1280px
+
+@media screen and (max-width: $break-small) and (min-width: 0)
+  body
+    font-size: 8px
+
+@media screen and (max-width: $break-med) and (min-width: $break-small)
+  body
+    font-size: 10px
+ 
+@media screen and (max-width: $break-large) and (min-width: $break-med)
+  body
+    font-size: 12px
+
+@media screen and (max-width: $break-huge) and (min-width: $break-large)
+  body
+    font-size: 16px
+

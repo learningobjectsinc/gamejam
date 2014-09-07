@@ -1,0 +1,43 @@
+@import variables
+
+.btn
+	background: $color-primary
+	border-radius: 0.33em
+	color: $color-white
+	font-size: 1rem
+	padding: 0.67em 1em
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.08)
+	display: inline-block
+	cursor: pointer
+	list-height: 1
+	transition: background ease $trans-speed
+	border: none
+
+	&:hover
+		background: darken($color-primary,15%)
+
+	&.btn-primary-dark
+		background: $color-primary-dark
+
+		&:hover
+			background: darken($color-primary-dark,15%)
+
+	&.btn-secondary
+		background: $color-secondary
+
+		&:hover
+			background: darken($color-secondary,15%)
+
+	&.btn-accent
+		background: $color-accent
+
+		&:hover
+			background: darken($color-accent,15%)
+
+	&.btn-play
+		margin: 1.5em auto 1.5em
+		position: relative
+		bottom: 2em
+		font-size: 1.5em
+		width: 33.33%
+		left: 33.33%
