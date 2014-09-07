@@ -47,7 +47,7 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%= yeoman.app %>/styles/main.sass'],
         tasks: ['compass:server', 'autoprefixer']
       },
       gruntfile: {
@@ -420,7 +420,8 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
-      'concurrent:server',
+      'compass:server',
+      'json:gameData',
       'autoprefixer',
       'connect:livereload',
       'watch'
