@@ -598,7 +598,7 @@ Basic.statements = [
 Basic.parseProgram = function(sources) {
     var program = new ProgramStatement(), context = program;
     _.each(sources, function(source, line) {
-        var statement = Basic.parseStatement(source);
+        var statement = Basic.parseStatement(source, program);
         statement.line = line;
         context.addStatement(statement);
         if (statement.startsBlock) {
