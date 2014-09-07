@@ -271,7 +271,241 @@
 	},
 	{
 		"id": 1,
-		"name": "Level 1: Functions",
+		"name": "Level 1: You Spin Me Round",
+		"description": "Learn to turn",
+		"icon": "rocket",
+		"completed": "0",
+		"map": {
+			"width": 8,
+			"height": 7,
+			"objects": [
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 1
+				},
+				{
+					"type": "Goal",
+					"x": 8,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 6
+				},
+				{
+					"type": "Robot",
+					"x": 1,
+					"y": 7,
+					"direction": "up"
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 7
+				}
+			]
+		}
+	},
+	{
+		"id": 2,
+		"name": "Level 2: Functions",
 		"description": "Number of Lemmings: 10",
 		"icon": "power",
 		"completed": "0.8",
@@ -494,8 +728,8 @@
 		}
 	},
 	{
-		"id": 2,
-		"name": "Level 2: Variables",
+		"id": 3,
+		"name": "Level 3: Variables",
 		"description": "Number of Lemmings: 10",
 		"icon": "settings",
 		"completed": "0.6",
@@ -719,8 +953,8 @@
 		}
 	},
 	{
-		"id": 3,
-		"name": "Level 3: Conditionals",
+		"id": 4,
+		"name": "Level 4: Conditionals",
 		"description": "Number of Lemmings: 10",
 		"icon": "podium",
 		"completed": "0.4",
@@ -747,8 +981,8 @@
 		}
 	},
 	{
-		"id": 4,
-		"name": "Level 4: Loops",
+		"id": 5,
+		"name": "Level 5: Loops",
 		"description": "Number of Lemmings: 10",
 		"icon": "spinner",
 		"completed": "0.2",
@@ -775,8 +1009,8 @@
 		}
 	},
 	{
-		"id": 5,
-		"name": "Level 5: All the Things!",
+		"id": 6,
+		"name": "Level 6: All the Things!",
 		"description": "Number of Lemmings: 10",
 		"icon": "rocket",
 		"completed": "0",

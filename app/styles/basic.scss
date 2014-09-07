@@ -31,9 +31,6 @@
 .ace_gutter-cell.current {
     background-color: yellow!important;
 }
-.ace_gutter-cell.invalid {
-    background-color: pink!important;
-}
 .ace_gutter-cell.crashed {
     background-color: red!important;
 }
@@ -41,4 +38,15 @@
 .ace_layer .stmt.active {
     background-color: rgba(0,200,0,0.2);
     position: absolute;
+}
+.sy-keyword {
+    color: blue!important;
+}
+.sy-variable {
+    color: #050!important;
+    font-style: italic;
+}
+.sy-expression {
+    color: #500!important;
+    font-style: italic;
 }

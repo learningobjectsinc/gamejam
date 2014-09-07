@@ -38,7 +38,7 @@ gameData["instructions"] = [
 			},
 			{
 				"title": "Level 0: Let's Move!",
-				"body": "Let's start with getting Tobor to move through the maze to the finish."
+				"body": "Let's start with getting Tobor to move through the maze to the goal."
 			},
 			{
 				"title": "Instructions",
@@ -50,11 +50,28 @@ gameData["instructions"] = [
         "levelId": 1,
         "pages": [
 			{
+				"title": "Level 1: You Spin Me Round",
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Learn to turn</p>"
+			},
+			{
+				"title": "Turning",
+				"body": "<p>You can tell Tobor to turn left/right/up/down. Try using turning to get Tobor to the goal.</p>"
+			},
+			{
+				"title": "Instructions",
+				"body": "<dl><dt>Drag and drop the functions to complete the action</dt><dt>Hit 'Run' to see the function execute</dt><dt>View the code that makes it all come alive!</dt></ol>"
+			}
+		]
+	},
+	{
+        "levelId": 2,
+        "pages": [
+			{
 				"title": "Welcome to I Tobor!",
 				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Tobor's a super cool robot who sometimes forgets how to do things. Help him out with his controls by learning the basics of programming.</p>"
 			},
 			{
-				"title": "Level 1: Functions",
+				"title": "Level 2: Functions",
 				"body": "<p>Functions are self <em>contained modules</em> of code that accomplish a specific task. Functions usually take in data, process it, and return a result. Once a function is written, it can be used over and over and over again. Functions can be called from the inside of other functions.</p>"
 			},
 			{
@@ -343,7 +360,241 @@ gameData["levels"] = [
 	},
 	{
 		"id": 1,
-		"name": "Level 1: Functions",
+		"name": "Level 1: You Spin Me Round",
+		"description": "Learn to turn",
+		"icon": "rocket",
+		"completed": "0",
+		"map": {
+			"width": 8,
+			"height": 7,
+			"objects": [
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 1
+				},
+				{
+					"type": "Goal",
+					"x": 8,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 6
+				},
+				{
+					"type": "Robot",
+					"x": 1,
+					"y": 7,
+					"direction": "up"
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 7
+				}
+			]
+		}
+	},
+	{
+		"id": 2,
+		"name": "Level 2: Functions",
 		"description": "Number of Lemmings: 10",
 		"icon": "power",
 		"completed": "0.8",
@@ -566,8 +817,8 @@ gameData["levels"] = [
 		}
 	},
 	{
-		"id": 2,
-		"name": "Level 2: Variables",
+		"id": 3,
+		"name": "Level 3: Variables",
 		"description": "Number of Lemmings: 10",
 		"icon": "settings",
 		"completed": "0.6",
@@ -791,8 +1042,8 @@ gameData["levels"] = [
 		}
 	},
 	{
-		"id": 3,
-		"name": "Level 3: Conditionals",
+		"id": 4,
+		"name": "Level 4: Conditionals",
 		"description": "Number of Lemmings: 10",
 		"icon": "podium",
 		"completed": "0.4",
@@ -819,8 +1070,8 @@ gameData["levels"] = [
 		}
 	},
 	{
-		"id": 4,
-		"name": "Level 4: Loops",
+		"id": 5,
+		"name": "Level 5: Loops",
 		"description": "Number of Lemmings: 10",
 		"icon": "spinner",
 		"completed": "0.2",
@@ -847,8 +1098,8 @@ gameData["levels"] = [
 		}
 	},
 	{
-		"id": 5,
-		"name": "Level 5: All the Things!",
+		"id": 6,
+		"name": "Level 6: All the Things!",
 		"description": "Number of Lemmings: 10",
 		"icon": "rocket",
 		"completed": "0",
@@ -875,7 +1126,21 @@ gameData["levels"] = [
 		}
 	}
 ];
-gameData["wrapUp"] = [{
+gameData["wrapUp"] = [
+	{
+        "levelId": 0,
+        "pages": [
+			{
+				"title": "Nice work!",
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You learned how to move your robot.</p>"
+			},
+			{
+				"title": "Level 0: Let's Move!",
+				"body": "<p>Here's a little more info about what you did during this level.</p>"
+			}
+		]
+	},
+	{
         "levelId": 1,
         "pages": [
 			{
@@ -883,7 +1148,20 @@ gameData["wrapUp"] = [{
 				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You learned all about some things.</p>"
 			},
 			{
-				"title": "Level 1: Functions",
+				"title": "Level 1: You Spin Me Round",
+				"body": "<p>Here's a little more info about what you did during this level.</p>"
+			}
+		]
+	},
+	{
+        "levelId": 2,
+        "pages": [
+			{
+				"title": "Nice work!",
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You learned all about some things.</p>"
+			},
+			{
+				"title": "Level 2: Functions",
 				"body": "<p>Here's a little more info about what you did during this level.</p>"
 			}
 		]

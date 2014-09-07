@@ -10,7 +10,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 		controller: function($scope){
 			var program = $scope.program;
 
-			var prevLine = null;
+			var prevLine = null, prevCrash = null;
 			$scope.$watch('program.processor.pc', function(line){
 				if(!program.processor){
 					return;
@@ -25,13 +25,14 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 			});
 
 			$scope.$watch('program.processor.crashed', function(crashed){
-				$('.crashed').removeClass('crashed'); // muahahahahahandrewmuahahahahahaaa
 				if(!program.processor){
 					return;
 				}
+			        var session = editor.getSession();
+				session.removeGutterDecoration(prevCrash, 'crashed');
                                 if (crashed) {
-				    var session = editor.getSession();
 				    session.addGutterDecoration(program.processor.pc, 'crashed');
+                                    prevCrash = program.processor.pc;
                                 }
 			});
 
@@ -40,7 +41,6 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 					return;
 				}
 
-				$('.invalid').removeClass('invalid'); // muahahahahahandrewmuahahahahahaaa
 				var index = 0;
 				var lastChild, line, offset;
 
@@ -48,9 +48,11 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 
 				var firstChar = new RegExp('[^ ]');
 
+                                var annotations = [];
+
 				for (var stmt = statements.children[0]; stmt; stmt = stmt.nextStatement(true)) {
 					if (stmt.isInvalid()) {
-						session.addGutterDecoration(index, 'invalid');
+                                            annotations.push({ row: stmt.line, column: 0, html: 'Error<br />' + stmt.getSyntax(), type: 'warning' });
 					}
 
 					if(stmt.source){
@@ -74,6 +76,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 					}
 					++ index;
 				}
+                                session.setAnnotations(annotations);
 			});
 
 			var Range = ace.require('ace/range').Range;
