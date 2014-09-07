@@ -63,6 +63,10 @@ var Robot = function(x, y, getAtLocation, angularScope) {
             self.talking = true;
             self.talkingText = params[0];
             self.talkingDuration = self.talkingTotalDuration;
+            if ('speechSynthesis' in window) {
+                var utterance = new SpeechSynthesisUtterance(self.talkingText);
+                window.speechSynthesis.speak(utterance);
+            }
         }
     };
 
