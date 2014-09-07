@@ -94,6 +94,7 @@ gameData["levels"] = [
 		"description": "Solve the epidemic of robot obesity by getting Tobor to move",
 		"icon": "rocket",
 		"completed": "0",
+		"defaultCode": "Forward()\nForward()\n\nFUNCTION Forward()\n  TELL robot : MoveForward(1)\n  Wait()\nEND FUNCTION\nFUNCTION Wait()\n  WHILE ASK('Busy')\n  END WHILE\nEND FUNCTION",
 		"map": {
 			"width": 8,
 			"height": 7,

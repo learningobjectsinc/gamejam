@@ -1,10 +1,10 @@
 <div id="game">
 
-    <audio id="music" autoplay loop>
-        <source src="sound/finalAct.wav" type="audio/wav">
-    </audio>
-    <button ng-click="toggleMusic()" ng-show="isMusicOn">Turn Music Off</button>
-    <button ng-click="toggleMusic()" ng-hide="isMusicOn">Turn Music On</button>
+	<audio id="music" autoplay loop>
+		<source src="sound/finalAct.wav" type="audio/wav">
+	</audio>
+	<button ng-click="toggleMusic()" ng-show="isMusicOn">Turn Music Off</button>
+	<button ng-click="toggleMusic()" ng-hide="isMusicOn">Turn Music On</button>
 
         <div class="errorBar" ng-show="errorMessage">
           Your program crashed!<br />
@@ -14,15 +14,17 @@
     <div class="sidebar">
         <div ng-if="blockEditing">
             <div class="blockLibrary">
-                <h2>Block Library</h2>
+                <h2 style="margin-bottom:0px;">Robot Instructions</h2>
+                (click on an instruction to add it to my task list)
+                <div style="margin-top:10px;">
                 <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-click="addToProgram(block)">
                     {{ block.constructor.prototype.keyword }}
                 </button>
             </div>
             <div class="programBlockContainer" block-container="program">
-                <h2>Your Program</h2>
+                <h2>Robot Task List:</h2>
                 <div ng-if="!program.statements.children.length">
-                    Add some blocks!<br>Y U NO CODE!?!?
+                    Add some tasks!
                 </div>
                 <div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt"></div>
                 <button ng-click="convertToCode()" type="button" class="btn btn-block btn-primary">Convert to code</button>

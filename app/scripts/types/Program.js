@@ -68,5 +68,14 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 		return !!this.sleeper && !this.processor.halted;
 	};
 
+	program.prototype.variables = function(){
+            if(!this.processor){
+                return;
+            }
+            return _.reduce(this.processor.variables, function(str, value, variable) {
+                return str + '<div>' + variable + ' = ' + value + '</div>';
+            }, '');
+        };
+
 	return program;
 });
