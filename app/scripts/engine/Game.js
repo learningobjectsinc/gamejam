@@ -10,6 +10,8 @@ var Game = function(map, angularScope) {
 
     this.debugMode = false;
 
+    this.bottomBarHeight = 50;
+
     // Game bg image
     var bgImage = new Image();
     bgImage.onload = function() {
@@ -38,10 +40,10 @@ var Game = function(map, angularScope) {
         }
     });
 
-    this.getSquareSizes = function(canvasSive){
+    this.getSquareSizes = function(canvasSize){
         //figure out the width of each square
-        var squareWidth = canvasSive.width/this.map.width;
-        var squareHeight = canvasSive.height/this.map.height;
+        var squareWidth = canvasSize.width/this.map.width;
+        var squareHeight = (canvasSize.height - this.bottomBarHeight) /this.map.height;
         return {
             width:squareWidth,
             height:squareHeight
@@ -55,13 +57,17 @@ var Game = function(map, angularScope) {
     }, true);
 }
 
-Game.prototype.render = function(canvasSive, ctx) {
-    var squareSize = this.getSquareSizes(canvasSive);
+Game.prototype.render = function(canvasSize, ctx) {
+    var squareSize = this.getSquareSizes(canvasSize);
 
     //draw the background
     var ptrn = ctx.createPattern(this.bgImage, 'repeat'); // Create a pattern with this image, and set it to "repeat".
     ctx.fillStyle = ptrn;
-    ctx.fillRect(0, 0, canvasSive.width, canvasSive.height); // context.fillRect(x, y, width, height);
+    ctx.fillRect(0, 0, canvasSize.width, canvasSize.height - this.bottomBarHeight); // context.fillRect(x, y, width, height);
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, canvasSize.height - this.bottomBarHeight, canvasSize.width, this.bottomBarHeight);
+    ctx.fill();
 
     //draw the squares
     for(var x=0; x<this.map.width; x++){
@@ -71,7 +77,7 @@ Game.prototype.render = function(canvasSive, ctx) {
     }
 
     for(var i=0; i<this.objects.length; i++ ){
-        this.objects[i].render(canvasSive, squareSize, ctx);
+        this.objects[i].render(canvasSize, squareSize, ctx);
     }
 
     if(this.debugMode){
@@ -87,12 +93,12 @@ Game.prototype.render = function(canvasSive, ctx) {
 };
 
 
-Game.prototype.update = function(canvasSive, ctx) {
+Game.prototype.update = function(canvasSize, ctx) {
     //figure out the width of each square
-    var squareSize = this.getSquareSizes(canvasSive);
+    var squareSize = this.getSquareSizes(canvasSize);
 
     for(var i=0; i<this.objects.length; i++ ){
-        this.objects[i].update(canvasSive, squareSize, ctx);
+        this.objects[i].update(canvasSize, squareSize, ctx);
     }
     
 };

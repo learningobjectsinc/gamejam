@@ -95,6 +95,20 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
     }
 
     ctx.restore();
+
+    ctx.fillStyle = 'green';
+
+    if (this.batteryPower > 0) {
+        var padding = 5;
+        var segmentWidth = (canvasSize.width / this.batterySize) - padding;
+        for (var i = 0; i < this.batteryPower; i++) {
+            ctx.fillRect(i * (segmentWidth + padding), canvasSize.height - 40, segmentWidth, 40);
+        }
+    }
+    
+    ctx.fill();
+
+    ctx.restore();
 }
 
 Robot.prototype.update = function(time) {
@@ -131,8 +145,8 @@ Robot.prototype.$talk = function(time) {
 }
 
 Robot.prototype.$moveForward = function(time) {
-    console.log(this.movingDistance, '***', this.x,this.y);
-    if (this.$getInFront() != null) { //TODO real collision
+    var inFront = this.$getInFront();
+    if (inFront != null && inFront.restrictive) { //TODO real collision
         this.$cleanMyPosition();
         this.moving = false;
         this.colliding = true;

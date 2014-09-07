@@ -8,6 +8,7 @@ var Flag = function(x,y) {
         FlagReady = true;
     };
     FlagImage.src = "images/objects/flag.png";
+    this.restrictive = false;
 
     var self = this;
     this.x = x;
