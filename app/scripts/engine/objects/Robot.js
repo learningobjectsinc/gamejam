@@ -50,7 +50,7 @@ angular.module("gamejamApp").run(function(objectFactory) {
                             break;
                         case 'left':
                             table.moveObject(self, self.x - 1, self.y);
-                            self.y--;
+                            self.x--;
                             break;
                     }
                 }
