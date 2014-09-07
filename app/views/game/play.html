@@ -1,11 +1,5 @@
 <div id="game">
 
-	<audio id="music" autoplay loop>
-		<source src="sound/finalAct.wav" type="audio/wav">
-	</audio>
-	<button ng-click="toggleMusic()" ng-show="isMusicOn">Turn Music Off</button>
-	<button ng-click="toggleMusic()" ng-hide="isMusicOn">Turn Music On</button>
-
         <div class="errorBar" ng-show="errorMessage">
           Your program crashed!<br />
           {{ errorMessage }}
