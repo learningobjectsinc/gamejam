@@ -26,6 +26,7 @@ var Robot = function(x, y, getAtLocation, angularScope) {
     this.image = rbImage;
     this.speechImage = sImage;
     this.busy = false;
+    this.winning = false;
 
     this.talking = false;
     this.talkingText = '';
@@ -116,6 +117,9 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
 }
 
 Robot.prototype.update = function(time) {
+    if (this.winning) {
+        this.angularScope.$broadcast('win');
+    }
     if (this.moving) {
         this.$moveForward(time);
     }
@@ -155,6 +159,9 @@ Robot.prototype.$moveForward = function(time) {
         this.moving = false;
         this.colliding = true;
     } else {
+        if (inFront != null && inFront.goal) {
+            this.winning = true;
+        }
         if (this.movingDistance > 0) {
             var modifier = this.speed * time;
             if(modifier > this.movingDistance){

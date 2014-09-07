@@ -9,6 +9,7 @@ var Flag = function(x,y) {
     };
     FlagImage.src = "images/objects/flag.png";
     this.restrictive = false;
+    this.goal = true;
 
     var self = this;
     this.x = x;
