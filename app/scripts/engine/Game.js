@@ -1,6 +1,7 @@
 window.robots = [];
 
-var Game = function(map, angularScope) {
+var Game = function(map, angularScope, RobotIO) {
+
     var self = this;
 
     this.map = map;
@@ -36,7 +37,7 @@ var Game = function(map, angularScope) {
         self.objects.push(instance);
         //forgive me some more
         if(object.type === 'Robot'){
-            robots.push(instance);
+            RobotIO.setRobot(instance);
         }
     });
 

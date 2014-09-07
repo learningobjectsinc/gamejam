@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gamejamApp').factory('Program', function($timeout, $rootScope){
+angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, RobotIO){
 	var program = function(code){
 		this.code = code || '';
 		this.statements = [];
@@ -15,7 +15,7 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope){
 
 	    console.log(this.statements);
 
-	    this.io = new BasicIO();
+	    this.io = RobotIO;
 	    this.processor = new Processor(this.statements, this.io, $rootScope);
 	};
 
