@@ -11,10 +11,7 @@ angular.module('gamejamApp').directive('blockContainer', function(){
 			var program = $scope.program;
 
 			this.deleteBlock = function(block){
-				var pos = program.indexOf(block);
-				if(pos !== -1){
-					program.splice(pos, 1);
-				}
+                            block.destroy();
 			};
 
 			$scope.activeBlock = null;

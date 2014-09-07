@@ -4,7 +4,7 @@ angular.module("gamejamApp").run(function(objectFactory) {
     var Wall = function($rootScope, config) {
         this.image = "images/objects/wall.png";
 
-        this.behaviors = {
+        this.behavior = {
             impassable: true
         };
     };

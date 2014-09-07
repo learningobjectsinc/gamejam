@@ -3,6 +3,10 @@
 angular.module("gamejamApp").run(function(objectFactory) {
     var Goal = function($rootScope, config) {
         this.image = "images/objects/goal.gif";
+
+        this.behavior = {
+            win: true
+        };
     };
 
     Goal.prototype = {};

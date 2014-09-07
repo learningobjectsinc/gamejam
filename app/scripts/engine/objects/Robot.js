@@ -11,6 +11,7 @@ angular.module("gamejamApp").run(function(objectFactory) {
 
         this.instructions = {
             "MoveForward": function(params) {
+                console.log('robot move forward');
                 // params[0] is the distance
                 for (var i = 0; i < params[0]; i++) {
                     switch (self.direction) {
@@ -42,9 +43,9 @@ angular.module("gamejamApp").run(function(objectFactory) {
             },
             "Talk": function(params) {
                 // params[0] is the text
-                // table.$broadcast('robot.talk', {
-                //     uttering: self.talkingText
-                // });
+                table.$broadcast('robot.talk', {
+                    uttering: self.talkingText
+                });
                 if ('speechSynthesis' in window) {
                     var utterance = new SpeechSynthesisUtterance(self.talkingText);
                     window.speechSynthesis.speak(utterance);

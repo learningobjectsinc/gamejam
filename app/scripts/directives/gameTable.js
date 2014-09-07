@@ -25,6 +25,16 @@ angular.module('gamejamApp')
 
                     _.each(scope.level.map.objects, function(object) {
                         // instantiate and add to table
+
+                        // hopefully temporary legacy config format
+                        if (!object.config) {
+                            object.config = {
+                                x: object.x - 1,
+                                y: object.y - 1,
+                                direction: object.direction
+                            };
+                        }
+
                         var instance = objectFactory.newObject(object.type, object.config, scope);
                         var y = object.config.y || 0;
                         var x = object.config.x || 0;
@@ -35,19 +45,24 @@ angular.module('gamejamApp')
                     });
 
                     scope.moveObject = function(object, x, y) {
+                        console.log('move', object, x, y);
                         scope.$apply(function() {
-                            var currentX = object.x,
-                                currentY = object.y;
-
                             if (x >= width || y >= height) {
                                 return null;
                             }
 
+                            var currentX = object.x,
+                                currentY = object.y;
+
                             var collision = grid.data[y][x];
-                            if (!collision) {
+                            if (!collision || !collision.behavior.impassable) {
                                 grid.data[y][x] = object;
-                                delete grid.data[currentX][currentY];
+                                delete grid.data[currentY][currentX];
                                 grid.touch = new Date();
+                            }
+
+                            if (collision && collision.behavior.win) {
+                                scope.$emit('win');
                             }
                         });
                     };
