@@ -261,6 +261,12 @@
 					"y": 7
 				}
 			]
+		},
+		"availableBlocks": {
+			"TellStatement": {
+				"availableFns": "moveForward",
+				"src": "TELL robot : 'moveForward', 1"
+			}
 		}
 	},
 	{
@@ -714,6 +720,11 @@
 					"direction": "right"
 				}
 			]
+		},
+		"availableBlocks": {
+			"tell": {
+				"allow": "moveForward"
+			}
 		}
 	},
 	{
@@ -932,6 +943,13 @@
 					"y": 6
 				}
 			]
+		},
+		"availableBlocks": {
+			"tell": {
+				"allow": "moveForward",
+				"limit": 2
+			},
+			"let": {}
 		}
 	},
 	{
@@ -955,6 +973,11 @@
 					"y": 6
 				}
 			]
+		},
+		"availableBlocks": {
+			"if": {},
+			"then": {},
+			"let": {}
 		}
 	},
 	{
