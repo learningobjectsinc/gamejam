@@ -25,8 +25,7 @@ var Robot = function(x,y, getAtLocation) {
     this.moving = false;
     this.movingDistance = 0;
     this.totalMovingDistance = 0;
-    // pixels/second
-    this.speed = 20;
+    this.speed = 20; // pixels/second
 
     this.turning = false;
     this.turningDirection = 'right';
@@ -107,43 +106,44 @@ Robot.prototype.$talk = function(time, text) {
 }
 
 Robot.prototype.$moveForward = function(time) {
-    if (this.movingDistance > 0) {
-        var modifier = this.speed * time;
-        if(modifier > this.movingDistance){
-            modifier = this.movingDistance;
-            this.movingDistance = 0;
-        } else {
-            this.movingDistance -= modifier;
-        }
-        switch (this.direction){
-            case 'right':
-                this.x += modifier;
-                break;
-            case 'left':
-                this.x -= modifier;
-                break;
-            case 'up':
-                this.y -= modifier;
-                break;
-            case 'down':
-                this.y += modifier;
-                break;
-        }
+    if (this.$getInFront() != null) { //TODO real collision
+        this.moving = false;
+        this.colliding = true;
     } else {
-        this.x = Math.round(this.x);
-        this.y = Math.round(this.y);
-        this.totalMovingDistance--;
-        if (this.totalMovingDistance === 0) {
-            this.moving = false;
-            this.movingDistance = 0;
-            this.busy = false;   
-        } else {
-            console.log(this.x, this.y);
-            if (this.$getInFront() != null) { //TODO real collision
-                this.moving = false;
-                this.colliding = true;
+        if (this.movingDistance > 0) {
+            var modifier = this.speed * time;
+            if(modifier > this.movingDistance){
+                modifier = this.movingDistance;
+                this.movingDistance = 0;
             } else {
-                this.movingDistance = 1;
+                this.movingDistance -= modifier;
+            }
+            switch (this.direction){
+                case 'right':
+                    this.x += modifier;
+                    break;
+                case 'left':
+                    this.x -= modifier;
+                    break;
+                case 'up':
+                    this.y -= modifier;
+                    break;
+                case 'down':
+                    this.y += modifier;
+                    break;
+            }
+        } else {
+            this.x = Math.round(this.x);
+            this.y = Math.round(this.y);
+            this.totalMovingDistance--;
+            if (this.totalMovingDistance === 0) {
+                this.moving = false;
+                this.movingDistance = 0;
+                this.busy = false;   
+            } else {
+                
+                    this.movingDistance = 1;
+                //}
             }
         }
     }
