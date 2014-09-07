@@ -48,7 +48,7 @@ this.library.processor = this.processor; // TODO: KILLME: HACK
 	    }
             this.step();
 	    this.paused = false;
-            this.sleeper = $timeout(_.bind(this.run, this), 25);
+        this.sleeper = $timeout(_.bind(this.run, this), 100);
 	};
 
 	program.prototype.kill = function(){

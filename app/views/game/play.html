@@ -5,38 +5,36 @@
           {{ errorMessage }}
         </div>
 
+    <game-table level="level" class="gameLevel"></game-table>
+
     <div class="sidebar">
         <div ng-if="blockEditing">
             <div class="blockLibrary">
 
             	<div class="agentWrap">
                     <img class="robotProfile" src="/images/robot/robot-down.svg"/>
-                    <span class="agentName">Ms Roboto</span>
+                    <span class="agentName">Ms. Roboto</span>
                 </div>
                 <!--<h2 style="margin-bottom:0px;">Robot Instructions</h2>
                 (click on an instruction to add it to my task list)-->
-                <div class="instructionSub">
-                <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-drag="true" ng-drag-data="block">
-                    {{ block.cfg.label || block.constructor.prototype.keyword }}
-                </button>
-                </div>
+                
             </div>
             <div class="programBlockContainer" block-container="program">
                 <!--<h2>Task List:</h2>-->
                 <div ng-if="!program.statements.children.length">
                     Add some tasks!
                 </div>
-                <div ng-drop="true" ng-drop-success="addToProgram($data,$event)" class="dropzone"></div>
+                
                 <div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt" class="blockContainer">
                 </div>
-                <button ng-click="convertToCode()" type="button" class="btn btn-block btn-primary">Convert to code</button>
             </div>
         </div>
         <div ng-if="!blockEditing">
             <div class="blockLibrary">
-            	<div>
-            	    <img class="robotProfile" src="/images/robot/robot-down.svg"/>Ms Roboto
-            	</div>
+            	<div class="agentWrap">
+                    <img class="robotProfile" src="/images/robot/robot-down.svg"/>
+                    <span class="agentName">Ms. Roboto</span>
+                </div>
             </div>
             <div class="codeEditor">&nbsp;
                 <h2>Code</h2>
@@ -53,15 +51,29 @@
             </div>
         </div>
 
-        <button class="btn btn-success btn-huge" ng-click="runProgram()" ng-disabled="program.isRunning()">Run</button>
+        <div class="wrapBottomCtrl">
+
+            <div ng-drop="true" ng-drop-success="addToProgram($data,$event)" class="dropzone">
+                <span class="icon icon-download"></span>
+            </div>
+
+            <div class="instructionSub">
+                <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-drag="true" ng-drag-data="block">
+                    {{ block.cfg.label || block.constructor.prototype.keyword }}
+                </button>
+            </div>
+
+        </div>
+
+        <div class="wrapBtnRun">
+            <button class="btn btn-success btn-huge" ng-click="runProgram()" ng-disabled="program.isRunning()">Run</button>
+        </div>
         <!-- <button ui-sref="^.wrapup">WIN</button> -->
         <!--<input class="btn btn-primary" ng-click="resetGame()" class="reset" type="button" value="Reset" ng-disabled="program.isRunning()" />-->
-        <button class="btn btn-primary" ng-click="switchCodingContext()">
-            <span ng-if="blockEditing">Code view</span>
-            <span ng-if="!blockEditing">Block view</span>
+        <button class="wrapViewBtn btn btn-primary-dark" ng-click="switchCodingContext()">
+            <span ng-if="blockEditing">Code View</span>
+            <span ng-if="!blockEditing">Block View</span>
         </button>
     </div>
-
-	<game-table level="level"></game-table>
 
 </div>

@@ -33,16 +33,16 @@ gameData["instructions"] = [
         "levelId": 0,
         "pages": [
 			{
-				"title": "Let's Move!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div>"
+				"title": "Level 0: Let's Move!",
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>This is Ms. Roboto. She's fresh off the assembly line and needs training from scratch on the basics of being a robot.</p>"
 			},
 			{
-				"title": "Level 0: Let's Move!",
-				"body": "Let's start with getting Tobor to move through the maze to the goal."
+				"title": "Goal",
+				"body": "Let's start with getting Ms. Roboto to move through a maze to the goal."
 			},
 			{
 				"title": "Instructions",
-				"body": "<dl><dt>Drag and drop the functions to complete the action</dt><dt>Hit 'Run' to see the function execute</dt><dt>View the code that makes it all come alive!</dt></ol>"
+				"body": "<dl><dt>Drag and drop the functions to complete the action</dt><dt>Hit 'Run' to see your algorithm execute</dt><dt>See the code that makes Ms. Roboto come alive!</dt></ol>"
 			}
 		]
 	},
@@ -51,15 +51,15 @@ gameData["instructions"] = [
         "pages": [
 			{
 				"title": "Level 1: You Spin Me Round",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Learn to turn</p>"
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Teach Ms. Roboto to turn</p>"
 			},
 			{
-				"title": "Turning",
-				"body": "<p>You can tell Tobor to turn left/right/up/down. Try using turning to get Tobor to the goal.</p>"
+				"title": "Goal",
+				"body": "<p>You can teach Ms. Roboto to turn left and right. Use turning to get Ms. Roboto to her goal.</p>"
 			},
 			{
 				"title": "Instructions",
-				"body": "<dl><dt>Drag and drop the functions to complete the action</dt><dt>Hit 'Run' to see the function execute</dt><dt>View the code that makes it all come alive!</dt></ol>"
+				"body": "<dl><dt>Drag and drop the functions to complete the action</dt><dt>Hit 'Run' to see your algorithm execute</dt><dt>See the code that makes Ms. Roboto come alive!</dt></ol>"
 			}
 		]
 	},
@@ -67,12 +67,12 @@ gameData["instructions"] = [
         "levelId": 2,
         "pages": [
 			{
-				"title": "Welcome to I Tobor!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Tobor's a super cool robot who sometimes forgets how to do things. Help him out with his controls by learning the basics of programming.</p>"
+				"title": "Level 2: Zap the contrived obstacle",
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Teach Ms. Roboto to use her laser</p>"
 			},
 			{
-				"title": "Level 2: Functions",
-				"body": "<p>Functions are self <em>contained modules</em> of code that accomplish a specific task. Functions usually take in data, process it, and return a result. Once a function is written, it can be used over and over and over again. Functions can be called from the inside of other functions.</p>"
+				"title": "Goal",
+				"body": "<p>Ms. Roboto will encounter obstacles in her environment. Teach her how to overcome obstacles and continue on to her goal.</p>"
 			},
 			{
 				"title": "Instructions",
@@ -636,7 +636,7 @@ gameData["levels"] = [
 	},
 	{
 		"id": 2,
-		"name": "Level 2: Zap the obstacle!",
+		"name": "Level 2: Zap the contrived obstacle",
 		"description": "Number of Lemmings: 10",
 		"icon": "power",
 		"completed": "0.8",
@@ -1082,7 +1082,7 @@ gameData["levels"] = [
 	},
 	{
 		"id": 3,
-		"name": "Level 3: Set it to get it!",
+		"name": "Level 3: Set it to get it",
 		"description": "Number of Lemmings: 10",
 		"icon": "settings",
 		"completed": "0.6",
@@ -1309,7 +1309,7 @@ gameData["levels"] = [
 	},
 	{
 		"id": 4,
-		"name": "Level 4: Gain some logic!",
+		"name": "Level 4: What If",
 		"description": "Number of Lemmings: 10",
 		"icon": "podium",
 		"completed": "0.4",
@@ -1337,7 +1337,7 @@ gameData["levels"] = [
 	},
 	{
 		"id": 5,
-		"name": "Level 5: Loops",
+		"name": "Level 5: What If",
 		"description": "Number of Lemmings: 10",
 		"icon": "spinner",
 		"completed": "0.2",
@@ -1365,7 +1365,7 @@ gameData["levels"] = [
 	},
 	{
 		"id": 6,
-		"name": "Level 6: All the Things!",
+		"name": "Level 6: Begin again, again",
 		"description": "Number of Lemmings: 10",
 		"icon": "rocket",
 		"completed": "0",
@@ -1433,11 +1433,11 @@ gameData["wrapUp"] = [
         "pages": [
 			{
 				"title": "Nice work!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You learned how to move your robot.</p>"
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You taught Ms. Roboto how to move.</p>"
 			},
 			{
 				"title": "Level 0: Let's Move!",
-				"body": "<p>Here's a little more info about what you did during this level.</p>"
+				"body": "<p>Here's a little more info about what you learned during this level.</p><dl><dt>Commands allow you to change things in Ms. Roboto's environemnt.</dt><dt>An algorithm is a step-by-step procedure to solve a problem.</dt></dl>"
 			}
 		]
 	},

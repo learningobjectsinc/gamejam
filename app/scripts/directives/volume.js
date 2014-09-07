@@ -29,7 +29,7 @@ angular.module('gamejamApp').directive('volume', function($cookies){
                     audio.pause();
                 }
                 $cookies.music = scope.isMusicOn;
-                scope.volOff = !scope.volOff;
+                scope.volOn = !scope.volOn;
             };
         }
     };

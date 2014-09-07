@@ -11,7 +11,11 @@ angular.module('gamejamApp')
 angular.module('gamejamApp')
   .controller('GameWrapup', function ($scope, $stateParams, wrapUpService, levelService, $location, $state) {
     $scope.goLevel = function(levelId){
-        $state.go('level.intro', {levelId:levelId});
+        if(levelId >= 3){
+            $state.go('home');
+        } else {
+            $state.go('level.intro', {levelId:levelId});
+        }
     }
 
   	$scope.wrapUp = wrapUpService.getWrapUp($stateParams.levelId);

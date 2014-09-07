@@ -4,11 +4,11 @@
         "pages": [
 			{
 				"title": "Nice work!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You learned how to move your robot.</p>"
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You taught Ms. Roboto how to move.</p>"
 			},
 			{
 				"title": "Level 0: Let's Move!",
-				"body": "<p>Here's a little more info about what you did during this level.</p>"
+				"body": "<p>Here's a little more info about what you learned during this level.</p><dl><dt>Commands allow you to change things in Ms. Roboto's environemnt.</dt><dt>An algorithm is a step-by-step procedure to solve a problem.</dt></dl>"
 			}
 		]
 	},

@@ -1,10 +1,13 @@
 <div ng-if="!isBlockHidden(block)">
+  <div ng-drop="true" ng-drop-success="addToParent($data,block)" class="dropzone subDrop" ng-if="!block.endsBlock">
+    <span class="icon icon-download"></span>
+  </div>
   <div class="programBlock">
     <div class="delete pull-right" ng-click="delete()">&times;</div>
     <h4>{{ block.name || block.keyword }}</h4>
-    <span class="description">
+    <div class="description">
       {{ cfg.description || block.description }}
-    </span>
+    </div>
     <form class="form-horizontal" ng-if="!cfg.parameters && block.tokenLabels">
       <div ng-repeat="token in block.tokenLabels">
         <label for="{{ token }}_{{ block.id }}">{{ token }}</label>
@@ -18,9 +21,10 @@
       </div>
     </form>
     <div class="childBlocks" ng-if="block.startsBlock">
-      <div ng-drop="true" ng-drop-success="addChild($data,$event)" class="dropzone"></div>
+      <div ng-drop="true" ng-drop-success="addChild($data,$event)" class="dropzone subDrop">
+        <span class="icon icon-download"></span>
+      </div>
       <div child-blocks="block.children"></div>
     </div>
   </div>
-  <div ng-drop="true" ng-drop-success="addToParent($data,block)" class="dropzone" ng-if="!block.endsBlock"></div>
 </div>
