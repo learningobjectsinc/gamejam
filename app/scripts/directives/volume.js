@@ -4,7 +4,14 @@ angular.module('gamejamApp').directive('volume', function($cookies){
     return {
         restrict: 'E',
         templateUrl: 'views/directives/volume.html',
+        scope: {
+            'track': '='
+        },
         link: function(scope, el, attr, container) {
+            if (!scope.track) {
+                scope.track = "sound/skySanctuary.wav";
+            }
+
             scope.isMusicOn = $cookies.music === "true";
             var audio = $('#music')[0];
             if (scope.isMusicOn) {

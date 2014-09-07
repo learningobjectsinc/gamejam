@@ -98,6 +98,7 @@ gameData["levels"] = [
 		"map": {
 			"width": 8,
 			"height": 7,
+			"music": "sound/skySanctuary.wav",
 			"objects": [
 				{
 					"type": "Laser",
