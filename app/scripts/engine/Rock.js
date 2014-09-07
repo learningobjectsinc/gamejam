@@ -7,9 +7,10 @@ var Rock = function(x,y) {
     rockImage.onload = function () {
         rockReady = true;
     };
-    rockImage.src = "images/objects/wall.png";
+    rockImage.src = "images/objects/rock.png";
     this.restrictive = true;
     this.goal = false;
+    this.destructable = true;
 
     var self = this;
     this.x = x;
@@ -20,9 +21,6 @@ var Rock = function(x,y) {
 Rock.prototype = Object.create(GridObject.prototype);
 
 Rock.prototype.render = function(canvasSize, squareSize, ctx) {
-    if (this.destroyed) {
-        return false;
-    }
     ctx.save();
     ctx.translate(
         this.x*squareSize.width - squareSize.width/2,
@@ -32,10 +30,6 @@ Rock.prototype.render = function(canvasSize, squareSize, ctx) {
     ctx.drawImage(this.image, -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);
 
     ctx.restore();
-}
-
-Rock.prototype.destroy = function() {
-    this.destroyed = true;
 }
 
 Rock.prototype.update = function(canvasSize, squareSize, ctx) {

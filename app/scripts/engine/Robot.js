@@ -26,7 +26,6 @@ var Robot = function(x, y, getAtLocation, angularScope) {
     this.image = rbImage;
     this.speechImage = sImage;
     this.busy = false;
-    this.winning = false;
 
     this.talking = false;
     this.talkingText = '';
@@ -37,9 +36,6 @@ var Robot = function(x, y, getAtLocation, angularScope) {
     this.movingDistance = 0;
     this.totalMovingDistance = 0;
     this.speed = 20; // pixels/second
-
-    this.turning = false;
-    this.turningDirection = 'right';
 
     this.colliding = false;
 
@@ -56,8 +52,7 @@ var Robot = function(x, y, getAtLocation, angularScope) {
     	},
     	"turn": function(params) {
     		// params[0] is the direction
-            self.turning = true;
-            self.turningDirection = params[0];
+            self.$turn(params[0]);
     	},
         "talk": function(params) {
             // params[0] is the text
@@ -76,8 +71,8 @@ var Robot = function(x, y, getAtLocation, angularScope) {
         "fireLaser": function(params) {            
             self.doSomething("talk", ["PEW PEW PEW"]);
             var obstacle = self.$getNextInFront();
-            if (obstacle && (typeof obstacle.destroy != undefined)) {
-                obstacle.destroy();
+            if (obstacle && (typeof obstacle.destructable != undefined)) {
+                delete obstacle;
             }
         }
     };
@@ -131,14 +126,8 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
 }
 
 Robot.prototype.update = function(time) {
-    if (this.winning) {
-        this.angularScope.$broadcast('win');
-    }
     if (this.moving) {
         this.$moveForward(time);
-    }
-    if (this.turning) {
-        this.$turn();
     }
     if (this.colliding) {
         this.$collide();
@@ -179,7 +168,7 @@ Robot.prototype.$moveForward = function(time) {
         this.colliding = true;
     } else {
         if (inFront != null && inFront.goal) {
-            this.winning = true;
+            this.angularScope.$broadcast('win');
         }
         if (this.movingDistance > 0) {
             var modifier = this.speed * time;
@@ -280,8 +269,8 @@ Robot.prototype.$collide = function() {
     }
 }
 
-Robot.prototype.$turn = function() {
-    if (this.turningDirection == 'right') {
+Robot.prototype.$turn = function(turningDirection) {
+    if (turningDirection == 'right') {
         switch(this.direction)     {
             case 'up':
                 this.direction = 'right';

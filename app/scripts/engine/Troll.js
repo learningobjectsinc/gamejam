@@ -10,6 +10,7 @@ var Troll = function(x, y, getAtLocation, angularScope) {
     rockImage.src = "images/objects/troll.png";
     this.restrictive = true;
     this.goal = false;
+    this.destructable = true;
 
     var self = this;
     this.x = x;
