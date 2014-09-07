@@ -64,11 +64,12 @@ angular.module("gamejamApp").run(function(objectFactory) {
             },
             "Talk": function(params) {
                 // params[0] is the text
+                var text = params[0];
                 table.$broadcast('robot.talk', {
-                    uttering: self.talkingText
+                    uttering: text
                 });
                 if ('speechSynthesis' in window) {
-                    var utterance = new SpeechSynthesisUtterance(self.talkingText);
+                    var utterance = new SpeechSynthesisUtterance(text);
                     window.speechSynthesis.speak(utterance);
                 }
             },

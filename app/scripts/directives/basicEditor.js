@@ -28,13 +28,12 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				if(!program.processor){
 					return;
 				}
-			        var session = editor.getSession();
+			    var session = editor.getSession();
 				session.removeGutterDecoration(prevCrash, 'crashed');
-                                if (crashed) {
-                                    program.processor.io.interrupt('Talk', [ 'Ayeeeeeeeeeeeeeeee!' ]);
+                if (crashed) {
 				    session.addGutterDecoration(program.processor.pc, 'crashed');
-                                    prevCrash = program.processor.pc;
-                                }
+                    prevCrash = program.processor.pc;
+                }
 			});
 
 			$scope.$watch('program.statements', function(statements){
