@@ -40,7 +40,7 @@ Statement.prototype.parseExpressionList = function(str) {
         result.push(this.parser.parse($.trim(match[0])));
     }
     return result;
-}
+};
 
 Statement.prototype.initmatch = function(match) {
 };

@@ -3,16 +3,16 @@
 angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, RobotIO){
 	var program = function(code){
 		this.code = code || '';
-		this.statements = [];
+		this.statements = null;
 		this.processor = null;
 		this.io = null;
 		this.sleeper = null;
 		this.paused = false;
 	};
 
-	//TODO: Get rid of this...
-	program.prototype.init = function() {
-	    this.statements = Basic.parseProgram([]);
+	program.prototype.init = function(src) {
+		src = src || [];
+	    this.statements = Basic.parseProgram(src);
 
             console.log(this.statements);
 
@@ -21,14 +21,7 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 	};
 
 	program.prototype.compile = function(){
-	    var source = this.code.split('\n');
-
-	    this.statements = Basic.parseProgram(source);
-
-            console.log(this.statements);
-
-	    this.io = RobotIO;
-	    this.processor = new Processor(this.statements, this.io, $rootScope);
+	    program.prototype.init.call(this, this.code.split('\n'));
 	};
 
 	program.prototype.step = function(){
