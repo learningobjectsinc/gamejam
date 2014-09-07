@@ -60,7 +60,7 @@ var Robot = function(attrs, getAtLocation, angularScope) {
             return self.moving || self.turning || self.talking;
         },
         "FireLaser": function(params) {            
-            self.invoke("talk", ["PEW PEW PEW"]);
+            self.invoke("Talk", ["PEW PEW PEW"]);
             var obstacle = self.$getInFront();
             if (obstacle && (typeof obstacle.destroy != undefined)) {
                 obstacle.destroy();
@@ -73,7 +73,7 @@ var Robot = function(attrs, getAtLocation, angularScope) {
     });
 
     angularScope.$on('processor.win', function() {
-        self.invoke("talk", ["Woohoo"]);
+        self.invoke("Talk", ["Woohoo"]);
     });
 
 };
@@ -141,7 +141,7 @@ Robot.prototype.drainBattery = function(amount) {
     this.batteryPower -= amount;
 
     if (this.batteryPower == 0) {
-        this.invoke("talk", ["Powering down"]);
+        this.invoke("Talk", ["Powering down"]);
     }
 
     return this.batteryPower;
