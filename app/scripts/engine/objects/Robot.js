@@ -8,8 +8,27 @@ angular.module("gamejamApp").run(function(objectFactory) {
 
         _.extend(self, config);
 
-        // TODO: base on direction
-        this.image = "images/robot/robot-right.svg";
+        
+        
+        switch (self.direction) {
+            case 'up':
+                this.image = "images/robot/robot-up.svg";
+                break;
+            case 'right':
+                this.image = "images/robot/robot-right.svg";
+                break;
+            case 'down':
+                this.image = "images/robot/robot-down.svg";
+                break;
+            case 'left':
+                this.image = "images/robot/robot-left.svg";
+                break;
+            default:
+                this.image = "images/robot/robot-right.svg";
+                break;
+        }
+
+        
 
         this.instructions = {
             "MoveForward": function(params) {
