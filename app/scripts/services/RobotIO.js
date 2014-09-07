@@ -10,12 +10,7 @@ angular.module('gamejamApp').service('RobotIO', [function(){
     }
 
     this.interrupt = function(code, parameters) {
-        this.robot.doSomething(code, parameters);
+        return this.robot.invoke(code, parameters);
     }
-
-    this.isBusy = function(code, parameters) {
-        return this.robot.isBusy();
-    }
-
 }]);
 

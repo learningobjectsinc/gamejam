@@ -2,6 +2,9 @@
 
 function Processor(program, io, angularScope) {
     this.program = program;
+
+program.processor = this; // TODO: Kill me: This is far ASK
+
     this.pc = 0;
     this.io = io;
     this.angularScope = angularScope;

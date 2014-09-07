@@ -189,7 +189,6 @@ var Parser = (function (scope) {
                     nstack.push(f(n1, n2));
                 }
                 else if (type_ === TVAR) {
-console.log('XXX', item.index_);
                     if (item.index_ in values) {
                         nstack.push(values[item.index_]);
                     }

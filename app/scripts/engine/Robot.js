@@ -68,6 +68,9 @@ var Robot = function(x, y, getAtLocation, angularScope) {
                 var utterance = new SpeechSynthesisUtterance(self.talkingText);
                 window.speechSynthesis.speak(utterance);
             }
+        },
+        "busy": function(params) {
+            return self.moving || self.turning || self.talking;
         }
     };
 
@@ -79,8 +82,8 @@ var Robot = function(x, y, getAtLocation, angularScope) {
 
 Robot.prototype = Object.create(GridObject.prototype);
 
-Robot.prototype.doSomething = function(functionName, params) {
-    this.instructions[functionName](params);
+Robot.prototype.invoke = function(functionName, params) {
+    return this.instructions[functionName](params);
 }
 
 Robot.prototype.render = function(canvasSize, squareSize, ctx) {
@@ -142,7 +145,7 @@ Robot.prototype.drainBattery = function(amount) {
     this.batteryPower -= amount;
 
     if (this.batteryPower == 0) {
-        this.doSomething("talk", ["Powering down"]);
+        this.invoke("talk", ["Powering down"]);
     }
 
     return this.batteryPower;

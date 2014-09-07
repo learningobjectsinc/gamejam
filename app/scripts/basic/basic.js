@@ -11,20 +11,12 @@ function _parseParameterList(str) {
     return _.map(str.split(','), $.trim);
 }
 
-function _parseExpressionList(str) {
-    var re = new RegExp(EXPRESSION_REGEX, 'g');
-    var result = [], match;
-    while (match = re.exec(str)) {
-        result.push(Parser.parse($.trim(match[0])));
-    }
-    return result;
-}
-
 function Statement() {
 }
 
-Statement.prototype.init = function(source) {
+Statement.prototype.init = function(source, program) {
     this.source = source;
+    this.parser = program.parser;
     this.id = +_.uniqueId();
     var match = source.match(this.syntax);
     this.matches = match;
@@ -38,6 +30,15 @@ Statement.prototype.init = function(source) {
             console.log('Init error', source, e);
         }
     }
+}
+
+Statement.prototype.parseExpressionList = function(str) {
+    var re = new RegExp(EXPRESSION_REGEX, 'g');
+    var result = [], match;
+    while (match = re.exec(str)) {
+        result.push(this.parser.parse($.trim(match[0])));
+    }
+    return result;
 }
 
 Statement.prototype.initmatch = function(match) {
@@ -107,6 +108,8 @@ Statement.prototype.tokenLabels = [];
 // ProgramStatement
 
 function ProgramStatement() {
+    this.parser = new Parser();
+    this.parser.functions = Object.create(this.parser.functions);
 }
 
 ProgramStatement.prototype = Object.create(Statement.prototype);
@@ -170,7 +173,6 @@ CommentStatement.prototype.initmatch = function(match) {
 }
 
 CommentStatement.prototype.execute = function() {
-    console.log("REMARK", this.remark);
 }
 
 CommentStatement.prototype.keyword = "Comment";
@@ -209,7 +211,7 @@ LetStatement.prototype.constructor = LetStatement;
 
 LetStatement.prototype.initmatch = function(match) {
     this.variable = match[1];
-    this.value = Parser.parse(match[2]);
+    this.value = this.parser.parse(match[2]);
 }
 
 LetStatement.prototype.execute = function(processor) {
@@ -237,7 +239,7 @@ TellStatement.prototype.constructor = TellStatement;
 
 TellStatement.prototype.initmatch = function(match) {
     this.recipient = match[1];
-    this.parameters = _parseExpressionList(match[2]);
+    this.parameters = this.parseExpressionList(match[2]);
 }
 
 TellStatement.prototype.execute = function(processor) {
@@ -340,8 +342,8 @@ ForStatement.prototype.constructor = ForStatement;
 
 ForStatement.prototype.initmatch = function(match) {
     this.variable = match[1];
-    this.start = Parser.parse(match[2]);
-    this.stop = Parser.parse(match[3]);
+    this.start = this.parser.parse(match[2]);
+    this.stop = this.parser.parse(match[3]);
 }
 
 ForStatement.prototype.execute = function(processor) {
@@ -402,7 +404,7 @@ IfStatement.prototype = Object.create(Statement.prototype);
 IfStatement.prototype.constructor = IfStatement;
 
 IfStatement.prototype.initmatch = function(match) {
-    this.expression = Parser.parse(match[1]);
+    this.expression = this.parser.parse(match[1]);
 }
 
 IfStatement.prototype.execute = function(processor) {
@@ -469,7 +471,7 @@ UntilStatement.prototype = Object.create(Statement.prototype);
 UntilStatement.prototype.constructor = UntilStatement;
 
 UntilStatement.prototype.initmatch = function(match) {
-    this.expression = Parser.parse(match[1]);
+    this.expression = this.parser.parse(match[1]);
 }
 
 UntilStatement.prototype.execute = function(processor) {
@@ -500,7 +502,7 @@ WhileStatement.prototype = Object.create(Statement.prototype);
 WhileStatement.prototype.constructor = WhileStatement;
 
 WhileStatement.prototype.initmatch = function(match) {
-    this.expression = Parser.parse(match[1]);
+    this.expression = this.parser.parse(match[1]);
 }
 
 WhileStatement.prototype.execute = function(processor) {
@@ -554,7 +556,7 @@ FunctionCall.prototype.constructor = FunctionCall;
 
 FunctionCall.prototype.initmatch = function(match) {
     this.name = match[1];
-    this.parameters = match[2] ? _parseExpressionList(match[2]) : [];
+    this.parameters = match[2] ? this.parseExpressionList(match[2]) : [];
 }
 
 FunctionCall.prototype.execute = function(processor) {
@@ -596,7 +598,7 @@ Basic.statements = [
 Basic.parseProgram = function(sources) {
     var program = new ProgramStatement(), context = program;
     _.each(sources, function(source) {
-        var statement = Basic.parseStatement(source);
+        var statement = Basic.parseStatement(source, program);
         context.addStatement(statement);
         if (statement.startsBlock) {
             context = statement;
@@ -605,10 +607,15 @@ Basic.parseProgram = function(sources) {
         }
     });
     program.addStatement(new EndProgramStatement());
+    program.parser.functions.robot = {};
+    program.parser.functions.ASK = function(r, q) { 
+        var a = program.processor.io.interrupt(r, []);
+        console.log('ask', r, a);
+    };
     return program;
 }
 
-Basic.parseStatement = function(source) {
+Basic.parseStatement = function(source, program) {
     source = $.trim(source);
     var statement = _.find(Basic.statements, function(s) {
         var match = '^' + s.prototype.keyword.replace(' ', '\\s+') + '\\b';
@@ -629,6 +636,6 @@ Basic.parseStatement = function(source) {
         }
     }
     var stmt = new statement();
-    stmt.init(source);
+    stmt.init(source, program);
     return stmt;
 };

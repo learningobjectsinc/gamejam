@@ -20,26 +20,18 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 	};
 
 	program.prototype.step = function(){
-        if (this.processor.halted) {
-            return;
-        }
-        if(this.io.isBusy()){
-            setTimeout(_.bind(this.step, this), 100);
-        } else {
-	       this.processor.step();
-        }
-    };
+            if (this.processor.halted) {
+                return;
+            }
+	    this.processor.step();
+        };
 
 	program.prototype.run = function(){
 	    if (this.processor.halted) {
 	        return;
 	    }
-        if(this.io.isBusy()){
-            setTimeout(_.bind(this.run, this), 100);
-        } else {
             this.step();
-            this.run();
-        }
+            setTimeout(_.bind(this.run, this), 100);
 	};
 
 	return program;
