@@ -1,4 +1,4 @@
-var Robot = function(x,y, getAtLocation) {
+var Robot = function(x, y, getAtLocation, angularScope) {
     GridObject.apply(this, [x, y]);
     
     // Robot image
@@ -10,6 +10,7 @@ var Robot = function(x,y, getAtLocation) {
     rbImage.src = "images/robot/robot-right.svg";
 
 	var self = this;
+    this.angularScope = angularScope
     this.x = x;
     this.y = y;
     this.getAtLocation = getAtLocation
@@ -32,6 +33,9 @@ var Robot = function(x,y, getAtLocation) {
 
     this.colliding = false;
 
+    this.batterySize = 15;
+    this.batteryPower = this.batterySize;
+
     this.instructions = {
     	"moveForward": function(params) {
     		// params[0] is the distance
@@ -51,6 +55,11 @@ var Robot = function(x,y, getAtLocation) {
             self.talkingText = params[0];
         }
     };
+
+    angularScope.$on('processor.step', function() {
+        self.drainBattery();
+        console.log(self.batteryPower);
+    })
 
 };
 
@@ -89,6 +98,12 @@ Robot.prototype.update = function(time) {
 
 Robot.prototype.isBusy = function() {
     return this.busy;
+}
+
+Robot.prototype.drainBattery = function(amount) {
+    var amount = amount || 1;
+    this.batteryPower -= amount;
+    return this.batteryPower;
 }
 
 Robot.prototype.$talk = function(time, text) {
