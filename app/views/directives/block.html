@@ -13,7 +13,7 @@
     </form>
     <form class="form-horizontal" ng-if="cfg.parameters">
       <div ng-repeat="token in cfg.parameters">
-        <label for="{{ token }}_{{ block.id }}">{{ token }}</label>
+        <label for="{{ token }}_{{ block.id }}">{{ token.description }}</label>
         <input id="{{ token }}_{{ block.id }}" ng-model="block.matches[$index+1]" type="text" class="form-control">
       </div>
     </form>
