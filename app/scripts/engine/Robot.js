@@ -1,15 +1,9 @@
-var Robot = function(x, y, getAtLocation, angularScope) {
-    GridObject.apply(this, [x, y]);
+var Robot = function(attrs, getAtLocation, angularScope) {
+    GridObject.apply(this, [attrs]);
+
+    this.$initImages();
     
-    // Robot image
-    var rbReady = false;
-    var rbImage = new Image();
-    rbImage.onload = function () {
-        rbReady = true;
-    };
-    rbImage.src = "images/robot/robot-right.svg";
-    
-    // Speach image
+    // Speech image
     var sReady = false;
     var sImage = new Image();
     sImage.onload = function () {
@@ -18,12 +12,9 @@ var Robot = function(x, y, getAtLocation, angularScope) {
     sImage.src = "images/robot/speech_bubble.png";
 
 	var self = this;
-    this.angularScope = angularScope
-    this.x = x;
-    this.y = y;
-    this.getAtLocation = getAtLocation
-    this.direction = 'right';
-    this.image = rbImage;
+    this.angularScope = angularScope;
+    this.getAtLocation = getAtLocation;
+    this.direction = attrs.direction || "down";
     this.speechImage = sImage;
     this.busy = false;
 
@@ -100,7 +91,7 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
         this.y*squareSize.height - squareSize.height/2
     );
 
-    ctx.drawImage(this.image, -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);
+    ctx.drawImage(this.robotImages[this.direction], -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);
     if (this.talking) {
         ctx.drawImage(this.speechImage, squareSize.width/4, squareSize.height*-1.1, squareSize.width*2, squareSize.height*0.8);
         ctx.font = '400 16px courier';
@@ -150,6 +141,27 @@ Robot.prototype.drainBattery = function(amount) {
     }
 
     return this.batteryPower;
+}
+
+Robot.prototype.$initImages = function() {
+    var robotLeft = new Image();
+    robotLeft.src = "images/robot/robot-left.svg";
+
+    var robotRight = new Image();
+    robotRight.src = "images/robot/robot-right.svg";
+
+    var robotUp = new Image();
+    robotUp.src = "images/robot/robot-up.svg";
+
+    var robotDown = new Image();
+    robotDown.src = "images/robot/robot-down.svg";
+
+    this.robotImages = {
+        "left": robotLeft,
+        "right": robotRight,
+        "up": robotUp,
+        "down": robotDown
+    };
 }
 
 Robot.prototype.$talk = function(time) {
@@ -274,38 +286,30 @@ Robot.prototype.$turn = function(turningDirection) {
         switch(this.direction)     {
             case 'up':
                 this.direction = 'right';
-                this.image.src = "images/robot/robot-right.svg";
                 break;
             case 'right':
                 this.direction = 'down';
-                this.image.src = "images/robot/robot-down.svg";
                 break;
             case 'down':
                 this.direction = 'left';
-                this.image.src = "images/robot/robot-left.svg";
                 break;
             case 'left':
                 this.direction = 'up';
-                this.image.src = "images/robot/robot-up.svg";
                 break;
         }
     } else {
         switch(this.direction)     {
             case 'up':
                 this.direction = 'left';
-                this.image.src = "images/robot/robot-left.svg";
                 break;
             case 'right':
                 this.direction = 'up';
-                this.image.src = "images/robot/robot-up.svg";
                 break;
             case 'down':
                 this.direction = 'right';
-                this.image.src = "images/robot/robot-right.svg";
                 break;
             case 'left':
                 this.direction = 'down';
-                this.image.src = "images/robot/robot-down.svg";
                 break;
         }
     }

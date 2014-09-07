@@ -1,5 +1,5 @@
-var Flag = function(x,y) {
-    GridObject.apply(this, [x, y]);
+var Flag = function(attrs) {
+    GridObject.apply(this, [attrs]);
     
     // Flag image
     var FlagReady = false;
@@ -12,8 +12,6 @@ var Flag = function(x,y) {
     this.goal = true;
 
     var self = this;
-    this.x = x;
-    this.y = y;
     this.image = FlagImage;
 };
 

@@ -204,7 +204,8 @@ gameData["levels"] = [
 				{
 					"type": "Robot",
 					"x": 1,
-					"y": 4
+					"y": 4,
+					"direction": "right"
 				},
 				{
 					"type": "Flag",
@@ -547,7 +548,8 @@ gameData["levels"] = [
 				{
 					"type": "Robot",
 					"x": 2,
-					"y": 6
+					"y": 6,
+					"direction": "right"
 				}
 			]
 		}
