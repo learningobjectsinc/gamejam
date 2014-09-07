@@ -76,7 +76,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 					}
 					++ index;
 				}
-                                session.setAnnotations(annotations);
+                session.setAnnotations(annotations);
 			});
 
 			var Range = ace.require('ace/range').Range;
@@ -99,6 +99,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				}).join('');
 			};
 
+		}, link: function(scope, el){
 			$scope.variables = function(){
 				if(!program.processor){
 					return;
@@ -107,10 +108,6 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 					return str + '<div>' + variable + ' = ' + value + '</div>';
 				}, '');
 			};
-
-		}, link: function(scope, el){
-			var existingSource = el.find('.prefill').val();
-			scope.program.code = existingSource;
 		}
 	};
 });

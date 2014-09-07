@@ -304,12 +304,19 @@ TellStatement.prototype.keyword = "TELL";
 
 TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" + FUNCTION_REGEX + ")\\s*\\((\\s*" + EXPRESSION_REGEX + "\\s*(?:,\\s*" + EXPRESSION_REGEX + ")*)\\)\\s*$";
 
-TellStatement.prototype.tokenLabels = ["Object to call", "Function to call", "Value to pass in"];
+TellStatement.prototype.tokenLabels = ["Who will do this task?", "What will they do?", "How much will they do this?"];
 
 TellStatement.prototype.syntaxHelp = '<span class="sy-keyword">TELL</span> <span class="sy-variable">object</span> : <span class="sy-function">Function</span>(<span class="sy-expression">expression</span>, ...)'
 
+TellStatement.prototype.description = 'Tell an agent to perform a specific task.';
+
 TellStatement.prototype.toSource = function() {
-    var code = this.keyword + " " + this.object + " : " + this.method + "(" + _.map(this.parameters, Parser.Expression.prototype.toString).join(", ") + ")";
+    this.initmatch(this.matches);
+    var params = _.map(this.parameters, function(param){
+        var stringifyExpression = _.bind(Parser.Expression.prototype.toString, param);
+        return stringifyExpression(param);
+    });
+    var code = this.keyword + " " + this.object + " : " + this.method + "(" + params.join(", ") + ")";
     return code;
 }
 
