@@ -114,6 +114,21 @@ Statement.prototype.toSource = function() {
     throw "Unimplemented";
 }
 
+Statement.prototype.destroy = function() {
+    var parent = this.parent;
+    if (!parent) {
+        throw "No parent";
+    }
+    if (this.endsBlock) {
+        throw "Cannot remove end block";
+    }
+    var index = _.indexOf(parent.children, this);
+    if (index < 0) {
+        throw "Not a child";
+    }
+    parent.children.splice(index, 1);
+}
+
 Statement.prototype.startsBlock = false;
 
 Statement.prototype.endsBlock = false;

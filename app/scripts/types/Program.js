@@ -37,9 +37,9 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 	    if (this.processor.halted) {
 	        return;
 	    }
-        this.step();
-		this.paused = false;
-        this.sleeper = $timeout(_.bind(this.run, this), 25);
+            this.step();
+	    this.paused = false;
+            this.sleeper = $timeout(_.bind(this.run, this), 25);
 	};
 
 	program.prototype.kill = function(){
