@@ -58,7 +58,8 @@ angular.module('gamejamApp')
         var stmt = $scope.program.statements.children[0];
         var src = '';
         while (stmt) {
-            src += stmt.getSource();
+            delete stmt.source;
+            src += stmt.getSource() + '\n';
             stmt = stmt.nextStatement(true);
         }
         $scope.program.code = src;

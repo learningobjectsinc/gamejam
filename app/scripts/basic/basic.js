@@ -309,7 +309,12 @@ TellStatement.prototype.tokenLabels = ["Object to call", "Function to call", "Va
 TellStatement.prototype.syntaxHelp = '<span class="sy-keyword">TELL</span> <span class="sy-variable">object</span> : <span class="sy-function">Function</span>(<span class="sy-expression">expression</span>, ...)'
 
 TellStatement.prototype.toSource = function() {
-    var code = this.keyword + " " + this.object + " : " + this.method + "(" + _.map(this.parameters, Parser.Expression.prototype.toString).join(", ") + ")";
+    this.initmatch(this.matches);
+    var params = _.map(this.parameters, function(param){
+        var stringifyExpression = _.bind(Parser.Expression.prototype.toString, param);
+        return stringifyExpression(param);
+    });
+    var code = this.keyword + " " + this.object + " : " + this.method + "(" + params.join(", ") + ")";
     return code;
 }
 
