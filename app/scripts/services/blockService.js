@@ -7,6 +7,10 @@ angular.module('gamejamApp').factory('blockService', function(){
 	};
 
 	this.dontShow = function(block){
+		if(!block || !block.constructor){
+			return;
+		}
+		
         var type = block.constructor.name;
         return (type === 'BlankStatement') ||
             (type === 'EndProgramStatement') ||
