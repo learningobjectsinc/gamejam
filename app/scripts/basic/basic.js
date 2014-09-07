@@ -130,9 +130,15 @@ ProgramStatement.prototype.syntax = "";
 
 ProgramStatement.prototype.addStatement = function(statement) {
     Statement.prototype.addStatement.call(this, statement);
-    if ((statement instanceof FunctionStatement) && !statement.isInvalid() && !this.functions[statement.name]) {
+    if ((statement instanceof FunctionStatement) && !statement.isInvalid()) {
         this.functions[statement.name] = statement;
     }
+}
+
+ProgramStatement.prototype.addLibrary = function(library) {
+    _.each(library.functions, function(fn) {
+        this.functions[fn.name] = this.functions[fn.name] || fn;
+    });
 }
 
 // EndProgramStatement

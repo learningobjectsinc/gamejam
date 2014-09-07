@@ -69,7 +69,7 @@ var Robot = function(x, y, getAtLocation, angularScope) {
             return self.moving || self.turning || self.talking;
         },
         "fireLaser": function(params) {            
-            self.doSomething("talk", ["PEW PEW PEW"]);
+            self.invoke("talk", ["PEW PEW PEW"]);
             var obstacle = self.$getNextInFront();
             if (obstacle && (typeof obstacle.destructable != undefined)) {
                 delete obstacle;
@@ -82,7 +82,7 @@ var Robot = function(x, y, getAtLocation, angularScope) {
     });
 
     angularScope.$on('processor.win', function() {
-        self.doSomething("talk", ["Woohoo"]);
+        self.invoke("talk", ["Woohoo"]);
     });
 
 };
