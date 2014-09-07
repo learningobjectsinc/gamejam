@@ -13,26 +13,18 @@
 
             	<div class="agentWrap">
                     <img class="robotProfile" src="/images/robot/robot-down.svg"/>
-                    <span class="agentName">Ms Roboto</span>
+                    <span class="agentName">Mr. Roboto</span>
                 </div>
                 <!--<h2 style="margin-bottom:0px;">Robot Instructions</h2>
                 (click on an instruction to add it to my task list)-->
-                <div class="instructionSub">
-                <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-drag="true" ng-drag-data="block">
-                    {{ block.cfg.label || block.constructor.prototype.keyword }}
-                </button>
-                </div>
+                
             </div>
             <div class="programBlockContainer" block-container="program">
                 <!--<h2>Task List:</h2>-->
                 <div ng-if="!program.statements.children.length">
                     Add some tasks!
                 </div>
-                <div ng-drop="true" ng-drop-success="addToProgram($data,$event)" class="dropzone">
-                    
-                    <span class="icon icon-download"></span>
-
-                </div>
+                
                 <div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt" class="blockContainer">
                 </div>
                 <!--<button ng-click="convertToCode()" type="button" class="btn btn-block btn-primary">Convert to code</button>-->
@@ -58,6 +50,20 @@
                     <input ng-click="program.kill()" class="kill" type="button" ng-disabled="!program.statements.children || program.processor.halted || !program.isRunning()" value="STOP" />
                 </div>
             </div>
+        </div>
+
+        <div class="wrapBottomCtrl">
+
+            <div ng-drop="true" ng-drop-success="addToProgram($data,$event)" class="dropzone">
+                        <span class="icon icon-download"></span>
+                    </div>
+
+            <div class="instructionSub">
+                <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-drag="true" ng-drag-data="block">
+                    {{ block.cfg.label || block.constructor.prototype.keyword }}
+                </button>
+            </div>
+
         </div>
 
         <div class="wrapBtnRun">

@@ -1,12 +1,25 @@
 @import variables
 
 .programBlock
-  background-color: #ddffdd
-  padding: 5px 9px
+  background-color: fade-out($color-white,0.08)
+  padding: 0
   margin: 0 0
 
   h4
-    margin-top: 8px
+    margin: 0 1em 1em 0
+    padding: 0.25em 0.5em
+    background: $color-secondary
+    border-radius: 0 0 0.33em 0
+    color: $color-white
+    float: left
+    font-size: 0.75em
+
+  .description
+    padding: 0 5% 1em 5%
+    display: inline-block
+    width: 0
+    text-align: center
+    width: 90%
 
   &.active
     border: 4px solid
@@ -16,6 +29,10 @@
   .delete
     cursor: pointer
     float: right
+    background: $color-accent
+    padding: 0.33em 0.5em
+    color: $color-white
+    line-height: 1
 
     \:hover
       color: red
@@ -34,7 +51,7 @@
         background-color: #FFDDFE
 
 .programBlockContainer
-  background: fade-out($color-success,0.5)
+  //background: fade-out($color-success,0.5)
   max-height: 500px
   overflow-y: scroll
   position: relative
@@ -89,12 +106,17 @@
       display: inline-block
       font-size: 0.85em
 
+.wrapBottomCtrl
+  position: fixed
+  bottom: 4em
+
 .instructionSub
   position: relative
   display: inline-block
-  width: 100%
-  padding: 1.5% 0
-  min-height: 4em
+  width: 97%
+  padding: 1.5%
+  //min-height: 4em
+  background: fade-out($color-secondary,0.85)
 
   /*&:after
     border-bottom: 0.33em solid fade-out($color-accent,0.5)
@@ -114,7 +136,7 @@
     padding: 0.5em 0.75em
     background: $color-primary-light
     border-radius: 0.25em
-    margin: 1em
+    margin: 1em 0.25em
 
     &:hover
       background: $color-secondary

@@ -27,6 +27,18 @@
 		display: inline-block
 		color: fade-out($color-white, 0.75)
 
+	&.subDrop
+		min-height: 0.75em
+
+		.icon
+			font-size: 0.67em
+
+	&.subDrop.drag-enter
+		min-height: 2em
+
+		.icon
+			font-size: 1em
+
 .dropzone.drag-enter
 	background: $color-accent
 	min-height: 6em
