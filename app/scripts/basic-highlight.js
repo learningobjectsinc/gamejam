@@ -32,7 +32,7 @@ var BHTBASICHighlightRules = function() {
             },
          { caseInsensitive: true,
            token: 'keyword.control.bht',
-           regex: '(?:\\b(((END(\\s)?)?(FUNCTION|IF|SELECT|SUB))|(GO(SUB|(\\s)?TO))|(CASE|DEF FN|ELSE|END DEF|EXIT SUB|FOR|NEXT|ON|ON ERROR GOTO|ON KEY|RETURN|SELECT CASE|THEN|WEND|WHILE|LOOP|TELL))\\b)',
+           regex: '(?:\\b(((END(\\s)?)?(FUNCTION|IF|SELECT|SUB|WHILE))|(GO(SUB|(\\s)?TO))|(CASE|DEF FN|ELSE|END DEF|EXIT SUB|FOR|NEXT|ON|ON ERROR GOTO|ON KEY|RETURN|SELECT CASE|THEN|WEND|WHILE|LOOP|TELL|REPEAT|UNTIL))\\b)',
             },
          { token: 'string.quoted.double.bht',
            regex: '"[^"]*"',

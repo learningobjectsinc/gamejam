@@ -441,23 +441,23 @@ EndIfStatement.prototype.keyword = "END IF";
 
 EndIfStatement.prototype.syntax = "^END\\s+IF\\s*$";
 
-// LoopStatement
+// RepeatStatement
 
-function LoopStatement() {
+function RepeatStatement() {
 }
 
-LoopStatement.prototype = Object.create(Statement.prototype);
+RepeatStatement.prototype = Object.create(Statement.prototype);
 
-LoopStatement.prototype.constructor = LoopStatement;
+RepeatStatement.prototype.constructor = RepeatStatement;
 
-LoopStatement.prototype.execute = function(processor) {
+RepeatStatement.prototype.execute = function(processor) {
 }
 
-LoopStatement.prototype.startsBlock = true;
+RepeatStatement.prototype.startsBlock = true;
 
-LoopStatement.prototype.keyword = "LOOP";
+RepeatStatement.prototype.keyword = "REPEAT";
 
-LoopStatement.prototype.syntax = "^LOOP\\s*$";
+RepeatStatement.prototype.syntax = "^REPEAT\\s*$";
 
 // UntilStatement
 
@@ -473,7 +473,7 @@ UntilStatement.prototype.initmatch = function(match) {
 }
 
 UntilStatement.prototype.execute = function(processor) {
-    if (!(this.parent instanceof LoopStatement)) {
+    if (!(this.parent instanceof RepeatStatement)) {
         throw("Error: Unexpected " + this.source);
     }
     var value = processor.evaluate(this.expression);
@@ -504,22 +504,44 @@ WhileStatement.prototype.initmatch = function(match) {
 }
 
 WhileStatement.prototype.execute = function(processor) {
-    if (!(this.parent instanceof LoopStatement)) {
-        throw("Error: Unexpected " + this.source);
-    }
     var value = processor.evaluate(this.expression);
-    if (value) {
-        processor.nextStatement = this.parent.children[0];
+    if (!value) {
+        processor.nextStatement = this.nextStatement(false);
     }
 }
 
-WhileStatement.prototype.endsBlock = true;
+WhileStatement.prototype.startsBlock = true;
 
 WhileStatement.prototype.keyword = "WHILE";
 
 WhileStatement.prototype.syntax = "^WHILE\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
 WhileStatement.prototype.tokenLabels = ["Expression"];
+
+// EndWhileStatement
+
+function EndWhileStatement() {
+}
+
+EndWhileStatement.prototype = Object.create(Statement.prototype);
+
+EndWhileStatement.prototype.constructor = EndWhileStatement;
+
+EndWhileStatement.prototype.execute = function(processor) {
+    if (!(this.parent instanceof WhileStatement)) {
+        throw("Error: Unexpected " + this.source);
+    }
+    var value = processor.evaluate(this.parent.expression);
+    if (value) {
+        processor.nextStatement = this.parent.children[0];
+    }
+}
+
+EndWhileStatement.prototype.endsBlock = true;
+
+EndWhileStatement.prototype.keyword = "END WHILE";
+
+EndWhileStatement.prototype.syntax = "^END\\s+WHILE\\s*$";
 
 // FunctionCall
 
@@ -563,9 +585,10 @@ Basic.statements = [
     EndIfStatement,
     ForStatement,
     NextStatement,
-    LoopStatement,
-    WhileStatement,
+    RepeatStatement,
     UntilStatement,
+    WhileStatement,
+    EndWhileStatement,
     FunctionStatement,
     EndFunctionStatement
 ];
