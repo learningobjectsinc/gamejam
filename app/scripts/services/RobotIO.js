@@ -13,5 +13,9 @@ angular.module('gamejamApp').service('RobotIO', [function(){
         this.robot.doSomething(code, parameters);
     }
 
+    this.isBusy = function(code, parameters) {
+        return this.robot.isBusy();
+    }
+
 }]);
 
