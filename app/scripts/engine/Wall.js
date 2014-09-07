@@ -10,7 +10,6 @@ var Wall = function(x,y) {
     wallImage.src = "images/objects/wall.png";
     this.restrictive = true;
     this.goal = false;
-    this.destructable = false;
 
     var self = this;
     this.x = x;

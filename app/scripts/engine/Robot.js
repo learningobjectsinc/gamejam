@@ -70,9 +70,9 @@ var Robot = function(x, y, getAtLocation, angularScope) {
         },
         "fireLaser": function(params) {            
             self.invoke("talk", ["PEW PEW PEW"]);
-            var obstacle = self.$getNextInFront();
-            if (obstacle && (typeof obstacle.destructable != undefined)) {
-                delete obstacle;
+            var obstacle = self.$getInFront();
+            if (obstacle && (typeof obstacle.destroy != undefined)) {
+                obstacle.destroy();
             }
         }
     };

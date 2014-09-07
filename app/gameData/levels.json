@@ -1,5 +1,268 @@
 [
 	{
+		"id": 0,
+		"name": "Level 0: Let's Move!",
+		"description": "Solve the epidemic of robot obesity by getting Tobor to move",
+		"icon": "rocket",
+		"completed": "0",
+		"map": {
+			"width": 8,
+			"height": 7,
+			"objects": [
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 3
+				},
+				{
+					"type": "Robot",
+					"x": 1,
+					"y": 4
+				},
+				{
+					"type": "Flag",
+					"x": 8,
+					"y": 4
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 7
+				}
+			]
+		}
+	},
+	{
 		"id": 1,
 		"name": "Level 1: Functions",
 		"description": "Number of Lemmings: 10",

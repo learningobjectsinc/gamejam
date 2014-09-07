@@ -28,7 +28,25 @@ gameData["blocks"] = [
 		"branches": ["if", "else"]
 	}
 ];
-gameData["instructions"] = [{
+gameData["instructions"] = [
+	{
+        "levelId": 0,
+        "pages": [
+			{
+				"title": "Let's Move!",
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Solve the epidemic of robot obesity by getting Tobor to move.</p>"
+			},
+			{
+				"title": "Level 0: Let's Move!",
+				"body": "Let's start with getting Tobor to move through the maze to the finish."
+			},
+			{
+				"title": "Instructions",
+				"body": "<dl><dt>Drag and drop the functions to complete the action</dt><dt>Hit 'Run' to see the function execute</dt><dt>View the code that makes it all come alive!</dt></ol>"
+			}
+		]
+	},
+	{
         "levelId": 1,
         "pages": [
 			{
@@ -53,6 +71,269 @@ gameData["learningOutcomes"] = [
 	}
 ];
 gameData["levels"] = [
+	{
+		"id": 0,
+		"name": "Level 0: Let's Move!",
+		"description": "Solve the epidemic of robot obesity by getting Tobor to move",
+		"icon": "rocket",
+		"completed": "0",
+		"map": {
+			"width": 8,
+			"height": 7,
+			"objects": [
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 1
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 3
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 3
+				},
+				{
+					"type": "Robot",
+					"x": 1,
+					"y": 4
+				},
+				{
+					"type": "Flag",
+					"x": 8,
+					"y": 4
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 5
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 2,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 7
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 7
+				}
+			]
+		}
+	},
 	{
 		"id": 1,
 		"name": "Level 1: Functions",
