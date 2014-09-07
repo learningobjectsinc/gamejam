@@ -38,9 +38,6 @@ var Robot = function(x, y, getAtLocation, angularScope) {
     this.totalMovingDistance = 0;
     this.speed = 20; // pixels/second
 
-    this.turning = false;
-    this.turningDirection = 'right';
-
     this.colliding = false;
 
     this.batterySize = 15;
@@ -56,8 +53,7 @@ var Robot = function(x, y, getAtLocation, angularScope) {
     	},
     	"turn": function(params) {
     		// params[0] is the direction
-            self.turning = true;
-            self.turningDirection = params[0];
+            self.$turn(params[0]);
     	},
         "talk": function(params) {
             // params[0] is the text
@@ -136,9 +132,6 @@ Robot.prototype.update = function(time) {
     }
     if (this.moving) {
         this.$moveForward(time);
-    }
-    if (this.turning) {
-        this.$turn();
     }
     if (this.colliding) {
         this.$collide();
@@ -280,8 +273,8 @@ Robot.prototype.$collide = function() {
     }
 }
 
-Robot.prototype.$turn = function() {
-    if (this.turningDirection == 'right') {
+Robot.prototype.$turn = function(turningDirection) {
+    if (turningDirection == 'right') {
         switch(this.direction)     {
             case 'up':
                 this.direction = 'right';
