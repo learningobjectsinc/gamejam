@@ -267,17 +267,4 @@ Robot.prototype.$cleanMyPosition = function() {
     this.y = Math.round(this.y);
 }
 
-// RobotIO
-/*
-function RobotIO() {
-    IO.call(this);
-}
 
-RobotIO.prototype = Object.create(IO.prototype);
-
-RobotIO.prototype.constructor = RobotIO;
-
-RobotIO.prototype.interrupt = function(code, parameters) {
-    Robot.doSomething(code, parameters);
-}
-*/
