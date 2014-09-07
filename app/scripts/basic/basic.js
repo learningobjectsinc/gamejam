@@ -55,18 +55,16 @@ Statement.prototype.skipBlock = function(processor) {
     return l ? this.children[l - 1] : null;
 };
 
-Statement.prototype.addStatement = function(statement, linear) {
+Statement.prototype.addStatement = function(statement, after) {
     if (!this.startsBlock) {
         throw "Cannot add to: " + this.source;
     }
     if (this.children == Statement.prototype.children) {
         this.children = [];
     }
-    if (linear) {
-        this.children.push(statement);
-    } else {
-        this.children.splice(-1,0,statement);
-    }
+    var index = (after === true) ? this.children.length
+        : after ? (_.indexOf(this.children, after) + 1) : 0;
+    this.children.splice(index,0,statement);
     statement.setParent(this);
 };
 
@@ -319,7 +317,7 @@ TellStatement.prototype.keyword = "TELL";
 
 TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" + FUNCTION_REGEX + ")\\s*\\((\\s*" + EXPRESSION_REGEX + "\\s*(?:,\\s*" + EXPRESSION_REGEX + ")*)\\)\\s*$";
 
-TellStatement.prototype.tokenLabels = ["Who will do this task?", "What will they do?", "How much will they do this?"];
+TellStatement.prototype.tokenLabels = ["Who will do this task?", "What will they do?", "Parameters"];
 
 TellStatement.prototype.syntaxHelp = '<span class="sy-keyword">TELL</span> <span class="sy-variable">object</span> : <span class="sy-function">Function</span>(<span class="sy-expression">expression</span>, ...)'
 

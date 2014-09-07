@@ -11,7 +11,7 @@ angular.module('gamejamApp')
     });
 
 angular.module('gamejamApp')
-  .controller('TheGame', function ($scope, $state, Program, levelService, GameService) {
+  .controller('TheGame', function ($scope, $state, Program, levelService, GameService, blockService) {
     console.log($scope.level.defaultCode);
     $scope.program = new Program($scope.level.defaultCode);
     $scope.program.compile();
@@ -22,6 +22,9 @@ angular.module('gamejamApp')
 
     $scope.$watch('program.processor.crashed', function(crashed){
         $scope.errorMessage = crashed;
+        if (crashed) {
+            $scope.program.processor.io.interrupt('Talk', [ 'Ayeeeeeeeeeeeeeeee!' ]);
+        }
     });
 
     $scope.resetGame = function(){
@@ -58,16 +61,18 @@ angular.module('gamejamApp')
     }
 
     $scope.blockEditing = true;
-    $scope.switchCodingContext= function(){
+    $scope.switchCodingContext = function(){
+        $scope.program.compile();
         $scope.blockEditing = !$scope.blockEditing;
     };
 
     $scope.runProgram = function(){
+        GameService.resetGameFromLastMap();
         $scope.convertToCode();
         $scope.program.compile();
         $scope.program.run();
     };
 
-    
+    $scope.isBlockHidden = blockService.dontShow;
     
   });

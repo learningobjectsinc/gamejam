@@ -45,8 +45,7 @@ angular.module('gamejamApp')
                     });
 
                     scope.moveObject = function(object, x, y) {
-                        console.log('move', object, x, y);
-                        scope.$apply(function() {
+                        //scope.$apply(function() {
                             if (x >= width || y >= height) {
                                 return null;
                             }
@@ -55,16 +54,82 @@ angular.module('gamejamApp')
                                 currentY = object.y;
 
                             var collision = grid.data[y][x];
-                            if (!collision || !collision.behavior.impassable) {
+                            if (!collision || (collision.behavior && !collision.behavior.impassable && !collision.behavior.destructable)) {
                                 grid.data[y][x] = object;
                                 delete grid.data[currentY][currentX];
                                 grid.touch = new Date();
                             }
 
-                            if (collision && collision.behavior.win) {
+                            if (object.type == "Robot" && collision && collision.behavior.win) {
                                 scope.$emit('win');
                             }
-                        });
+
+                            if (object.type == "Laser" && collision && collision.behavior.destructable) {
+                                delete grid.data[currentY][currentX];
+                                collision.destroy();
+                                grid.touch = new Date();
+                            } else if (object.type == "Laser" && collision) {
+                                delete grid.data[currentY][currentX];
+                                grid.touch = new Date();
+                            }
+                        //});
+                    };
+
+                    scope.spawnProjectile = function(type, x, y, direction) {
+                        var laser = objectFactory.newObject(type, { x: x, y: y, type: "Laser" }, scope);
+
+                        grid.data[y][x] = laser;
+
+                        var position = {
+                            x: x,
+                            y: y,
+                            remaining: null,
+                            increment: 1,
+                            movement: {
+                                direction: direction,
+                                axis: (direction == 'up' || direction == 'down') ? 'y' : 'x'
+                            }
+                        };
+
+                        switch (direction) {
+                            case 'up':
+                                position.remaining = y;
+                                position.increment = -1;
+                                break;
+                            case 'right':
+                                position.remaining = width - x;
+                                break;
+                            case 'down':
+                                position.remaining = height - y;
+                                break;
+                            case 'left':
+                                remaining = x;
+                                position.increment = -1;
+                                break;
+                        }
+
+                        var move = function() {
+                            if (position.movement.axis == 'y') {
+                                position.y += position.increment;
+                                scope.moveObject(laser, position.x, position.y)
+                            } else {
+                                position.x += position.increment;
+                                scope.moveObject(laser, position.x, position.y)
+                            }
+
+                            laser.x = position.x;
+                            laser.y = position.y;
+
+                            position.remaining--;
+
+                            if (position.remaining > 0) {
+                                setTimeout(move, 250);
+                            }
+                        };
+
+                        setTimeout(move, 250);
+
+                        return laser;
                     };
                 }
             };

@@ -4,6 +4,8 @@ angular.module("gamejamApp").run(function(objectFactory) {
     var Robot = function(config, table) {
         var self = this;
 
+        self.type = "Robot";
+
         _.extend(self, config);
 
         // TODO: base on direction
@@ -52,10 +54,21 @@ angular.module("gamejamApp").run(function(objectFactory) {
                 }
             },
             "FireLaser": function(params) {
-                self.invoke("talk", ["PEW PEW PEW"]);
-                var obstacle = self.$getInFront();
-                if (obstacle && (typeof obstacle.destroy != undefined)) {
-                    obstacle.destroy();
+                //self.invoke("Talk", ["PEW PEW PEW"]);
+                var beam;
+                switch (self.direction) {
+                    case 'up':
+                        beam = table.spawnProjectile('Laser', self.x, self.y - 1, self.direction);
+                        break;
+                    case 'right':
+                        beam = table.spawnProjectile('Laser', self.x + 1, self.y, self.direction);
+                        break;
+                    case 'down':
+                        beam = table.spawnProjectile('Laser', self.x, self.y + 1, self.direction);
+                        break;
+                    case 'left':
+                        beam = table.spawnProjectile('Laser', self.x - 1, self.y, self.direction);
+                        break;
                 }
             }
         };

@@ -8,10 +8,13 @@
     <div class="sidebar">
         <div ng-if="blockEditing">
             <div class="blockLibrary">
+            	<div>
+            	    <img class="robotProfile" src="/images/robot/robot-down.svg"/>Ms Roboto
+            	</div>
                 <h2 style="margin-bottom:0px;">Robot Instructions</h2>
-                (click on an instruction to add it to my task list)
-                <div style="margin-top:10px;">
-                <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-click="addToProgram(block)">
+                (drag an instruction onto my task list)
+                <div style="margin-top:10px; min-height: 50px;">
+                <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-drag="true" ng-drag-data="block">
                     {{ block.constructor.prototype.keyword }}
                 </button>
                 </div>
@@ -21,15 +24,22 @@
                 <div ng-if="!program.statements.children.length">
                     Add some tasks!
                 </div>
-                <div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt"></div>
+                <div ng-drop="true" ng-drop-success="addToProgram($data,$event)" class="dropzone"></div>
+                <div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt" class="blockContainer">
+                </div>
                 <button ng-click="convertToCode()" type="button" class="btn btn-block btn-primary">Convert to code</button>
             </div>
         </div>
         <div ng-if="!blockEditing">
+            <div class="blockLibrary">
+            	<div>
+            	    <img class="robotProfile" src="/images/robot/robot-down.svg"/>Ms Roboto
+            	</div>
+            </div>
             <div class="codeEditor">
                 <h2>Code</h2>
                 <div basic-editor="program"></div>
-                <div class="code-controls">     
+                <div class="code-controls">
                     <!-- These should probably move eventually? -->
                     <input ng-click="program.compile()" class="compile" type="button" value="COMPILE" />
                     <input ng-click="program.step()" class="step" type="button" ng-disabled="!program.statements.children && !program.processor.halted" value="STEP" />
@@ -43,7 +53,7 @@
 
         <button class="btn btn-success btn-huge" ng-click="runProgram()" ng-disabled="program.isRunning()">Run</button>
         <!-- <button ui-sref="^.wrapup">WIN</button> -->
-        <input class="btn btn-primary" ng-click="resetGame()" class="reset" type="button" value="Reset" ng-disabled="program.isRunning()" />
+        <!--<input class="btn btn-primary" ng-click="resetGame()" class="reset" type="button" value="Reset" ng-disabled="program.isRunning()" />-->
         <button class="btn btn-primary" ng-click="switchCodingContext()">
             <span ng-if="blockEditing">Code view</span>
             <span ng-if="!blockEditing">Block view</span>
