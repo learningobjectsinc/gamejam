@@ -121,8 +121,8 @@ Robot.prototype.$talk = function(time, text) {
 }
 
 Robot.prototype.$moveForward = function(time) {
-    console.log(this.movingDistance, '***', this.x,this.y);
-    if (this.$getInFront() != null) { //TODO real collision
+    var inFront = this.$getInFront();
+    if (inFront != null && inFront.restrictive) { //TODO real collision
         this.$cleanMyPosition();
         this.moving = false;
         this.colliding = true;
