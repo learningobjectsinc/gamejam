@@ -1,6 +1,6 @@
 angular.module('gamejamApp')
     .directive('gameTable',
-        function(objectFactory, RobotIO) {
+        function(levelService, $stateParams, objectFactory, GameService, RobotIO) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -9,74 +9,87 @@ angular.module('gamejamApp')
                     "level": "="
                 },
                 link: function(scope, element) {
-                    var grid = scope.grid = {
-                        data: []
-                    };
+                    GameService.setGame(this);
+
                     var width = scope.level.map.width;
                     var height = scope.level.map.height;
+                    var grid;
 
-                    for (var y = 0; y < scope.level.map.height; y++) {
-                        var row = [];
-                        for (var x = 0; x < scope.level.map.width; x++) {
-                            row.push(null);
-                        }
-                        grid.data.push(row);
-                    }
 
-                    _.each(scope.level.map.objects, function(object) {
-                        // instantiate and add to table
+                    var init = function() {
+                        grid = scope.grid = {
+                            data: []
+                        };
 
-                        // hopefully temporary legacy config format
-                        if (!object.config) {
-                            object.config = {
-                                x: object.x - 1,
-                                y: object.y - 1,
-                                direction: object.direction
-                            };
+                        for (var y = 0; y < scope.level.map.height; y++) {
+                            var row = [];
+                            for (var x = 0; x < scope.level.map.width; x++) {
+                                row.push(null);
+                            }
+                            grid.data.push(row);
                         }
 
-                        var instance = objectFactory.newObject(object.type, object.config, scope);
-                        var y = object.config.y || 0;
-                        var x = object.config.x || 0;
-                        grid.data[y][x] = instance;
-                        if (object.type === 'Robot') {
-                            RobotIO.setRobot(instance);
-                        }
-                    });
+                        _.each(scope.level.map.objects, function(object) {
+                            // instantiate and add to table
+
+                            // hopefully temporary legacy config format
+                            if (!object.config) {
+                                object.config = {
+                                    x: object.x - 1,
+                                    y: object.y - 1,
+                                    direction: object.direction
+                                };
+                            }
+
+                            var instance = objectFactory.newObject(object.type, object.config, scope);
+                            var y = object.config.y || 0;
+                            var x = object.config.x || 0;
+                            grid.data[y][x] = instance;
+                            if (object.type === 'Robot') {
+                                RobotIO.setRobot(instance);
+                            }
+                        });
+                    };
+
+                    init();
 
                     scope.moveObject = function(object, x, y) {
                         //scope.$apply(function() {
-                            if (x >= width || y >= height) {
-                                return null;
-                            }
+                        if (x >= width || y >= height) {
+                            return null;
+                        }
 
-                            var currentX = object.x,
-                                currentY = object.y;
+                        var currentX = object.x,
+                            currentY = object.y;
 
-                            var collision = grid.data[y][x];
-                            if (!collision || (collision.behavior && !collision.behavior.impassable && !collision.behavior.destructable)) {
-                                grid.data[y][x] = object;
-                                delete grid.data[currentY][currentX];
-                                grid.touch = new Date();
-                            }
+                        var collision = grid.data[y][x];
+                        if (!collision || (collision.behavior && !collision.behavior.impassable && !collision.behavior.destructable)) {
+                            grid.data[y][x] = object;
+                            delete grid.data[currentY][currentX];
+                            grid.touch = new Date();
+                        }
 
-                            if (object.type == "Robot" && collision && collision.behavior && collision.behavior.win) {
-                                scope.$emit('win');
-                            }
+                        if (object.type == "Robot" && collision && collision.behavior && collision.behavior.win) {
+                            scope.$emit('win');
+                        }
 
-                            if (object.type == "Laser" && collision && collision.behavior.destructable) {
-                                delete grid.data[currentY][currentX];
-                                collision.destroy();
-                                grid.touch = new Date();
-                            } else if (object.type == "Laser" && collision) {
-                                delete grid.data[currentY][currentX];
-                                grid.touch = new Date();
-                            }
+                        if (object.type == "Laser" && collision && collision.behavior.destructable) {
+                            delete grid.data[currentY][currentX];
+                            collision.destroy();
+                            grid.touch = new Date();
+                        } else if (object.type == "Laser" && collision) {
+                            delete grid.data[currentY][currentX];
+                            grid.touch = new Date();
+                        }
                         //});
                     };
 
                     scope.spawnProjectile = function(type, x, y, direction) {
-                        var laser = objectFactory.newObject(type, { x: x, y: y, type: "Laser" }, scope);
+                        var laser = objectFactory.newObject(type, {
+                            x: x,
+                            y: y,
+                            type: "Laser"
+                        }, scope);
 
                         grid.data[y][x] = laser;
 
@@ -132,6 +145,11 @@ angular.module('gamejamApp')
                         setTimeout(move, 250);
 
                         return laser;
+                    };
+
+                    this.reset = function() {
+                        scope.level = levelService.getLevel($stateParams.levelId);
+                        init();
                     };
                 }
             };

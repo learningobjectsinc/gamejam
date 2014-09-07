@@ -51,7 +51,7 @@ angular.module('gamejamApp')
         }
     });
 
-    $scope.resetGame = function(){
+    $scope.resetGame = function() {
         GameService.resetGameFromLastMap();
     };
 
