@@ -44,7 +44,7 @@ angular.module('gamejamApp')
         }
         var programStmt = $scope.program.statements;
         var block = new blockType.constructor();
-        block.init(blockType.cfg.src, $scope.program);
+        block.init(blockType.cfg.src, programStmt);
 
         programStmt.addStatement(block);
     };
