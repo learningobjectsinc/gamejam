@@ -135,7 +135,7 @@
 					"y": 4
 				},
 				{
-					"type": "Flag",
+					"type": "Goal",
 					"x": 8,
 					"y": 4
 				},
@@ -273,7 +273,7 @@
 			"height": 7,
 			"objects": [
 				{
-					"type": "Flag",
+					"type": "Goal",
 					"x": 2,
 					"y": 2
 				},
@@ -491,7 +491,7 @@
 			"height": 7,
 			"objects": [
 				{
-					"type": "Flag",
+					"type": "Goal",
 					"x": 2,
 					"y": 2
 				},
