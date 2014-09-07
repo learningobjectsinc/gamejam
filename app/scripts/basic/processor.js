@@ -1,36 +1,54 @@
 // Processor
 
-function Processor(statements, io) {
-    this.statements = statements;
-    this.io = io;
-    this.variables = {};
+function Processor(program, io) {
+    this.program = program;
     this.pc = 0;
+    this.io = io;
+    this.nextStatement = program.firstChild;
+    this.variables = {};
     this.halted = false;
-    this.stack = [{}];
-    this.functions = _.indexBy(_.filter(statements, function(statement) {
-            return statement instanceof FunctionStatement;
-        }), 'name');
+    this.stack = [];
+    this.functions = {};
+    for (var child = program.firstChild; child; child = child.nextSibling) {
+        if (child instanceof FunctionStatement) {
+            this.functions[child.name] = child;
+        }
+    }
 }
 
 Processor.prototype.step = function() {
-    var statement = this.statements[this.pc];
-    ++ this.pc; // I have to preincrement this because the statement may change the PC
+    this.statement = this.nextStatement;
+    this.nextStatement = null;
+    var statement = this.statement;
     try {
-        var invalid = (typeof statement.invalid == 'function') ? statement.invalid(this) : statement.invalid;
-        if (invalid) {
-            throw "Invalid statement: " + statement.source;
+        if (!statement) {
+            this.halted = true; // done
+        } else {
+            var invalid = (typeof statement.invalid == 'function')
+                ? statement.invalid(this) : statement.invalid;
+            if (invalid) {
+                throw "Invalid statement: " + statement.source;
+            }
+            statement.execute(this);
+            if (!this.nextStatement) {
+                this.nextStatement = this.statement.nextStatement(true);
+            }
+            // TODO: Killme
+            this.pc = 1;
+            var context = this.program.firstChild;
+            while (context && (context != this.nextStatement)) {
+                ++ this.pc;
+                context = context.nextStatement(true);
+            }
         }
-        statement.execute(this);
-        this.halted = this.pc >= this.statements.length;
     } catch (e) {
         this.halted = true;
-        -- this.pc;
         throw e;
     }
 }
 
 Processor.prototype.log = function() {
-    console.log('Line', this.pc, this.statements[this.pc]);
+    console.log('Statement', this.statement.source);
     console.log('Variables', this.variables);
 }
 

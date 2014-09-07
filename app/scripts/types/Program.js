@@ -11,9 +11,7 @@ angular.module('gamejamApp').factory('Program', function($timeout){
 	program.prototype.compile = function(){
 	    var source = this.code.split('\n');
 
-	    this.statements = _.map(source, function(s, i) {
-	        return Basic.parseStatement(s, 1 + i);
-	    });
+	    this.statements = Basic.parseProgram(source);
 
 	    console.log(this.statements);
 
