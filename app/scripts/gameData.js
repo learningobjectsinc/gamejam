@@ -1329,6 +1329,13 @@ gameData["levels"] = [
 						"x": 1,
 						"y": 0
 					}
+				},
+				{
+					"type": "Wall",
+					"config": {
+						"x": 4,
+						"y": 3
+					}
 				}
 			]
 		}

@@ -39,7 +39,7 @@ angular.module('gamejamApp')
 
     $scope.addToProgram = function(blockType){
 
-        if(!$scope.program.statements.length){
+        if(!$scope.program.statements){
             $scope.program.init();
         }
         var programStmt = $scope.program.statements;
