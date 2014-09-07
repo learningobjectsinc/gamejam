@@ -21,13 +21,13 @@ function _parseExpressionList(str) {
 }
 
 function Statement() {
-    this.children = {};
 }
 
 Statement.prototype.init = function(source) {
     this.source = source;
     this.id = +_.uniqueId();
     var match = source.match(this.syntax);
+    this.matches = match;
     if (!match) {
         this.invalid = true;
     } else {
@@ -49,42 +49,43 @@ Statement.prototype.execute = function(context) {
 
 Statement.prototype.skipBlock = function(processor) {
     processor.nextStatement = this.nextStatement(false);
-    var last = this.firstChild;
-    while (last && last.nextSibling) {
-        last = last.nextSibling;
-    }
-    return last;
+    var l = this.children.length;
+    return l ? this.children[l - 1] : null;
 };
 
 Statement.prototype.addStatement = function(statement) {
     if (!this.startsBlock) {
         throw "Cannot add to: " + this.source;
     }
-    var child = this.firstChild;
-    if (!child) {
-        this.firstChild = statement;
-    } else {
-        while (child.nextSibling) {
-            child = child.nextSibling;
-        }
-        child.nextSibling = statement;
+    if (this.children == Statement.prototype.children) {
+        this.children = [];
     }
+    this.children.push(statement);
     statement.parent = this;
 };
 
 Statement.prototype.nextStatement = function(children) {
-    if (children && this.firstChild) {
-        return this.firstChild;
+    if (children && this.children.length) {
+        return this.children[0];
     } else {
-        var context = this;
-        while (context.parent && !context.nextSibling) {
+        var context = this, next = context.nextSibling();
+        while (context.parent && context.parent.parent && !next) {
             if (!context.endsBlock) {
                 throw "Unexpected end: " + context.source;
             }
             context = context.parent;
+            next = context.nextSibling();
         }
-        return context.nextSibling;
+        return next;
     }
+}
+
+Statement.prototype.nextSibling = function() {
+    var siblings = this.parent.children, index = _.indexOf(siblings, this);
+    if (index < 0) {
+        throw "Abnormal end";
+    }
+    return (index + 1 < siblings.length) ? siblings[index + 1] : null;
 }
 
 Statement.prototype.startsBlock = false;
@@ -94,6 +95,10 @@ Statement.prototype.endsBlock = false;
 Statement.prototype.description = 'This statement does not have a helpful description.';
 
 Statement.prototype.syntaxHelp = '<span class="keyword">Syntax</span>';
+
+Statement.prototype.children = [];
+
+Statement.prototype.tokenLabels = [];
 
 // ProgramStatement
 
@@ -211,6 +216,8 @@ LetStatement.prototype.keyword = "LET";
 
 LetStatement.prototype.syntax = "^LET\\s+(" + VARIABLE_REGEX + ")\\s*=\\s*(" + EXPRESSION_REGEX + ")\\s*$";
 
+LetStatement.prototype.tokenLabels = ['Variable', 'Value'];
+
 LetStatement.prototype.description = "This statement assigns a value to variable.";
 
 LetStatement.prototype.syntaxHelp = '<span class="keyword">LET</span> <span class="variable">variable</span> = <span class="value">value</span>';
@@ -239,6 +246,8 @@ TellStatement.prototype.keyword = "TELL";
 
 TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
 
+TellStatement.prototype.tokenLabels = ["Object to call", "Function to call", "Value to pass in"];
+
 // FunctionStatement
 
 function FunctionStatement() {
@@ -251,10 +260,6 @@ FunctionStatement.prototype.constructor = FunctionStatement;
 FunctionStatement.prototype.initmatch = function(match) {
     this.name = match[1];
     this.parameterNames = _parseParameterList(match[2]);
-}
-
-FunctionStatement.prototype.invalid = function(processor) {
-    return !processor.functions[this.name];
 }
 
 FunctionStatement.prototype.execute = function(processor) {
@@ -287,6 +292,8 @@ FunctionStatement.prototype.startsBlock = true;
 FunctionStatement.prototype.keyword = "FUNCTION";
 
 FunctionStatement.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*$";
+
+FunctionStatement.prototype.tokenLabels = ["Name", "Input Parameter"];
 
 // End FunctionStatement
 
@@ -335,6 +342,8 @@ ForStatement.prototype.keyword = "FOR";
 
 ForStatement.prototype.syntax = "^FOR\\s+(" + VARIABLE_REGEX + ")\\s+=\\s+(" + EXPRESSION_REGEX + ")\\s+TO\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
+ForStatement.prototype.tokenLabels = ["Variable to loop", "Start at", "Go to"];
+
 // NextStatement
 
 function NextStatement() {
@@ -358,7 +367,7 @@ NextStatement.prototype.execute = function(processor) {
     var stop = processor.evaluate(this.parent.stop);
     if (value <= stop) {
         processor.variables[this.variable] = value;
-        processor.nextStatement = this.parent.firstChild;
+        processor.nextStatement = this.parent.children[0];
     }
 }
 
@@ -367,6 +376,8 @@ NextStatement.prototype.endsBlock = true;
 NextStatement.prototype.keyword = "NEXT";
 
 NextStatement.prototype.syntax = "^NEXT\\s+(" + VARIABLE_REGEX + ")\\s*$";
+
+NextStatement.prototype.tokenLabels = ["Variable"];
 
 // IfStatement
 
@@ -396,6 +407,8 @@ IfStatement.prototype.startsBlock = true;
 IfStatement.prototype.keyword = "IF";
 
 IfStatement.prototype.syntax = "^IF\\s+(" + EXPRESSION_REGEX + ")\\s+THEN\\s*$";
+
+IfStatement.prototype.tokenLabels = ["Expression"];
 
 // EndIfStatement
 
@@ -452,7 +465,7 @@ UntilStatement.prototype.execute = function(processor) {
     }
     var value = processor.evaluate(this.expression);
     if (!value) {
-        processor.nextStatement = this.parent.firstChild;
+        processor.nextStatement = this.parent.children[0];
     }
 }
 
@@ -461,6 +474,8 @@ UntilStatement.prototype.endsBlock = true;
 UntilStatement.prototype.keyword = "UNTIL";
 
 UntilStatement.prototype.syntax = "^UNTIL\\s+(" + EXPRESSION_REGEX + ")\\s*$";
+
+UntilStatement.prototype.tokenLabels = ["Expression"];
 
 // WhileStatement
 
@@ -481,7 +496,7 @@ WhileStatement.prototype.execute = function(processor) {
     }
     var value = processor.evaluate(this.expression);
     if (value) {
-        processor.nextStatement = this.parent.firstChild;
+        processor.nextStatement = this.parent.children[0];
     }
 }
 
@@ -490,6 +505,8 @@ WhileStatement.prototype.endsBlock = true;
 WhileStatement.prototype.keyword = "WHILE";
 
 WhileStatement.prototype.syntax = "^WHILE\\s+(" + EXPRESSION_REGEX + ")\\s*$";
+
+WhileStatement.prototype.tokenLabels = ["Expression"];
 
 // FunctionCall
 
@@ -501,12 +518,12 @@ FunctionCall.prototype = Object.create(Statement.prototype);
 FunctionCall.prototype.constructor = FunctionCall;
 
 FunctionCall.prototype.initmatch = function(match) {
-    this.subroutine = match[1];
+    this.name = match[1];
     this.parameters = _parseExpressionList(match[2]);
 }
 
 FunctionCall.prototype.execute = function(processor) {
-    var fn = processor.functions[this.subroutine];
+    var fn = processor.functions[this.name];
     if (!fn) {
         throw "Unknown function: " + this.source;
     }
@@ -514,9 +531,15 @@ FunctionCall.prototype.execute = function(processor) {
     fn.invoke(processor, parameters);
 }
 
+FunctionCall.prototype.invalid = function(processor) {
+    return !processor.functions[this.name];
+}
+
 FunctionCall.prototype.keyword = "Function Call";
 
 FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*$";
+
+FunctionCall.prototype.tokenLabels = ['Function to call', 'Parameters'];
 
 // Basic
 

@@ -3,8 +3,8 @@
 	<audio id="music" mute loop>
 		<source src="sound/finalAct.wav" type="audio/wav">
 	</audio>
-	<button ng-click="toggleSound()" ng-show="isSoundOn">Turn Sound Off</button>
-	<button ng-click="toggleSound()" ng-hide="isSoundOn">Turn Sound On</button>
+	<button ng-click="toggleMusic()" ng-show="isMusicOn">Turn Music Off</button>
+	<button ng-click="toggleMusic()" ng-hide="isMusicOn">Turn Music On</button>
 
 	<div class="sidebar" ng-controller="BlockEditor">
 		<div class="blockLibrary">
@@ -18,7 +18,7 @@
 			<div ng-if="!program.statements.length">
 				Add some blocks!<br>Y U NO CODE!?!?
 			</div>
-			<div ng-repeat="stmt in program.statements track by stmt.id" block="stmt"></div>
+			<div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt"></div>
 		</div>
 
 		<div class="codeEditor">
@@ -27,8 +27,8 @@
 			<div class="code-controls">		
 				<!-- These should probably move eventually? -->
 				<input ng-click="program.compile()" class="compile" type="button" value="COMPILE" />
-				<input ng-click="program.step()" class="step" type="button" ng-disabled="!program.statements.firstChild" value="STEP" />
-				<input ng-click="program.run()" class="run" type="button" ng-disabled="!program.statements.firstChild" value="RUN" />
+				<input ng-click="program.step()" class="step" type="button" ng-disabled="!program.statements.children" value="STEP" />
+				<input ng-click="program.run()" class="run" type="button" ng-disabled="!program.statements.children" value="RUN" />
 			</div>
 		</div>
 

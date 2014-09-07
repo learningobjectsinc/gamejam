@@ -1,8 +1,10 @@
 <div class="basicEditor">
-    <div ui-ace="{onLoad: aceLoaded}" class="source" ng-model="program.code">
+    <div ui-ace="{onLoad: aceLoaded, mode:'bhtbasic'}" class="source" ng-model="program.code">
     </div>
     <textarea class="prefill" style="display: none;">
 LET x = 1
+
+TELL robot : 'talk', 'suck it'
 
 IF x &lt; 2 THEN
   Print 'hello, world'
@@ -21,7 +23,7 @@ FOR i = 1 TO 5
 NEXT i
 
 FUNCTION Print i
-  TELL robot : 'print', i
+  TELL robot : 'moveForward', i
 END FUNCTION
     </textarea>
     <div class="variables" ng-bind-html="variables()">
