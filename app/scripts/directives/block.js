@@ -20,6 +20,16 @@ angular.module('gamejamApp').directive('block', function(){
 			scope.delete = function(){
 				container.deleteBlock(block);
 			};
+
+			el.click(function(ev){
+				ev.stopPropagation(); 
+				
+				$('.programBlock').removeClass('active');
+				el.contents('.programBlock').addClass('active');
+
+				$('.ace_layer .stmt').removeClass('active');
+				$('.ace_layer .stmt_' + block.id).addClass('active');
+			});
 		}
 	};
 });

@@ -1,7 +1,17 @@
 .programBlock {
   background-color: #ddffdd;
-  padding: 1px 5px;
+  padding: 5px 9px;
   margin: 15px 0;
+
+  h4 {
+    margin-top: 8px;
+  }
+
+  &.active {
+    border: 4px solid;
+    border-color: #22ff22;
+    padding: 1px 5px;
+  }
 
   .delete {
   	cursor: pointer;

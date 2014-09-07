@@ -1,13 +1,13 @@
-var Rock = function(x,y) {
+var Troll = function(x, y, getAtLocation, angularScope) {
     GridObject.apply(this, [x, y]);
     
-	// Rock image
+	// Troll image
     var rockReady = false;
     var rockImage = new Image();
     rockImage.onload = function () {
         rockReady = true;
     };
-    rockImage.src = "images/objects/wall.png";
+    rockImage.src = "images/objects/troll.png";
     this.restrictive = true;
     this.goal = false;
 
@@ -15,11 +15,17 @@ var Rock = function(x,y) {
     this.x = x;
     this.y = y;
     this.image = rockImage;
+
+    angularScope.$on('robot.talk', function(e, params) {
+        if (params.uttering == "secret") {
+            self.destroy();
+        }
+    });
 };
 
-Rock.prototype = Object.create(GridObject.prototype);
+Troll.prototype = Object.create(GridObject.prototype);
 
-Rock.prototype.render = function(canvasSize, squareSize, ctx) {
+Troll.prototype.render = function(canvasSize, squareSize, ctx) {
     if (this.destroyed) {
         return false;
     }
@@ -34,10 +40,10 @@ Rock.prototype.render = function(canvasSize, squareSize, ctx) {
     ctx.restore();
 }
 
-Rock.prototype.destroy = function() {
+Troll.prototype.destroy = function() {
     this.destroyed = true;
 }
 
-Rock.prototype.update = function(canvasSize, squareSize, ctx) {
+Troll.prototype.update = function(canvasSize, squareSize, ctx) {
 	// no op
 }

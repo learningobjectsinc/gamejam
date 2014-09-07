@@ -15,10 +15,10 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				if(!program.processor){
 					return;
 				}
-				ace.gotoLine(line+1);
-				ace.setHighlightActiveLine(true);
+				editor.gotoLine(line+1);
+				editor.setHighlightActiveLine(true);
 
-				var session = ace.getSession();
+				var session = editor.getSession();
 				session.removeGutterDecoration(prevLine, 'current');
 				session.addGutterDecoration(line, 'current');
 				prevLine = line;
@@ -28,21 +28,53 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				if(!program.processor){
 					return;
 				}
-				var session = ace.getSession();
+
 				$('.invalid').removeClass('invalid'); // muahahahahahandrewmuahahahahahaaa
 				var index = 0;
+				var lastChild, line, offset;
+
+				rl.removeAll();
+
+				var firstChar = new RegExp('[^ ]');
+
 				for (var stmt = statements.children[0]; stmt; stmt = stmt.nextStatement(true)) {
 					var invalid = stmt.invalid;
 					if ((typeof invalid == 'function') ? stmt.invalid(program.processor) : invalid) {
 						session.addGutterDecoration(index, 'invalid');
 					}
+
+					if(stmt.source){
+						lastChild = {};
+						line = null;
+						offset =0;
+
+						if(!_.isEmpty(stmt.children)){
+							lastChild = _.last(stmt.children);
+							line = session.getLine(lastChild.line);
+							offset = line.match(firstChar).index;
+							var range = new Range(stmt.line, offset, lastChild.line, line.length);
+						} else {
+							line = session.getLine(stmt.line);
+							offset = line.match(firstChar).index;
+							var range = new Range(stmt.line, offset, stmt.line, line.length);
+						}
+
+						rl.add(range);
+						session.addMarker(range, 'stmt stmt_' + stmt.id, 'text');
+					}
 					++ index;
 				}
 			});
 
-			var ace = null;
-			$scope.aceLoaded = function(editor){
-				ace = editor;
+			var Range = ace.require('ace/range').Range;
+			var RangeList = ace.require('ace/range_list').RangeList;
+			var rl = new RangeList();
+
+			var editor, session;
+			$scope.aceLoaded = function(editorInstance){
+				editor = editorInstance;
+				session = editor.getSession();
+				rl.attach(session);
 			};
 
 			$scope.console = function(){

@@ -6,6 +6,7 @@ angular.module('gamejamApp').directive('blockContainer', function(){
 		scope: {
 			'program': '=blockContainer'
 		},
+		replace: false,
 		controller: function($scope){
 			var program = $scope.program;
 
@@ -14,6 +15,11 @@ angular.module('gamejamApp').directive('blockContainer', function(){
 				if(pos !== -1){
 					program.splice(pos, 1);
 				}
+			};
+
+			$scope.activeBlock = null;
+			this.setActive = function(block){
+				$scope.activeBlock = block;
 			};
 		}
 	};

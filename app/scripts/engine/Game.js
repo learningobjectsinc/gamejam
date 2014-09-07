@@ -109,6 +109,9 @@ Game.prototype.update = function(canvasSize, ctx) {
 
 
 Game.prototype.getAtLocation = function(x, y) {
+    if (x > this.map.width || y > this.map.height) {
+        return {};
+    }
     for (var i = 0; i < this.objects.length; i++) {
         var object = this.objects[i];
         if ((object.x === x) && (object.y === y)) {
