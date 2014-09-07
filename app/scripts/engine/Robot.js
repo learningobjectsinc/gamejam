@@ -8,6 +8,14 @@ var Robot = function(x, y, getAtLocation, angularScope) {
         rbReady = true;
     };
     rbImage.src = "images/robot/robot-right.svg";
+    
+    // Speach image
+    var sReady = false;
+    var sImage = new Image();
+    sImage.onload = function () {
+        sReady = true;
+    };
+    sImage.src = "images/robot/speech_bubble.png";
 
 	var self = this;
     this.angularScope = angularScope
@@ -16,12 +24,13 @@ var Robot = function(x, y, getAtLocation, angularScope) {
     this.getAtLocation = getAtLocation
     this.direction = 'right';
     this.image = rbImage;
+    this.speechImage = sImage;
     this.busy = false;
 
     this.talking = false;
     this.talkingText = '';
     this.talkingDuration = 0;
-    this.talkingTotalDuration = 3000;
+    this.talkingTotalDuration = 3;
 
     this.moving = false;
     this.movingDistance = 0;
@@ -53,6 +62,11 @@ var Robot = function(x, y, getAtLocation, angularScope) {
             // params[0] is the text
             self.talking = true;
             self.talkingText = params[0];
+            self.talkingDuration = self.talkingTotalDuration;
+            if ('speechSynthesis' in window) {
+                var utterance = new SpeechSynthesisUtterance(self.talkingText);
+                window.speechSynthesis.speak(utterance);
+            }
         }
     };
 
@@ -77,6 +91,26 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
     );
 
     ctx.drawImage(this.image, -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);
+    if (this.talking) {
+        ctx.drawImage(this.speechImage, squareSize.width/4, squareSize.height*-1.1, squareSize.width*2, squareSize.height*0.8);
+        ctx.font = '400 16px courier';
+        ctx.fillStyle = "black";
+        ctx.fillText(this.talkingText, squareSize.width*0.4, squareSize.height*-0.8);
+    }
+
+    ctx.restore();
+
+    ctx.fillStyle = 'green';
+
+    if (this.batteryPower > 0) {
+        var padding = 5;
+        var segmentWidth = (canvasSize.width / this.batterySize) - padding;
+        for (var i = 0; i < this.batteryPower; i++) {
+            ctx.fillRect(i * (segmentWidth + padding), canvasSize.height - 40, segmentWidth, 40);
+        }
+    }
+    
+    ctx.fill();
 
     ctx.restore();
 }
@@ -106,22 +140,18 @@ Robot.prototype.drainBattery = function(amount) {
     return this.batteryPower;
 }
 
-Robot.prototype.$talk = function(time, text) {
+Robot.prototype.$talk = function(time) {
     if (this.talkingDuration > 0) {
-        ctx.save();
-        ctx.translate(
-            this.x*squareSize.width - squareSize.width/2,
-            this.y*squareSize.height - squareSize.height/2
-        );
-        ctx.drawImage('images/robot/speech_bubble.svg', squareSize.width, squareSize.height, squareSize.width/2, squareSize.height/3); 
-        ctx.restore();   
+        this.talkingDuration -= time; 
     } else {
         this.talking = false;
     }
 }
 
 Robot.prototype.$moveForward = function(time) {
-    if (this.$getInFront() != null) { //TODO real collision
+    var inFront = this.$getInFront();
+    if (inFront != null && inFront.restrictive) { //TODO real collision
+        this.$cleanMyPosition();
         this.moving = false;
         this.colliding = true;
     } else {
@@ -148,17 +178,14 @@ Robot.prototype.$moveForward = function(time) {
                     break;
             }
         } else {
-            this.x = Math.round(this.x);
-            this.y = Math.round(this.y);
+            this.$cleanMyPosition();
             this.totalMovingDistance--;
             if (this.totalMovingDistance === 0) {
                 this.moving = false;
                 this.movingDistance = 0;
                 this.busy = false;   
             } else {
-                
-                    this.movingDistance = 1;
-                //}
+                this.movingDistance = 1;
             }
         }
     }
@@ -235,17 +262,9 @@ Robot.prototype.$turn = function() {
     this.turning = false;
 }
 
-// RobotIO
-/*
-function RobotIO() {
-    IO.call(this);
+Robot.prototype.$cleanMyPosition = function() {
+    this.x = Math.round(this.x);
+    this.y = Math.round(this.y);
 }
 
-RobotIO.prototype = Object.create(IO.prototype);
 
-RobotIO.prototype.constructor = RobotIO;
-
-RobotIO.prototype.interrupt = function(code, parameters) {
-    Robot.doSomething(code, parameters);
-}
-*/

@@ -11,11 +11,11 @@ angular.module('gamejamApp')
 angular.module('gamejamApp')
   .controller('TheGame', function ($scope, Program) {
     $scope.program = new Program();
-    $scope.isSoundOn = false;
+    $scope.isMusicOn = false;
 
-    $scope.toggleSound = function() {
-        $scope.isSoundOn = !$scope.isSoundOn;
-        if ($scope.isSoundOn) {
+    $scope.toggleMusic = function() {
+        $scope.isMusicOn = !$scope.isMusicOn;
+        if ($scope.isMusicOn) {
             $('#music')[0].play();
         } else {
             $('#music')[0].pause();
