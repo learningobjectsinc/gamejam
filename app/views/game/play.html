@@ -27,8 +27,8 @@
 			<div class="code-controls">		
 				<!-- These should probably move eventually? -->
 				<input ng-click="program.compile()" class="compile" type="button" value="COMPILE" />
-				<input ng-click="program.step()" class="step" type="button" ng-disabled="!program.statements.firstChild" value="STEP" />
-				<input ng-click="program.run()" class="run" type="button" ng-disabled="!program.statements.firstChild" value="RUN" />
+				<input ng-click="program.step()" class="step" type="button" ng-disabled="!program.statements.children" value="STEP" />
+				<input ng-click="program.run()" class="run" type="button" ng-disabled="!program.statements.children" value="RUN" />
 			</div>
 		</div>
 

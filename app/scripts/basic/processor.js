@@ -4,16 +4,13 @@ function Processor(program, io) {
     this.program = program;
     this.pc = 0;
     this.io = io;
-    this.nextStatement = program.firstChild;
+    this.nextStatement = program.children[0];
     this.variables = {};
     this.halted = false;
     this.stack = [];
-    this.functions = {};
-    for (var child = program.firstChild; child; child = child.nextSibling) {
-        if (child instanceof FunctionStatement) {
-            this.functions[child.name] = child;
-        }
-    }
+    this.functions = _.indexBy(_.filter(program.children, function(statement) {
+        return statement instanceof FunctionStatement;
+    }), 'name');
 }
 
 Processor.prototype.step = function() {
@@ -33,9 +30,9 @@ Processor.prototype.step = function() {
             if (!this.nextStatement) {
                 this.nextStatement = this.statement.nextStatement(true);
             }
-            // TODO: Killme
-            this.pc = 1;
-            var context = this.program.firstChild;
+            // TODO: Killme when i can give line number as statement id
+            this.pc = 0;
+            var context = this.program.children[0];
             while (context && (context != this.nextStatement)) {
                 ++ this.pc;
                 context = context.nextStatement(true);
