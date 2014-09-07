@@ -55,14 +55,18 @@ Statement.prototype.skipBlock = function(processor) {
     return l ? this.children[l - 1] : null;
 };
 
-Statement.prototype.addStatement = function(statement) {
+Statement.prototype.addStatement = function(statement, linear) {
     if (!this.startsBlock) {
         throw "Cannot add to: " + this.source;
     }
     if (this.children == Statement.prototype.children) {
         this.children = [];
     }
-    this.children.splice(-1,0,statement);
+    if (linear) {
+        this.children.push(statement);
+    } else {
+        this.children.splice(-1,0,statement);
+    }
     statement.setParent(this);
 };
 
@@ -141,7 +145,7 @@ ProgramStatement.prototype.keyword = "Program";
 ProgramStatement.prototype.syntax = "";
 
 ProgramStatement.prototype.addStatement = function(statement) {
-    Statement.prototype.addStatement.call(this, statement);
+    Statement.prototype.addStatement.apply(this, arguments);
     if ((statement instanceof FunctionStatement) && !statement.isInvalid()) {
         this.functions[statement.name] = statement;
     }
@@ -305,7 +309,7 @@ TellStatement.prototype.tokenLabels = ["Object to call", "Function to call", "Va
 TellStatement.prototype.syntaxHelp = '<span class="sy-keyword">TELL</span> <span class="sy-variable">object</span> : <span class="sy-function">Function</span>(<span class="sy-expression">expression</span>, ...)'
 
 TellStatement.prototype.toSource = function() {
-    var code = this.keyword + " " + this.recipient + " : " + this.parameters;
+    var code = this.keyword + " " + this.object + " : " + this.method + "(" + _.map(this.parameters, Parser.Expression.prototype.toString).join(", ") + ")";
     return code;
 }
 
@@ -723,9 +727,9 @@ Basic.parseProgram = function(sources) {
         var statement = Basic.parseStatement(source, program);
         statement.line = line;
         if (context == null) {
-            program.addStatement(statement);
+            program.addStatement(statement, true);
         } else {
-            context.addStatement(statement);
+            context.addStatement(statement, true);
         }
         if (statement.startsBlock) {
             context = statement;
@@ -733,7 +737,7 @@ Basic.parseProgram = function(sources) {
             context = context && context.parent;
         }
     });
-    program.addStatement(new EndProgramStatement());
+    program.addStatement(new EndProgramStatement(), true);
     program.parser.functions.robot = {};
     program.parser.functions.ASK = function(r, q) { 
         var a = program.processor.io.interrupt(r, []);
