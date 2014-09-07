@@ -8,27 +8,7 @@ angular.module("gamejamApp").run(function(objectFactory) {
 
         _.extend(self, config);
 
-        
-        
-        switch (self.direction) {
-            case 'up':
-                this.image = "images/robot/robot-up.svg";
-                break;
-            case 'right':
-                this.image = "images/robot/robot-right.svg";
-                break;
-            case 'down':
-                this.image = "images/robot/robot-down.svg";
-                break;
-            case 'left':
-                this.image = "images/robot/robot-left.svg";
-                break;
-            default:
-                this.image = "images/robot/robot-right.svg";
-                break;
-        }
-
-        
+        this.$updateDirection();        
 
         this.instructions = {
             "MoveForward": function(params) {
@@ -112,46 +92,59 @@ angular.module("gamejamApp").run(function(objectFactory) {
         // clean up
     }
 
+    Robot.prototype.$updateDirection = function() {
+        switch (this.direction) {
+            case 'up':
+                this.image = "images/robot/robot-up.svg";
+                break;
+            case 'right':
+                this.image = "images/robot/robot-right.svg";
+                break;
+            case 'down':
+                this.image = "images/robot/robot-down.svg";
+                break;
+            case 'left':
+                this.image = "images/robot/robot-left.svg";
+                break;
+            default:
+                this.image = "images/robot/robot-right.svg";
+                break;
+        }
+    }
+
     Robot.prototype.$turn = function(turningDirection) {
         if (turningDirection == 'right') {
             switch (this.direction) {
                 case 'up':
                     this.direction = 'right';
-                    this.image = "images/robot/robot-right.svg";
                     break;
                 case 'right':
                     this.direction = 'down';
-                    this.image = "images/robot/robot-down.svg";
                     break;
                 case 'down':
                     this.direction = 'left';
-                    this.image = "images/robot/robot-left.svg";
                     break;
                 case 'left':
                     this.direction = 'up';
-                    this.image = "images/robot/robot-up.svg";
                     break;
             }
-        } else {
+        } else { // left
             switch (this.direction) {
                 case 'up':
                     this.direction = 'left';
-                    this.image = "images/robot/robot-left.svg";
                     break;
                 case 'right':
                     this.direction = 'up';
-                    this.image = "images/robot/robot-up.svg";
                     break;
                 case 'down':
                     this.direction = 'right';
-                    this.image = "images/robot/robot-right.svg";
                     break;
                 case 'left':
                     this.direction = 'down';
-                    this.image = "images/robot/robot-down.svg";
                     break;
             }
         }
+        this.$updateDirection();
     }
 
     objectFactory.registerObject('Robot', Robot);
