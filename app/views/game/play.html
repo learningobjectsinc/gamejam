@@ -20,6 +20,7 @@
                 <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-click="addToProgram(block)">
                     {{ block.constructor.prototype.keyword }}
                 </button>
+                </div>
             </div>
             <div class="programBlockContainer" block-container="program">
                 <h2>Robot Task List:</h2>
@@ -46,7 +47,7 @@
             </div>
         </div>
 
-        <button class="btn btn-success btn-huge" ng-click="runProgram()">Run</button>
+        <button class="btn btn-success btn-huge" ng-click="runProgram()" ng-disabled="program.isRunning()">Run</button>
         <!-- <button ui-sref="^.wrapup">WIN</button> -->
         <input class="btn btn-primary" ng-click="resetGame()" class="reset" type="button" value="Reset" ng-disabled="program.isRunning()" />
         <button class="btn btn-primary" ng-click="switchCodingContext()">
