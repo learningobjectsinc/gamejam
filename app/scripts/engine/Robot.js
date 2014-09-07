@@ -121,7 +121,9 @@ Robot.prototype.$talk = function(time, text) {
 }
 
 Robot.prototype.$moveForward = function(time) {
+    console.log(this.movingDistance, '***', this.x,this.y);
     if (this.$getInFront() != null) { //TODO real collision
+        this.$cleanMyPosition();
         this.moving = false;
         this.colliding = true;
     } else {
@@ -148,17 +150,14 @@ Robot.prototype.$moveForward = function(time) {
                     break;
             }
         } else {
-            this.x = Math.round(this.x);
-            this.y = Math.round(this.y);
+            this.$cleanMyPosition();
             this.totalMovingDistance--;
             if (this.totalMovingDistance === 0) {
                 this.moving = false;
                 this.movingDistance = 0;
                 this.busy = false;   
             } else {
-                
-                    this.movingDistance = 1;
-                //}
+                this.movingDistance = 1;
             }
         }
     }
@@ -233,6 +232,11 @@ Robot.prototype.$turn = function() {
         }
     }
     this.turning = false;
+}
+
+Robot.prototype.$cleanMyPosition = function() {
+    this.x = Math.round(this.x);
+    this.y = Math.round(this.y);
 }
 
 // RobotIO

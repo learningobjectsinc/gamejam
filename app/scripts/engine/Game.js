@@ -49,7 +49,6 @@ var Game = function(map, angularScope) {
     }
 
     window.addEventListener("keydown", function(e){
-        console.log(e.keyCode);
         if(e.keyCode === 81){
             self.debugMode = !self.debugMode;
         }
