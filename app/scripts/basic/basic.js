@@ -261,21 +261,23 @@ TellStatement.prototype = Object.create(Statement.prototype);
 TellStatement.prototype.constructor = TellStatement;
 
 TellStatement.prototype.initmatch = function(match) {
-    this.recipient = match[1];
-    this.parameters = this.parseExpressionList(match[2]);
+    this.object = match[1];
+    this.method = match[2];
+    this.parameters = this.parseExpressionList(match[3]);
 }
 
 TellStatement.prototype.execute = function(processor) {
     var parameters = _.map(this.parameters, processor.evaluate, processor);
-    var code = parameters.shift();
-    processor.io.interrupt(code, parameters);
+    processor.io.interrupt(this.method, parameters);
 }
 
 TellStatement.prototype.keyword = "TELL";
 
-TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
+TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" + FUNCTION_REGEX + ")\\s*\\((\\s*" + EXPRESSION_REGEX + "\\s*(?:,\\s*" + EXPRESSION_REGEX + ")*)\\)\\s*$";
 
 TellStatement.prototype.tokenLabels = ["Object to call", "Function to call", "Value to pass in"];
+
+TellStatement.prototype.syntaxHelp = '<span class="sy-keyword">TELL</span> <span class="sy-variable">object</span> : <span class="sy-function">Function</span>(<span class="sy-expression">expression</span>, ...)'
 
 // FunctionStatement
 

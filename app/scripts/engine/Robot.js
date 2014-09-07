@@ -34,18 +34,18 @@ var Robot = function(attrs, getAtLocation, angularScope) {
     this.batteryPower = this.batterySize;
 
     this.instructions = {
-    	"moveForward": function(params) {
+    	"MoveForward": function(params) {
     		// params[0] is the distance
             self.moving = true;
             self.totalMovingDistance = params[0];
             self.movingDistance = 1;
             self.busy = true;
     	},
-    	"turn": function(params) {
+    	"Turn": function(params) {
     		// params[0] is the direction
             self.$turn(params[0]);
     	},
-        "talk": function(params) {
+        "Talk": function(params) {
             // params[0] is the text
             self.talking = true;
             self.talkingText = params[0];
@@ -56,10 +56,10 @@ var Robot = function(attrs, getAtLocation, angularScope) {
                 window.speechSynthesis.speak(utterance);
             }
         },
-        "busy": function(params) {
+        "Busy": function(params) {
             return self.moving || self.turning || self.talking;
         },
-        "fireLaser": function(params) {            
+        "FireLaser": function(params) {            
             self.invoke("talk", ["PEW PEW PEW"]);
             var obstacle = self.$getInFront();
             if (obstacle && (typeof obstacle.destroy != undefined)) {
@@ -81,7 +81,11 @@ var Robot = function(attrs, getAtLocation, angularScope) {
 Robot.prototype = Object.create(GridObject.prototype);
 
 Robot.prototype.invoke = function(functionName, params) {
-    return this.instructions[functionName](params);
+    var op = this.instructions[functionName];
+    if (!op) {
+        throw "Unknown method: " + functionName;
+    }
+    return op(params);
 }
 
 Robot.prototype.render = function(canvasSize, squareSize, ctx) {
