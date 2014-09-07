@@ -30,12 +30,14 @@ Processor.prototype.step = function() {
             if (!this.nextStatement) {
                 this.nextStatement = this.statement.nextStatement(true);
             }
-            // TODO: Killme when i can give line number as statement id
-            this.pc = 0;
-            var context = this.program.children[0];
-            while (context && (context != this.nextStatement)) {
-                ++ this.pc;
-                context = context.nextStatement(true);
+            if (this.nextStatement && this.nextStatement.program == this.program) {
+                // TODO: Killme when i can give line number as statement id
+                this.pc = 0;
+                var context = this.program.children[0];
+                while (context && (context != this.nextStatement)) {
+                    ++ this.pc;
+                    context = context.nextStatement(true);
+                }
             }
         }
 

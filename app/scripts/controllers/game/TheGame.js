@@ -31,7 +31,7 @@ angular.module('gamejamApp')
     console.log($scope.program);
 
     console.log($scope.level.defaultCode);
-    $scope.program = new Program("Step()\n", null);
+    (typeof $scope.level.defaultCode != undefined) ? $scope.program = new Program($scope.level.defaultCode) : $scope.program = new Program();
 
 
     $scope.program.compile();
