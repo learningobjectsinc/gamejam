@@ -3,5 +3,10 @@
 		width: 32%;
 		max-width: 32%;
 		float: right;
+
+		> div {
+			padding: 5px;
+			margin: 10px 5px;
+		}
 	}
 }
