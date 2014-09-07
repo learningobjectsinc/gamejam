@@ -9,7 +9,7 @@
         <div ng-if="blockEditing">
             <div class="blockLibrary">
             	<div>
-            	    <img class="robotProfile" src="/images/robot/robot-down.svg"/>Mr. Roboto
+            	    <img class="robotProfile" src="/images/robot/robot-down.svg"/>Ms Roboto
             	</div>
                 <h2 style="margin-bottom:0px;">Robot Instructions</h2>
                 (click on an instruction to add it to my task list)
@@ -31,6 +31,11 @@
             </div>
         </div>
         <div ng-if="!blockEditing">
+            <div class="blockLibrary">
+            	<div>
+            	    <img class="robotProfile" src="/images/robot/robot-down.svg"/>Ms Roboto
+            	</div>
+            </div>
             <div class="codeEditor">
                 <h2>Code</h2>
                 <div basic-editor="program"></div>
