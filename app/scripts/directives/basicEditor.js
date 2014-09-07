@@ -38,8 +38,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				var firstChar = new RegExp('[^ ]');
 
 				for (var stmt = statements.children[0]; stmt; stmt = stmt.nextStatement(true)) {
-					var invalid = stmt.invalid;
-					if ((typeof invalid == 'function') ? stmt.invalid(program.processor) : invalid) {
+					if (stmt.isInvalid()) {
 						session.addGutterDecoration(index, 'invalid');
 					}
 
