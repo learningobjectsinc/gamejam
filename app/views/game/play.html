@@ -41,6 +41,9 @@
 					<input ng-click="program.resume()" class="resume" type="button" ng-disabled="!program.statements.children || program.processor.halted || !program.isRunning() || (program.isRunning() && !program.isPaused())" value="RESUME" />
 					<input ng-click="program.kill()" class="kill" type="button" ng-disabled="!program.statements.children || program.processor.halted || !program.isRunning()" value="STOP" />
 				</div>
+				<h2 ng-show="program.isRunning()">Variables</h2>
+                                <div class="variables" ng-bind-html="program.variables()" ng-show="program.isRunning()">
+                                </div>
 			</div>
 		</div>
 
