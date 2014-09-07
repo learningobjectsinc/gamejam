@@ -56,10 +56,12 @@ angular.module('gamejamApp')
     $scope.convertToCode = function(){
         console.log($scope.program.statements.children);
         var stmt = $scope.program.statements.children[0];
+        var src = '';
         while (stmt) {
-            console.log(stmt.getSource());
+            src += stmt.getSource();
             stmt = stmt.nextStatement(true);
         }
+        $scope.program.code = src;
     }
 
     $scope.blockEditing = true;

@@ -109,8 +109,10 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 			};
 
 		}, link: function(scope, el){
-			var existingSource = el.find('.prefill').val();
-			scope.program.code = existingSource;
+			if(!scope.program.code){
+				var existingSource = el.find('.prefill').val();
+				scope.program.code = existingSource;				
+			}
 		}
 	};
 });
