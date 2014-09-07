@@ -1,4 +1,4 @@
-<div id="game">
+ <div id="game">
 
         <div class="errorBar" ng-show="errorMessage">
           Your program crashed!<br />
@@ -8,19 +8,21 @@
     <div class="sidebar">
         <div ng-if="blockEditing">
             <div class="blockLibrary">
-            	<div>
-            	    <img class="robotProfile" src="/images/robot/robot-down.svg"/>Ms Roboto
-            	</div>
-                <h2 style="margin-bottom:0px;">Robot Instructions</h2>
-                (drag an instruction onto my task list)
-                <div style="margin-top:10px; min-height: 50px;">
+
+            	<div class="agentWrap">
+                    <img class="robotProfile" src="/images/robot/robot-down.svg"/>
+                    <span class="agentName">Mr. Roboto</span>
+                </div>
+                <!--<h2 style="margin-bottom:0px;">Robot Instructions</h2>
+                (click on an instruction to add it to my task list)-->
+                <div class="instructionSub">
                 <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-drag="true" ng-drag-data="block">
                     {{ block.constructor.prototype.keyword }}
                 </button>
                 </div>
             </div>
             <div class="programBlockContainer" block-container="program">
-                <h2>Robot Task List:</h2>
+                <!--<h2>Task List:</h2>-->
                 <div ng-if="!program.statements.children.length">
                     Add some tasks!
                 </div>

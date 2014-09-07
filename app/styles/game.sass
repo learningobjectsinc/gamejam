@@ -1,0 +1,30 @@
+@import variables
+
+#game 
+	.sidebar
+		width: 30%
+		max-width: 30%
+		float: right
+		background: url('/images/hexabump.png') $color-dark
+		box-shadow: -1px 0 3px rgba(0,0,0,0.15)
+
+		> div 
+			width: 100%
+
+	canvas, table
+		margin: 2.5%
+		width: 64%
+		border: 3px solid
+		border-radius: 0.5vem
+
+	table 
+		table-layout: fixed
+		max-width: 60%
+
+		td, img 
+			width: 6em
+			height: 6em
+
+	td 
+		background: $color-white
+		height: 7em
