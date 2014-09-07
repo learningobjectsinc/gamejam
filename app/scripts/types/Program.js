@@ -17,6 +17,8 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
             console.log(this.statements);
 
 	    this.io = RobotIO;
+	    this.paused = false;
+	    this.sleeper = null;
 	    this.processor = new Processor(this.statements, this.io, $rootScope);
 	};
 
