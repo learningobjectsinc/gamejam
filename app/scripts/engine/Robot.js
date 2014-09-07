@@ -73,7 +73,6 @@ var Robot = function(x, y, getAtLocation, angularScope) {
 
     angularScope.$on('processor.step', function() {
         self.drainBattery();
-        console.log(self.batteryPower);
     })
 
 };

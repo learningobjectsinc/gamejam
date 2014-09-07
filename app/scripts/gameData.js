@@ -379,3 +379,18 @@ gameData["levels"] = [
 		}
 	}
 ];
+gameData["wrapUp"] = [{
+        "levelId": 1,
+        "pages": [
+			{
+				"title": "Nice work!",
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You learned all about some things.</p>"
+			},
+			{
+				"title": "Level 1: Functions",
+				"body": "<p>Here's a little more info about what you did during this level.</p>"
+			}
+		]
+	}
+]
+;
