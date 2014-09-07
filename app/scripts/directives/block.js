@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('gamejamApp').directive('block', function(){
+angular.module('gamejamApp').directive('block', function($timeout, blockService){
 	return {
 		restrict: 'A',
 		scope: {
@@ -11,14 +11,22 @@ angular.module('gamejamApp').directive('block', function(){
 		link: function(scope, el, attr, container){
 			var block = scope.block;
 
-			var type = block.constructor.name;
-			scope.isBlank =
-				(type === 'BlankStatement') ||
-				(type === 'EndProgramStatement') ||
-				(block.endsBlock && block.matches.length <= 1);
-
 			scope.delete = function(){
 				container.deleteBlock(block);
+			};
+
+			scope.isBlockHidden = blockService.dontShow;
+
+			scope.addToParent = function(blockType){
+				var newBlock = new blockType.constructor();
+				newBlock.init(blockType.cfg.src, block.program);
+				block.parent.addStatement(newBlock);
+			};
+
+			scope.addChild = function(blockType){
+				var newBlock = new blockType.constructor();
+				newBlock.init(blockType.cfg.src, block.program);
+				block.addStatement(newBlock);
 			};
 
 			el.click(function(ev){
@@ -30,6 +38,22 @@ angular.module('gamejamApp').directive('block', function(){
 				$('.ace_layer .stmt').removeClass('active');
 				$('.ace_layer .stmt_' + block.id).addClass('active');
 			});
+
+
+			el.css({
+			    'overflow': 'hidden',
+			    'height': '0px',
+			    'transitionProperty': 'height',
+			    'transitionDuration': '200ms',
+			    'transitionTimingFunction': 'ease-in-out'
+			});
+			$timeout(function(){
+				var y = el.contents('div').get()[0].clientHeight;
+				el.css('height', y + 'px');
+				$timeout(function(){
+					el.css('height','auto');
+				},200);
+			},0);
 		}
 	};
 });

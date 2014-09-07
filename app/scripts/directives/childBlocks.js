@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gamejamApp').directive('childBlocks', function($compile){
+angular.module('gamejamApp').directive('childBlocks', function($compile, blockService){
 	return {
 		restrict: 'A',
 		scope: {
@@ -8,7 +8,9 @@ angular.module('gamejamApp').directive('childBlocks', function($compile){
 		},
 		template: '<div></div>',
 		link: function(scope, el){
-			var tmpl = '<div ng-repeat="block in blocks" block="block"></div>';
+			scope.dontShow = blockService.dontShow;
+
+			var tmpl = '<div ng-repeat="block in blocks" block="block" ng-if="!dontShow(block)"></div>';
 			$compile(tmpl)(scope, function(cloned, scope){
 			   el.append(cloned); 
 			});	
