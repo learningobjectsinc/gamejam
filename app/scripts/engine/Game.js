@@ -71,12 +71,14 @@ Game.prototype.render = function(canvasSize, ctx) {
     ctx.fill();
 
     //draw the squares
-    // ctx.strokeStyle = '#CCC';
-    // for(var x=0; x<this.map.width; x++){
-    //     for(var y=0; y<this.map.height; y++){
-    //         ctx.strokeRect(x*squareSize.width, y*squareSize.height, squareSize.width, squareSize.height);
-    //     }
-    // }
+    if (this.debugMode) {
+        ctx.strokeStyle = '#CCC';
+        for(var x=0; x<this.map.width; x++){
+            for(var y=0; y<this.map.height; y++){
+                ctx.strokeRect(x*squareSize.width, y*squareSize.height, squareSize.width, squareSize.height);
+            }
+        }
+    }
 
     for(var i=0; i<this.objects.length; i++ ){
         this.objects[i].render(canvasSize, squareSize, ctx);
