@@ -94,7 +94,7 @@ gameData["levels"] = [
 		"description": "Solve the epidemic of robot obesity by getting Tobor to move",
 		"icon": "rocket",
 		"completed": "0",
-		"defaultCode": "Forward()\nForward()\n\nFUNCTION Forward()\n  TELL robot : MoveForward(1)\n  Wait()\nEND FUNCTION\nFUNCTION Wait()\n  WHILE ASK('Busy')\n  END WHILE\nEND FUNCTION",
+		"defaultCode": "Forward()\nForward()\n\nFUNCTION Forward()\nTELL robot : MoveForward(1)\nWait()\nEND FUNCTION\nFUNCTION Wait()\nWHILE ASK('Busy')\nEND WHILE\nEND FUNCTION",
 		"map": {
 			"width": 8,
 			"height": 7,
@@ -375,6 +375,7 @@ gameData["levels"] = [
 		"description": "Learn to turn",
 		"icon": "rocket",
 		"completed": "0",
+		"defaultCode": "Forward()\nTurnRight()\nTurnRight()\nForward()\nTurnLeft()\nTurnLeft()\n\nFUNCTION Forward()\nTELL robot : MoveForward(1)\nWait()\nEND FUNCTION\n\nFUNCTION Wait()\nWHILE ASK('Busy')\nEND WHILE\nEND FUNCTION\n\nFUNCTION TurnLeft()\nTELL robot : Turn('left')\nWait()\nEND FUNCTION\n\nFUNCTION TurnRight()\nTELL robot : Turn('right')\nWait()\nEND FUNCTION\n\nFUNCTION Wait()\nWHILE ASK('Busy')\nEND WHILE\nEND FUNCTION",
 		"map": {
 			"width": 8,
 			"height": 7,
