@@ -8,9 +8,9 @@ var Rock = function(x,y) {
         rockReady = true;
     };
     rockImage.src = "images/objects/rock.png";
+
     this.restrictive = true;
     this.goal = false;
-    this.destructable = true;
 
     var self = this;
     this.x = x;
@@ -30,6 +30,20 @@ Rock.prototype.render = function(canvasSize, squareSize, ctx) {
     ctx.drawImage(this.image, -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);
 
     ctx.restore();
+}
+
+Rock.prototype.destroy = function() {
+    
+    // Rubble image
+    var rubbleReady = false;
+    var rubbleImage = new Image();
+    rubbleImage.onload = function () {
+        rubbleReady = true;
+    };
+    rubbleImage.src = "images/objects/broken_rock.png";
+
+    this.image = rubbleImage;
+    this.restrictive = false;
 }
 
 Rock.prototype.update = function(canvasSize, squareSize, ctx) {
