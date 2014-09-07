@@ -68,7 +68,7 @@ Statement.prototype.nextStatement = function(children) {
         return this.children[0];
     } else {
         var context = this, next = context.nextSibling();
-        while (context.parent && !next) {
+        while (context.parent && context.parent.parent && !next) {
             if (!context.endsBlock) {
                 throw "Unexpected end: " + context.source;
             }

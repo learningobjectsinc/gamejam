@@ -31,7 +31,7 @@ angular.module('gamejamApp').factory('Program', function($timeout){
 	        return;
 	    }
 	    this.step();
-	    $timeout(_.bind(this.run, this), 250);
+	    $timeout(_.bind(this.run, this), 100);
 	};
 
 	return program;
