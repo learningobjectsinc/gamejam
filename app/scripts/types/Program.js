@@ -13,7 +13,7 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 
 	    this.statements = Basic.parseProgram(source);
 
-	    console.log(this.statements);
+            console.log(this.statements);
 
 	    this.io = RobotIO;
 	    this.processor = new Processor(this.statements, this.io, $rootScope);
@@ -31,7 +31,7 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 	        return;
 	    }
             this.step();
-            setTimeout(_.bind(this.run, this), 100);
+            $timeout(_.bind(this.run, this), 25);
 	};
 
 	return program;

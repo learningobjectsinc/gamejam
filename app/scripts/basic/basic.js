@@ -600,11 +600,15 @@ Basic.parseProgram = function(sources) {
     _.each(sources, function(source, line) {
         var statement = Basic.parseStatement(source, program);
         statement.line = line;
-        context.addStatement(statement);
+        if (context == null) {
+            program.addStatement(statement);
+        } else {
+            context.addStatement(statement);
+        }
         if (statement.startsBlock) {
             context = statement;
         } else if (statement.endsBlock) {
-            context = context.parent;
+            context = context && context.parent;
         }
     });
     program.addStatement(new EndProgramStatement());
