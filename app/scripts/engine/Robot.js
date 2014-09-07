@@ -68,12 +68,53 @@ var Robot = function(x, y, getAtLocation, angularScope) {
                 var utterance = new SpeechSynthesisUtterance(self.talkingText);
                 window.speechSynthesis.speak(utterance);
             }
+        },
+        "fireLaser": function(params) {
+            var obstacle = null;
+            self.doSomething("talk", ["PEW PEW PEW"]);
+            switch (self.direction){
+                case 'right':
+                    var i = self.x + 1;
+                    while (self.getAtLocation(i, self.y) == null) {
+                        i++;
+                    }
+                    obstacle = self.getAtLocation(i, self.y);
+                    break;
+                case 'left':
+                    var i = self.x - 1;
+                    while (self.getAtLocation(i, self.y) == null) {
+                        i--;
+                    }
+                    obstacle = self.getAtLocation(i, self.y);
+                    break;
+                case 'up':
+                    var i = self.y - 1;
+                    while (self.getAtLocation(self.x, i) == null) {
+                        i--;
+                    }
+                    obstacle = self.getAtLocation(self.x, i);
+                    break;
+                case 'down':
+                    var i = self.y + 1;
+                    while (self.getAtLocation(self.x, i) == null) {
+                        i++;
+                    }
+                    obstacle = self.getAtLocation(self.x, i);
+                    break;
+            }
+            if (typeof obstacle.destroy != undefined) {
+                obstacle.destroy();
+            }
         }
     };
 
     angularScope.$on('processor.step', function() {
         self.drainBattery();
-    })
+    });
+
+    angularScope.$on('processor.win', function() {
+        self.doSomething("talk", ["Woohoo"]);
+    });
 
 };
 
@@ -276,44 +317,5 @@ Robot.prototype.$turn = function() {
 Robot.prototype.$cleanMyPosition = function() {
     this.x = Math.round(this.x);
     this.y = Math.round(this.y);
-}
-
-/**
- * Draws a rounded rectangle using the current state of the canvas. 
- * If you omit the last three params, it will draw a rectangle 
- * outline with a 5 pixel border radius 
- * @param {CanvasRenderingContext2D} ctx
- * @param {Number} x The top left x coordinate
- * @param {Number} y The top left y coordinate 
- * @param {Number} width The width of the rectangle 
- * @param {Number} height The height of the rectangle
- * @param {Number} radius The corner radius. Defaults to 5;
- * @param {Boolean} fill Whether to fill the rectangle. Defaults to false.
- * @param {Boolean} stroke Whether to stroke the rectangle. Defaults to true.
- */
-function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
-  if (typeof stroke == "undefined" ) {
-    stroke = true;
-  }
-  if (typeof radius === "undefined") {
-    radius = 5;
-  }
-  ctx.beginPath();
-  ctx.moveTo(x + radius, y);
-  ctx.lineTo(x + width - radius, y);
-  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-  ctx.lineTo(x + width, y + height - radius);
-  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-  ctx.lineTo(x + radius, y + height);
-  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-  ctx.lineTo(x, y + radius);
-  ctx.quadraticCurveTo(x, y, x + radius, y);
-  ctx.closePath();
-  if (stroke) {
-    ctx.stroke();
-  }
-  if (fill) {
-    ctx.fill();
-  }        
 }
 
