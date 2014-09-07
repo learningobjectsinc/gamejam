@@ -21,14 +21,12 @@ function _parseExpressionList(str) {
 }
 
 function Statement() {
+    this.children = {};
 }
 
-Statement.prototype.init = function(source, line) {
+Statement.prototype.init = function(source) {
     this.source = source;
-    this.line = line;
-
     this.id = +_.uniqueId();
-
     var match = source.match(this.syntax);
     if (!match) {
         this.invalid = true;
@@ -50,21 +48,44 @@ Statement.prototype.execute = function(context) {
 };
 
 Statement.prototype.skipBlock = function(processor) {
-    var depth = 1, statement;
-    while (depth && (processor.pc < processor.statements.length)) {
-        statement = processor.statements[processor.pc];
-        ++ processor.pc;
-        if (statement.startsBlock) {
-            ++ depth;
-        } else if (statement.endsBlock) {
-            -- depth;
-        }
+    processor.nextStatement = this.nextStatement(false);
+    var last = this.firstChild;
+    while (last && last.nextSibling) {
+        last = last.nextSibling;
     }
-    if (depth) {
-        throw "Unexpected end of file: " + this.source;
-    }
-    return statement;
+    return last;
 };
+
+Statement.prototype.addStatement = function(statement) {
+    if (!this.startsBlock) {
+        throw "Cannot add to: " + this.source;
+    }
+    var child = this.firstChild;
+    if (!child) {
+        this.firstChild = statement;
+    } else {
+        while (child.nextSibling) {
+            child = child.nextSibling;
+        }
+        child.nextSibling = statement;
+    }
+    statement.parent = this;
+};
+
+Statement.prototype.nextStatement = function(children) {
+    if (children && this.firstChild) {
+        return this.firstChild;
+    } else {
+        var context = this;
+        while (context.parent && !context.nextSibling) {
+            if (!context.endsBlock) {
+                throw "Unexpected end: " + context.source;
+            }
+            context = context.parent;
+        }
+        return context.nextSibling;
+    }
+}
 
 Statement.prototype.startsBlock = false;
 
@@ -74,6 +95,39 @@ Statement.prototype.description = 'This statement does not have a helpful descri
 
 Statement.prototype.syntaxHelp = '<span class="keyword">Syntax</span>';
 
+// ProgramStatement
+
+function ProgramStatement() {
+}
+
+ProgramStatement.prototype = Object.create(Statement.prototype);
+
+ProgramStatement.prototype.constructor = ProgramStatement;
+
+ProgramStatement.prototype.startsBlock = true;
+
+ProgramStatement.prototype.keyword = "Program";
+
+ProgramStatement.prototype.syntax = "";
+
+// EndProgramStatement
+
+function EndProgramStatement() {
+}
+
+EndProgramStatement.prototype = Object.create(Statement.prototype);
+
+EndProgramStatement.prototype.constructor = EndProgramStatement;
+
+EndProgramStatement.prototype.endsBlock = true;
+
+EndProgramStatement.prototype.keyword = "End Program";
+
+EndProgramStatement.prototype.syntax = "";
+
+EndProgramStatement.prototype.execute = function(processor) {
+    processor.halted = true;
+}
 
 // BlankStatement
 
@@ -204,9 +258,11 @@ FunctionStatement.prototype.invalid = function(processor) {
 }
 
 FunctionStatement.prototype.execute = function(processor) {
-    var statement = this.skipBlock(processor);
-    if (!(statement instanceof EndFunctionStatement)) {
-        throw "Unexpected: " + statement.sourc;
+    if (!processor.stack.length || (processor.stack.slice(-1)[0].callee != this)) {
+        var statement = this.skipBlock(processor);
+        if (!(statement instanceof EndFunctionStatement)) {
+            throw "Unexpected: " + statement.source;
+        }
     }
 }
 
@@ -215,10 +271,11 @@ FunctionStatement.prototype.invoke = function(processor, parameters) {
         throw 'Incorrect parameters: ' + this.source + ' (received: ' + parameters.join(', ') + ')';
     }
     processor.stack.push({
-        caller: processor.statements[processor.pc - 1],
+        callee: this,
+        caller: processor.statement,
         variables: processor.variables
     });
-    processor.pc = this.line;
+    processor.nextStatement = this;
     processor.variables = _.reduce(this.parameterNames, function(map, name, index) {
         map[name] = parameters[index];
         return map;
@@ -242,7 +299,7 @@ EndFunctionStatement.prototype.constructor = EndFunctionStatement;
 
 EndFunctionStatement.prototype.execute = function(processor) {
     var stack = processor.stack.pop();
-    processor.pc = stack.caller.line; // implicit + 1
+    processor.nextStatement = stack.caller.nextStatement(false);
     processor.variables = stack.variables;
 }
 
@@ -269,9 +326,7 @@ ForStatement.prototype.initmatch = function(match) {
 
 ForStatement.prototype.execute = function(processor) {
     var start = processor.evaluate(this.start);
-    var stop = processor.evaluate(this.stop);
     processor.variables[this.variable] = start;
-    processor.stack.push({ statement: this, stop: stop });
 }
 
 ForStatement.prototype.startsBlock = true;
@@ -294,17 +349,16 @@ NextStatement.prototype.initmatch = function(match) {
 }
 
 NextStatement.prototype.execute = function(processor) {
-    var entry = processor.stack.pop();
-    if (!(entry.statement instanceof ForStatement)) {
+    if (!(this.parent instanceof ForStatement)) {
         throw("Error: Unexpected " + this.source);
-    } else if (entry.statement.variable != this.variable) {
+    } else if (this.parent.variable != this.variable) {
         throw("Error: Mismatched " + this.source);
     }
     var value = 1 + processor.variables[this.variable];
-    if (value <= entry.stop) {
+    var stop = processor.evaluate(this.parent.stop);
+    if (value <= stop) {
         processor.variables[this.variable] = value;
-        processor.stack.push(entry);
-        processor.pc = entry.statement.line; // 1 offset so +1
+        processor.nextStatement = this.parent.firstChild;
     }
 }
 
@@ -332,7 +386,7 @@ IfStatement.prototype.execute = function(processor) {
     if (!expression) {
         var statement = this.skipBlock(processor);
         if (!(statement instanceof EndIfStatement)) {
-            throw "Unexpected: " + statement.sourc;
+            throw "Unexpected: " + statement.source;
         }
     }
 }
@@ -371,7 +425,6 @@ LoopStatement.prototype = Object.create(Statement.prototype);
 LoopStatement.prototype.constructor = LoopStatement;
 
 LoopStatement.prototype.execute = function(processor) {
-    processor.stack.push({ statement: this });
 }
 
 LoopStatement.prototype.startsBlock = true;
@@ -394,14 +447,12 @@ UntilStatement.prototype.initmatch = function(match) {
 }
 
 UntilStatement.prototype.execute = function(processor) {
-    var stack = processor.stack.pop();
-    if (!(stack.statement instanceof LoopStatement)) {
+    if (!(this.parent instanceof LoopStatement)) {
         throw("Error: Unexpected " + this.source);
     }
     var value = processor.evaluate(this.expression);
     if (!value) {
-        processor.stack.push(stack);
-        processor.pc = stack.statement.line; // 1 offset so +1
+        processor.nextStatement = this.parent.firstChild;
     }
 }
 
@@ -425,14 +476,12 @@ WhileStatement.prototype.initmatch = function(match) {
 }
 
 WhileStatement.prototype.execute = function(processor) {
-    var stack = processor.stack.pop();
-    if (!(stack.statement instanceof LoopStatement)) {
+    if (!(this.parent instanceof LoopStatement)) {
         throw("Error: Unexpected " + this.source);
     }
     var value = processor.evaluate(this.expression);
     if (value) {
-        processor.stack.push(stack);
-        processor.pc = stack.statement.line; // 1 offset so +1
+        processor.nextStatement = this.parent.firstChild;
     }
 }
 
@@ -485,7 +534,22 @@ Basic.statements = [
     EndFunctionStatement
 ];
 
-Basic.parseStatement = function(source, line) {
+Basic.parseProgram = function(sources) {
+    var program = new ProgramStatement(), context = program;
+    _.each(sources, function(source) {
+        var statement = Basic.parseStatement(source);
+        context.addStatement(statement);
+        if (statement.startsBlock) {
+            context = statement;
+        } else if (statement.endsBlock) {
+            context = context.parent;
+        }
+    });
+    program.addStatement(new EndProgramStatement());
+    return program;
+}
+
+Basic.parseStatement = function(source) {
     source = $.trim(source);
     var statement = _.find(Basic.statements, function(s) {
         var match = '^' + s.prototype.keyword.replace(' ', '\\s+') + '\\b';
@@ -506,6 +570,6 @@ Basic.parseStatement = function(source, line) {
         }
     }
     var stmt = new statement();
-    stmt.init(source, line);
+    stmt.init(source);
     return stmt;
 };
