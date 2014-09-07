@@ -79,6 +79,20 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
     ctx.drawImage(this.image, -squareSize.width/2, -squareSize.width/2, squareSize.width, squareSize.height);
 
     ctx.restore();
+
+    ctx.fillStyle = 'green';
+
+    if (this.batteryPower > 0) {
+        var padding = 5;
+        var segmentWidth = (canvasSize.width / this.batterySize) - padding;
+        for (var i = 0; i < this.batteryPower; i++) {
+            ctx.fillRect(i * (segmentWidth + padding), canvasSize.height - 40, segmentWidth, 40);
+        }
+    }
+    
+    ctx.fill();
+
+    ctx.restore();
 }
 
 Robot.prototype.update = function(time) {
