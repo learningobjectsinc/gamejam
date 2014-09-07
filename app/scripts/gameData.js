@@ -372,11 +372,9 @@ gameData["levels"] = [
 			"TellStatement": {
 				"availableFns": "moveForward",
 				"src": "TELL robot : MoveForward(1)"
-			},
-			"FunctionCall": {
-				"availableFns": "moveForward",
-				"src": "TELL robot : MoveForward(1)"
 			}
+		}, "availableFunctions": {
+			"Step": {}
 		}
 	},
 	{
@@ -633,11 +631,11 @@ gameData["levels"] = [
 				}
 			]
 		},
-		"availableBlocks": {
-			"TellStatement": {
-				"availableFns": "moveForward",
-				"src": "TELL robot : MoveForward(1)"
-			}
+		"availableBlocks": {},
+		"availableFunctions": {
+			"Step":{},
+			"TurnLeft": {},
+			"TurnRight": {}
 		}
 	},
 	{
@@ -1078,11 +1076,12 @@ gameData["levels"] = [
 				// }
 			]
 		},
-		"availableBlocks": {
-			"TellStatement": {
-				"availableFns": "moveForward",
-				"src": "TELL robot : MoveForward(1)"
-			}
+		"availableBlocks": {},
+		"availableFunctions": {
+			"Step":{},
+			"TurnLeft": {},
+			"TurnRight": {},
+			"Fire": {}
 		}
 	},
 	{

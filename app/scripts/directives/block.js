@@ -4,7 +4,7 @@ angular.module('gamejamApp').directive('block', function($timeout, blockService)
 	return {
 		restrict: 'A',
 		scope: {
-			'block': '='
+			'block': '=',
 		},
 		require: '^blockContainer',
 		templateUrl: 'views/directives/block.html',
@@ -14,6 +14,10 @@ angular.module('gamejamApp').directive('block', function($timeout, blockService)
 			scope.delete = function(){
 				container.deleteBlock(block);
 			};
+
+			if(block.constructor.name === 'FunctionCall'){
+				scope.cfg = window.libraryFunctions[block.name];
+			}
 
 			scope.isBlockHidden = blockService.dontShow;
 

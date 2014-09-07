@@ -17,7 +17,19 @@ angular.module('gamejamApp').factory('levelService', function(){
 			};
 		});
 
-		return blocks;
+		var fns = _.map(level.availableFunctions, function(val, key){
+			if(!key){ return; }
+			var fn = window.libraryFunctions[key];
+
+			fn.label = key;
+			fn.src = fn.example;
+			return {
+				constructor: window.FunctionCall,
+				cfg: fn
+			};
+		});
+
+		return blocks.concat(fns);
 	};
 
 	return this;

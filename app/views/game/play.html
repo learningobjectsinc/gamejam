@@ -17,7 +17,7 @@
                 (click on an instruction to add it to my task list)-->
                 <div class="instructionSub">
                 <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-drag="true" ng-drag-data="block">
-                    {{ block.constructor.prototype.keyword }}
+                    {{ block.cfg.label || block.constructor.prototype.keyword }}
                 </button>
                 </div>
             </div>
