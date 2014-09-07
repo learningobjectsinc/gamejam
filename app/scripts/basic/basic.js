@@ -28,7 +28,7 @@ Statement.prototype.init = function(source, program) {
             this.initmatch(match);
         } catch (e) {
             this.invalid = true;
-            console.log('Init error', source, e);
+            console.error('Init error', source, e);
         }
     }
 }
