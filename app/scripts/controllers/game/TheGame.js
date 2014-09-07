@@ -11,7 +11,7 @@ angular.module('gamejamApp')
     });
 
 angular.module('gamejamApp')
-  .controller('TheGame', function ($scope, $state, Program, levelService, GameService) {
+  .controller('TheGame', function ($scope, $state, Program, levelService, GameService, blockService) {
     console.log($scope.level.defaultCode);
     $scope.program = new Program("TELL robot : MoveForward(1) \n");
 
@@ -90,6 +90,6 @@ angular.module('gamejamApp')
         $scope.program.run();
     };
 
-    
+    $scope.isBlockHidden = blockService.dontShow;
     
   });

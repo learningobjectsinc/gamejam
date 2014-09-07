@@ -6,16 +6,17 @@
     "json3": "~3.3.1",
     "es5-shim": "~3.1.0",
     "bootstrap-sass-official": "~3.2.0",
-    "angular-resource": "~1.2.0",
-    "angular-cookies": "~1.2.0",
-    "angular-sanitize": "~1.2.0",
-    "angular-animate": "~1.2.0",
+    "angular-resource": "~1.2.23",
+    "angular-cookies": "~1.2.23",
+    "angular-sanitize": "~1.2.23",
+    "angular-animate": "~1.2.23",
     "angular-touch": "~1.2.0",
     "ui-router": "~0.2.11",
     "underscore": "~1.7.0",
     "angular-carousel": "~0.2.5",
     "ace-builds": "~1.1.6",
-    "angular-ui-ace": "bower"
+    "angular-ui-ace": "bower",
+    "ngDraggable": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",

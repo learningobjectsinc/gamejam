@@ -62,7 +62,7 @@ var Robot = function(attrs, getAtLocation, angularScope) {
         "FireLaser": function(params) {            
             self.invoke("Talk", ["PEW PEW PEW"]);
             var obstacle = self.$getInFront();
-            if (obstacle && (typeof obstacle.destroy != undefined)) {
+            if (obstacle && (typeof obstacle.destroy === 'function')) {
                 obstacle.destroy();
             }
         }

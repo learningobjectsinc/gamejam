@@ -17,5 +17,6 @@ angular
     'ngTouch',
     'ui.router',
     'ui.ace',
-    'angular-carousel'
+    'angular-carousel',
+    'ngDraggable'
   ]);
