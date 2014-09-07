@@ -60,8 +60,8 @@ gameData["levels"] = [
 		"icon": "power",
 		"completed": "0.8",
 		"map": {
-			"width": 15,
-			"height": 10,
+			"width": 8,
+			"height": 7,
 			"objects": [
 				{
 					"type": "Flag",
