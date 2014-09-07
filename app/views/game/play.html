@@ -1,4 +1,4 @@
-<div id="game">
+ <div id="game">
 
         <div class="errorBar" ng-show="errorMessage">
           Your program crashed!<br />
@@ -10,7 +10,7 @@
             <div class="blockLibrary">
                 <h2 style="margin-bottom:0px;">Robot Instructions</h2>
                 (click on an instruction to add it to my task list)
-                <div style="margin-top:10px;">
+                <div class="instructionSub">
                 <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-click="addToProgram(block)">
                     {{ block.constructor.prototype.keyword }}
                 </button>
