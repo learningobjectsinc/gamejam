@@ -219,13 +219,23 @@ gameData["levels"] = [
 					"y": 3
 				},
 				{
-					"type": "Robot",
+					"type": "Wall",
 					"x": 1,
+					"y": 4
+				},
+				{
+					"type": "Robot",
+					"x": 2,
 					"y": 4,
 					"direction": "right"
 				},
 				{
 					"type": "Goal",
+					"x": 7,
+					"y": 4
+				},
+				{
+					"type": "Wall",
 					"x": 8,
 					"y": 4
 				},
@@ -404,7 +414,7 @@ gameData["levels"] = [
 					"y": 1
 				},
 				{
-					"type": "Goal",
+					"type": "Wall",
 					"x": 8,
 					"y": 1
 				},
@@ -439,8 +449,13 @@ gameData["levels"] = [
 					"y": 2
 				},
 				{
-					"type": "Wall",
+					"type": "Goal",
 					"x": 7,
+					"y": 2
+				},
+				{
+					"type": "Wall",
+					"x": 8,
 					"y": 2
 				},
 				{
@@ -475,12 +490,22 @@ gameData["levels"] = [
 				},
 				{
 					"type": "Wall",
-					"x": 7,
+					"x": 8,
 					"y": 3
 				},
 				{
 					"type": "Wall",
-					"x": 2,
+					"x": 1,
+					"y": 4
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 4
+				},
+				{
+					"type": "Wall",
+					"x": 1,
 					"y": 5
 				},
 				{
@@ -515,44 +540,49 @@ gameData["levels"] = [
 				},
 				{
 					"type": "Wall",
-					"x": 2,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 8,
+					"x": 1,
 					"y": 6
 				},
 				{
 					"type": "Robot",
-					"x": 1,
-					"y": 7,
+					"x": 2,
+					"y": 6,
 					"direction": "up"
+				},
+				{
+					"type": "Wall",
+					"x": 3,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 4,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 5,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 6,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 7,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 8,
+					"y": 6
+				},
+				{
+					"type": "Wall",
+					"x": 1,
+					"y": 7
 				},
 				{
 					"type": "Wall",
