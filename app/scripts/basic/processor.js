@@ -3,12 +3,12 @@
 function Processor(program, io, angularScope) {
     this.program = program;
 
-program.processor = this; // TODO: Kill me: This is far ASK
+program.processor = this; // TODO: Kill me: This is far ASK..
 
     this.pc = 0;
     this.io = io;
     this.angularScope = angularScope;
-    this.nextStatement = program.children[0];
+    this.nextStatement = null;
     this.variables = {};
     this.halted = false;
     this.crashed = null;
@@ -16,7 +16,7 @@ program.processor = this; // TODO: Kill me: This is far ASK
 }
 
 Processor.prototype.step = function() {
-    this.statement = this.nextStatement;
+    this.statement = this.nextStatement || this.program.children[0];
     this.nextStatement = null;
     var statement = this.statement;
     try {
