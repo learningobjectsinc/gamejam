@@ -13,7 +13,7 @@ angular.module('gamejamApp')
 angular.module('gamejamApp')
   .controller('TheGame', function ($scope, $state, Program, levelService, GameService) {
     $scope.program = new Program();
-    $scope.isMusicOn = false;
+    $scope.isMusicOn = true;
 
     $scope.errorMessage = "";
 
