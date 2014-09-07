@@ -4,7 +4,7 @@
     <textarea class="prefill" style="display: none;">
 LET x = 1
 
-TELL robot : 'talk', 'suck it'
+Say 'suck it'
 
 IF x &lt; 2 THEN
   Say 'hello, world'
@@ -21,7 +21,7 @@ NEXT i
 
 // Say something
 FUNCTION Say s
-  TELL robot : 'say', s
+  TELL robot : 'talk', s
 END FUNCTION
 
 // Move the forward block a number of spaces
