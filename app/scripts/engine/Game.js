@@ -113,7 +113,7 @@ Game.prototype.$initiate = function(map){
 
     _.each(map.objects, function(object) {
         // forgive me
-        var instance = new window[object.type](object.x, object.y, getAtLocation, self.angularScope);
+        var instance = new window[object.type](object, getAtLocation, self.angularScope);
         self.objects.push(instance);
         //forgive me some more
         if(object.type === 'Robot'){

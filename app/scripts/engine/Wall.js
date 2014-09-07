@@ -1,5 +1,5 @@
-var Wall = function(x,y) {
-    GridObject.apply(this, [x, y]);
+var Wall = function(attrs) {
+    GridObject.apply(this, [attrs]);
     
     // Wall image
     var wallReady = false;
@@ -12,8 +12,6 @@ var Wall = function(x,y) {
     this.goal = false;
 
     var self = this;
-    this.x = x;
-    this.y = y;
     this.image = wallImage;
 };
 

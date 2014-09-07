@@ -1,5 +1,5 @@
-var Rock = function(x,y) {
-    GridObject.apply(this, [x, y]);
+var Rock = function(attrs) {
+    GridObject.apply(this, [attrs]);
     
 	// Rock image
     var rockReady = false;
@@ -13,8 +13,6 @@ var Rock = function(x,y) {
     this.goal = false;
 
     var self = this;
-    this.x = x;
-    this.y = y;
     this.image = rockImage;
 };
 

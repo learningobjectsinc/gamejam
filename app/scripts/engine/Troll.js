@@ -1,5 +1,5 @@
-var Troll = function(x, y, getAtLocation, angularScope) {
-    GridObject.apply(this, [x, y]);
+var Troll = function(attrs, getAtLocation, angularScope) {
+    GridObject.apply(this, [attrs]);
     
 	// Troll image
     var rockReady = false;
@@ -12,8 +12,6 @@ var Troll = function(x, y, getAtLocation, angularScope) {
     this.goal = false;
 
     var self = this;
-    this.x = x;
-    this.y = y;
     this.image = rockImage;
 
     angularScope.$on('robot.talk', function(e, params) {

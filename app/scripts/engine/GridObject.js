@@ -1,4 +1,4 @@
-var GridObject = function(x,y) {
-    this.x = x;
-    this.y = y;
+var GridObject = function(attrs) {
+    this.x = attrs.x;
+    this.y = attrs.y;
 };

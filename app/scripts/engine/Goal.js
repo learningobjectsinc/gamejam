@@ -1,5 +1,5 @@
-var Goal = function(x,y) {
-    GridObject.apply(this, [x, y]);
+var Goal = function(attrs) {
+    GridObject.apply(this, [attrs]);
     
     // Goal image
     var GoalReady = false;
@@ -12,8 +12,6 @@ var Goal = function(x,y) {
     this.goal = true;
 
     var self = this;
-    this.x = x;
-    this.y = y;
     this.image = GoalImage;
 };
 
