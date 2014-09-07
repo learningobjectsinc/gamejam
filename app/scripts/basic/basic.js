@@ -261,6 +261,15 @@ FunctionStatement.prototype = Object.create(Statement.prototype);
 
 FunctionStatement.prototype.constructor = FunctionStatement;
 
+FunctionStatement.prototype.setParent = function(parent) {
+    this.parent = parent;
+    var i = _.indexOf(parent.children, this);
+    var prev = (i > 0) ? parent.children[i - 1] : null;
+    if (prev instanceof CommentStatement) {
+        this.description = prev.remark;
+    }
+};
+
 FunctionStatement.prototype.initmatch = function(match) {
     this.name = match[1];
     this.parameterNames = _parseParameterList(match[2]);

@@ -7,23 +7,36 @@ LET x = 1
 TELL robot : 'talk', 'suck it'
 
 IF x &lt; 2 THEN
-  Print 'hello, world'
+  Say 'hello, world'
 END IF
 
 IF x &gt; 2 THEN
-  Print 'goodbye, world'
+  Say 'goodbye, world'
 END IF
 
-LOOP
-  LET x = x + 1
-WHILE x &lt; 5
-
-FOR i = 1 TO 5
-  Print i
+FOR i = 1 TO 3
+  Forward 5
+  Left
 NEXT i
 
-FUNCTION Print i
+// Say something
+FUNCTION Say s
+  TELL robot : 'say', s
+END FUNCTION
+
+// Move the forward block a number of spaces
+FUNCTION Forward i
   TELL robot : 'moveForward', i
+END FUNCTION
+
+// Turn the robot left 90 degrees
+FUNCTION Left
+  TELL robot : 'turn', 'left'
+END FUNCTION
+
+// Turn the robot right 90 degrees
+FUNCTION Right
+  TELL robot : 'turn', 'right'
 END FUNCTION
     </textarea>
     <div class="variables" ng-bind-html="variables()">
