@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('gamejamApp').factory('levelService', function(libraryFunctions){
+angular.module('gamejamApp').factory('levelService', function(libraryFunctions, libraryStatements){
 	this.getLevels = function() {
 		return window.gameData.levels;
 	};
@@ -11,21 +11,31 @@ angular.module('gamejamApp').factory('levelService', function(libraryFunctions){
 
 	this.getBlocks = function(level){
 		var blocks = _.map(level.availableBlocks, function(val, key){
+			var defaults = libraryStatements[key] || {};
+			var cfg = {
+				src: defaults.example
+			};
+			_.extend(cfg, defaults, val);
+
 			return {
 				constructor: window[key],
-				cfg: val
+				cfg: cfg
 			};
 		});
 
 		var fns = _.map(level.availableFunctions, function(val, key){
 			if(!key){ return; }
-			var fn = libraryFunctions[key];
+			var defaults = libraryFunctions[key];
 
-			fn.label = key;
-			fn.src = fn.example;
+			var cfg = {
+				label: key,
+				src: defaults.example
+			};
+			_.extend(cfg, defaults, val);
+
 			return {
 				constructor: window.FunctionCall,
-				cfg: fn
+				cfg: cfg
 			};
 		});
 

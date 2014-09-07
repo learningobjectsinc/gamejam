@@ -1298,11 +1298,13 @@ gameData["levels"] = [
 			]
 		},
 		"availableBlocks": {
-			"tell": {
-				"allow": "moveForward",
-				"limit": 2
-			},
-			"let": {}
+			"LetStatement": {}
+		},
+		"availableFunctions": {
+			"Step":{},
+			"TurnLeft": {},
+			"TurnRight": {},
+			"Move": {}
 		}
 	},
 	{

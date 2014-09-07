@@ -10,6 +10,7 @@ angular.module('gamejamApp').directive('block', function($timeout, blockService,
 		templateUrl: 'views/directives/block.html',
 		link: function(scope, el, attr, container){
 			var block = scope.block;
+			var program = scope.block.program;
 
 			scope.delete = function(){
 				container.deleteBlock(block);
@@ -32,6 +33,12 @@ angular.module('gamejamApp').directive('block', function($timeout, blockService,
 				var newBlock = new blockType.constructor();
 				newBlock.init(blockType.cfg.src, block.program);
 				block.addStatement(newBlock);
+			};
+
+			scope.updateParam = function(idx){
+				var val = block.matches[idx+2];
+				var parsedExpr = program.parser.parse($.trim(val));
+				block.parameters[idx] = parsedExpr;
 			};
 
 			el.click(function(ev){
