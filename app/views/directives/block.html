@@ -1,16 +1,20 @@
-<div class="programBlock" ng-if="!isBlank">
-  <div class="delete pull-right" ng-click="delete()">&times;</div>
-  <h4>{{ block.keyword }}</h4>
-  <span class="description">
-    {{ block.description }}
-  </span>
-  <form class="form-horizontal" ng-if="block.tokenLabels">
-    <div ng-repeat="token in block.tokenLabels">
-      <label for="{{ token }}_{{ block.id }}">{{ token }}</label>
-      <input id="{{ token }}_{{ block.id }}" ng-model="block.matches[$index+1]" type="text" class="form-control">
+<div ng-if="!isBlockHidden(block)">
+  <div class="programBlock">
+    <div class="delete pull-right" ng-click="delete()">&times;</div>
+    <h4>{{ block.keyword }}</h4>
+    <span class="description">
+      {{ block.description }}
+    </span>
+    <form class="form-horizontal" ng-if="block.tokenLabels">
+      <div ng-repeat="token in block.tokenLabels">
+        <label for="{{ token }}_{{ block.id }}">{{ token }}</label>
+        <input id="{{ token }}_{{ block.id }}" ng-model="block.matches[$index+1]" type="text" class="form-control">
+      </div>
+    </form>
+    <div class="childBlocks" ng-if="block.startsBlock">
+      <div ng-drop="true" ng-drop-success="addChild($data,$event)" class="dropzone"></div>
+      <div child-blocks="block.children"></div>
     </div>
-  </form>
-  <div class="childBlocks">
-    <div child-blocks="block.children"></div>
   </div>
+  <div ng-drop="true" ng-drop-success="addToParent($data,block)" class="dropzone" ng-if="!block.endsBlock"></div>
 </div>

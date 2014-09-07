@@ -13,8 +13,8 @@
             	</div>
                 <h2 style="margin-bottom:0px;">Robot Instructions</h2>
                 (click on an instruction to add it to my task list)
-                <div style="margin-top:10px;">
-                <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-click="addToProgram(block)">
+                <div style="margin-top:10px; min-height: 50px;">
+                <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-drag="true" ng-drag-data="block">
                     {{ block.constructor.prototype.keyword }}
                 </button>
                 </div>
@@ -24,7 +24,10 @@
                 <div ng-if="!program.statements.children.length">
                     Add some tasks!
                 </div>
-                <div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt"></div>
+                <div ng-drop="true" ng-drop-success="addToProgram($data,$event)" class="dropzone"></div>
+                <div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt" class="blockContainer">
+                </div>
+                <button ng-click="convertToCode()" type="button" class="btn btn-block btn-primary">Convert to code</button>
             </div>
         </div>
         <div ng-if="!blockEditing">
