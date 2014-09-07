@@ -11,6 +11,7 @@ program.processor = this; // TODO: Kill me: This is far ASK
     this.nextStatement = program.children[0];
     this.variables = {};
     this.halted = false;
+    this.crashed = null;
     this.stack = [];
 }
 
@@ -40,8 +41,8 @@ Processor.prototype.step = function() {
 
         this.angularScope.$broadcast('processor.step');
     } catch (e) {
-        console.log('Failure', e);
         this.halted = true;
+        this.crashed = e;
     }
 }
 

@@ -6,6 +6,11 @@
 	<button ng-click="toggleMusic()" ng-show="isMusicOn">Turn Music Off</button>
 	<button ng-click="toggleMusic()" ng-hide="isMusicOn">Turn Music On</button>
 
+        <div class="errorBar" ng-show="errorMessage">
+          Your program crashed!<br />
+          {{ errorMessage }}
+        </div>
+
 	<div class="sidebar" ng-controller="BlockEditor">
 		<div class="blockLibrary">
 			<h2>Block Library</h2>
