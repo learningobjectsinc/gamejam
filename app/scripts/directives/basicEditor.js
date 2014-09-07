@@ -31,6 +31,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 			        var session = editor.getSession();
 				session.removeGutterDecoration(prevCrash, 'crashed');
                                 if (crashed) {
+                                    program.processor.io.interrupt('Talk', [ 'Ayeeeeeeeeeeeeeeee!' ]);
 				    session.addGutterDecoration(program.processor.pc, 'crashed');
                                     prevCrash = program.processor.pc;
                                 }
