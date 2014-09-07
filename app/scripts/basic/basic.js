@@ -98,13 +98,17 @@ Statement.prototype.isInvalid = function() {
     return this.invalid;
 }
 
+Statement.prototype.getSyntax = function() {
+    return "Syntax: " + this.syntaxHelp;
+}
+
 Statement.prototype.startsBlock = false;
 
 Statement.prototype.endsBlock = false;
 
 Statement.prototype.description = 'This statement does not have a helpful description.';
 
-Statement.prototype.syntaxHelp = '<span class="keyword">Syntax</span>';
+Statement.prototype.syntaxHelp = '<span class="sy-keyword">Syntax goes here</span>';
 
 Statement.prototype.children = [];
 
@@ -245,7 +249,7 @@ LetStatement.prototype.tokenLabels = ['Variable', 'Value'];
 
 LetStatement.prototype.description = "This statement assigns a value to variable.";
 
-LetStatement.prototype.syntaxHelp = '<span class="keyword">LET</span> <span class="variable">variable</span> = <span class="value">value</span>';
+LetStatement.prototype.syntaxHelp = '<span class="sy-keyword">LET</span> <span class="sy-variable">variable</span> = <span class="sy-expression">expression</span>';
 
 // TellStatement
 
@@ -444,6 +448,8 @@ IfStatement.prototype.syntax = "^IF\\s+(" + EXPRESSION_REGEX + ")\\s+THEN\\s*$";
 
 IfStatement.prototype.tokenLabels = ["Expression"];
 
+IfStatement.prototype.syntaxHelp = '<span class="sy-keyword">IF</span> <span class="sy-expression">expression</span> <span class="sy-keyword">THEN</span>';
+
 // EndIfStatement
 
 function EndIfStatement() {
@@ -591,11 +597,21 @@ FunctionCall.prototype.isInvalid = function() {
     return this.invalid || !this.program.functions[this.name];
 }
 
+FunctionCall.prototype.getSyntax = function() {
+    if (!this.program.functions[this.name]) {
+        return "Unknown function: " + this.name;
+    }
+    return Statement.prototype.getSyntax.call(this);
+}
+
 FunctionCall.prototype.keyword = "Function Call";
 
 FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*\\(\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*\\)\\s*$";
 
 FunctionCall.prototype.tokenLabels = ['Function to call', 'Parameters'];
+
+FunctionCall.prototype.syntaxHelp = '<span class="sy-function">Function</span>(<span class="sy-expression">expression</span>, ...)';
+
 
 // Basic
 
