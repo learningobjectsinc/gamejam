@@ -13,6 +13,12 @@ angular.module('gamejamApp')
     $scope.program = new Program();
     $scope.isMusicOn = false;
 
+    $scope.errorMessage = "";
+
+    $scope.$watch('program.processor.crashed', function(crashed){
+        $scope.errorMessage = crashed;
+    });
+
     $scope.toggleMusic = function() {
         $scope.isMusicOn = !$scope.isMusicOn;
         if ($scope.isMusicOn) {

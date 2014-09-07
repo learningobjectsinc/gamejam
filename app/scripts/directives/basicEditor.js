@@ -24,6 +24,17 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				prevLine = line;
 			});
 
+			$scope.$watch('program.processor.crashed', function(crashed){
+				$('.crashed').removeClass('crashed'); // muahahahahahandrewmuahahahahahaaa
+				if(!program.processor){
+					return;
+				}
+                                if (crashed) {
+				    var session = editor.getSession();
+				    session.addGutterDecoration(program.processor.pc, 'crashed');
+                                }
+			});
+
 			$scope.$watch('program.statements', function(statements){
 				if(!program.processor){
 					return;

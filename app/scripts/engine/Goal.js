@@ -1,23 +1,23 @@
-var Flag = function(attrs) {
+var Goal = function(attrs) {
     GridObject.apply(this, [attrs]);
     
-    // Flag image
-    var FlagReady = false;
-    var FlagImage = new Image();
-    FlagImage.onload = function () {
-        FlagReady = true;
+    // Goal image
+    var GoalReady = false;
+    var GoalImage = new Image();
+    GoalImage.onload = function () {
+        GoalReady = true;
     };
-    FlagImage.src = "images/objects/flag.png";
+    GoalImage.src = "images/objects/goal.gif";
     this.restrictive = false;
     this.goal = true;
 
     var self = this;
-    this.image = FlagImage;
+    this.image = GoalImage;
 };
 
-Flag.prototype = Object.create(GridObject.prototype);
+Goal.prototype = Object.create(GridObject.prototype);
 
-Flag.prototype.render = function(canvasSize, squareSize, ctx) {
+Goal.prototype.render = function(canvasSize, squareSize, ctx) {
     ctx.save();
     ctx.translate(
         this.x*squareSize.width - squareSize.width/2,
@@ -29,6 +29,6 @@ Flag.prototype.render = function(canvasSize, squareSize, ctx) {
     ctx.restore();
 }
 
-Flag.prototype.update = function(canvasSize, squareSize, ctx) {
+Goal.prototype.update = function(canvasSize, squareSize, ctx) {
     // no op
 }
