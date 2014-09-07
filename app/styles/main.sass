@@ -82,9 +82,13 @@ body
       margin-left: 1em
       color: fade-out($color-white,0.33)
       transition: color ease $trans-speed
+      cursor: pointer
 
       &:hover
         color: $color-white
+
+      &.icon-volume-medium.mute:before
+        content: "\e393"
 
 .rn-carousel-container
   height: 100%
