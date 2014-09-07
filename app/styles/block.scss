@@ -22,10 +22,18 @@
   	}
   }
 
+  // This is not very elegant...
   .childBlocks {
     margin-left: 1em;
     .programBlock {
       background-color: #ffdddd;
+    }
+    .childBlocks .programBlock{
+      background-color: #FFFBDD;
+
+      .childBlocks .programBlock {
+        background-color: #FFDDFE;
+      }
     }
   }
 }
