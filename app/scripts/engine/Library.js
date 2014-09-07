@@ -46,8 +46,8 @@ var libraryFunctions = {
     },
     "Say": {
         "source" : [
-            'FUNCTION Say()',
-            '  TELL robot : Talk(\'left\')',
+            'FUNCTION Say(text)',
+            '  TELL robot : Talk(text)',
             'END FUNCTION'
         ],
         "example": "Say('Hello World!')",
