@@ -9,6 +9,6 @@ angular.module('gamejamApp')
     });
 
 angular.module('gamejamApp')
-  .controller('GameWrapup', function ($scope) {
-  	angular.noop();
+  .controller('GameWrapup', function ($scope, $stateParams, wrapUpService) {
+  	$scope.wrapUp = wrapUpService.getWrapUp($stateParams.levelId);
   });

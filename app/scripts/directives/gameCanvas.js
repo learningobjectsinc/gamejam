@@ -10,14 +10,14 @@ angular.module('gamejamApp')
             link: function(scope, element) {
                 var game = gameService.getNewGame(scope.level.map);
 
-                var windowHeight = window.innerHeight;
                 var windowWidth = window.innerWidth;
-
                 var canvas = $(element).get(0);
                 var ctx = canvas.getContext("2d");
                 
-                canvas.width = windowWidth * 2 / 3;
-                canvas.height = canvas.width * 2 / 3 ;
+                var aspect = windowWidth * 1.9/3;
+                var aspect_ratio = 2.9/4;
+                canvas.width = aspect
+                canvas.height = aspect*aspect_ratio;
 
                 var then = Date.now();
 
@@ -32,7 +32,6 @@ angular.module('gamejamApp')
                     };
 
                     game.update(delta / 1000);
-
                     game.render(canvasSize, ctx);
 
                     //console.log('robot! ', robot);

@@ -60,8 +60,8 @@ gameData["levels"] = [
 		"icon": "power",
 		"completed": "0.8",
 		"map": {
-			"width": 15,
-			"height": 10,
+			"width": 8,
+			"height": 7,
 			"objects": [
 				{
 					"type": "Flag",
@@ -273,9 +273,199 @@ gameData["levels"] = [
 		"icon": "settings",
 		"completed": "0.6",
 		"map": {
-			"width": 15,
-			"height": 10,
+			"width": 8,
+			"height": 7,
 			"objects": [
+				{
+					"type": "Flag",
+					"x": 2,
+					"y": 2
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 4
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 4,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 3,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 6
+				},
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 3,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 4,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 5,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 7,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 8,
+					"y": 7
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 5,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 4,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 3,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 5,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 1,
+					"y": 2
+				},
+				{
+					"type": "Rock",
+					"x": 8,
+					"y": 6
+				},
+				{
+					"type": "Rock",
+					"x": 8,
+					"y": 5
+				},
+				{
+					"type": "Rock",
+					"x": 8,
+					"y": 4
+				},
+				{
+					"type": "Rock",
+					"x": 8,
+					"y": 3
+				},
+				{
+					"type": "Rock",
+					"x": 8,
+					"y": 2
+				},
+				{
+					"type": "Rock",
+					"x": 8,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 7,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 6,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 5,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 4,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 3,
+					"y": 1
+				},
+				{
+					"type": "Rock",
+					"x": 2,
+					"y": 1
+				},
 				{
 					"type": "Rock",
 					"x": 1,
@@ -283,13 +473,13 @@ gameData["levels"] = [
 				},
 				{
 					"type": "Rock",
-					"x": 2,
-					"y": 2
+					"x": 4,
+					"y": 6
 				},
 				{
-					"type": "Rock",
-					"x": 3,
-					"y": 3
+					"type": "Robot",
+					"x": 2,
+					"y": 6
 				}
 			]
 		}
@@ -379,3 +569,18 @@ gameData["levels"] = [
 		}
 	}
 ];
+gameData["wrapUp"] = [{
+        "levelId": 1,
+        "pages": [
+			{
+				"title": "Nice work!",
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You learned all about some things.</p>"
+			},
+			{
+				"title": "Level 1: Functions",
+				"body": "<p>Here's a little more info about what you did during this level.</p>"
+			}
+		]
+	}
+]
+;

@@ -61,7 +61,11 @@ Statement.prototype.addStatement = function(statement) {
         this.children = [];
     }
     this.children.push(statement);
-    statement.parent = this;
+    statement.setParent(this);
+}
+
+Statement.prototype.setParent = function(parent) {
+    this.parent = parent;
 };
 
 Statement.prototype.nextStatement = function(children) {
@@ -257,9 +261,18 @@ FunctionStatement.prototype = Object.create(Statement.prototype);
 
 FunctionStatement.prototype.constructor = FunctionStatement;
 
+FunctionStatement.prototype.setParent = function(parent) {
+    this.parent = parent;
+    var i = _.indexOf(parent.children, this);
+    var prev = (i > 0) ? parent.children[i - 1] : null;
+    if (prev instanceof CommentStatement) {
+        this.description = prev.remark;
+    }
+};
+
 FunctionStatement.prototype.initmatch = function(match) {
     this.name = match[1];
-    this.parameterNames = _parseParameterList(match[2]);
+    this.parameterNames = match[2] ? _parseParameterList(match[2]) : [];
 }
 
 FunctionStatement.prototype.execute = function(processor) {
@@ -291,7 +304,7 @@ FunctionStatement.prototype.startsBlock = true;
 
 FunctionStatement.prototype.keyword = "FUNCTION";
 
-FunctionStatement.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*$";
+FunctionStatement.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\s*\\(\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*\\)\\s*$";
 
 FunctionStatement.prototype.tokenLabels = ["Name", "Input Parameter"];
 
@@ -428,23 +441,23 @@ EndIfStatement.prototype.keyword = "END IF";
 
 EndIfStatement.prototype.syntax = "^END\\s+IF\\s*$";
 
-// LoopStatement
+// RepeatStatement
 
-function LoopStatement() {
+function RepeatStatement() {
 }
 
-LoopStatement.prototype = Object.create(Statement.prototype);
+RepeatStatement.prototype = Object.create(Statement.prototype);
 
-LoopStatement.prototype.constructor = LoopStatement;
+RepeatStatement.prototype.constructor = RepeatStatement;
 
-LoopStatement.prototype.execute = function(processor) {
+RepeatStatement.prototype.execute = function(processor) {
 }
 
-LoopStatement.prototype.startsBlock = true;
+RepeatStatement.prototype.startsBlock = true;
 
-LoopStatement.prototype.keyword = "LOOP";
+RepeatStatement.prototype.keyword = "REPEAT";
 
-LoopStatement.prototype.syntax = "^LOOP\\s*$";
+RepeatStatement.prototype.syntax = "^REPEAT\\s*$";
 
 // UntilStatement
 
@@ -460,7 +473,7 @@ UntilStatement.prototype.initmatch = function(match) {
 }
 
 UntilStatement.prototype.execute = function(processor) {
-    if (!(this.parent instanceof LoopStatement)) {
+    if (!(this.parent instanceof RepeatStatement)) {
         throw("Error: Unexpected " + this.source);
     }
     var value = processor.evaluate(this.expression);
@@ -491,22 +504,44 @@ WhileStatement.prototype.initmatch = function(match) {
 }
 
 WhileStatement.prototype.execute = function(processor) {
-    if (!(this.parent instanceof LoopStatement)) {
-        throw("Error: Unexpected " + this.source);
-    }
     var value = processor.evaluate(this.expression);
-    if (value) {
-        processor.nextStatement = this.parent.children[0];
+    if (!value) {
+        processor.nextStatement = this.nextStatement(false);
     }
 }
 
-WhileStatement.prototype.endsBlock = true;
+WhileStatement.prototype.startsBlock = true;
 
 WhileStatement.prototype.keyword = "WHILE";
 
 WhileStatement.prototype.syntax = "^WHILE\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
 WhileStatement.prototype.tokenLabels = ["Expression"];
+
+// EndWhileStatement
+
+function EndWhileStatement() {
+}
+
+EndWhileStatement.prototype = Object.create(Statement.prototype);
+
+EndWhileStatement.prototype.constructor = EndWhileStatement;
+
+EndWhileStatement.prototype.execute = function(processor) {
+    if (!(this.parent instanceof WhileStatement)) {
+        throw("Error: Unexpected " + this.source);
+    }
+    var value = processor.evaluate(this.parent.expression);
+    if (value) {
+        processor.nextStatement = this.parent.children[0];
+    }
+}
+
+EndWhileStatement.prototype.endsBlock = true;
+
+EndWhileStatement.prototype.keyword = "END WHILE";
+
+EndWhileStatement.prototype.syntax = "^END\\s+WHILE\\s*$";
 
 // FunctionCall
 
@@ -519,7 +554,7 @@ FunctionCall.prototype.constructor = FunctionCall;
 
 FunctionCall.prototype.initmatch = function(match) {
     this.name = match[1];
-    this.parameters = _parseExpressionList(match[2]);
+    this.parameters = match[2] ? _parseExpressionList(match[2]) : [];
 }
 
 FunctionCall.prototype.execute = function(processor) {
@@ -537,7 +572,7 @@ FunctionCall.prototype.invalid = function(processor) {
 
 FunctionCall.prototype.keyword = "Function Call";
 
-FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*$";
+FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*\\(\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*\\)\\s*$";
 
 FunctionCall.prototype.tokenLabels = ['Function to call', 'Parameters'];
 
@@ -550,9 +585,10 @@ Basic.statements = [
     EndIfStatement,
     ForStatement,
     NextStatement,
-    LoopStatement,
-    WhileStatement,
+    RepeatStatement,
     UntilStatement,
+    WhileStatement,
+    EndWhileStatement,
     FunctionStatement,
     EndFunctionStatement
 ];
@@ -585,7 +621,7 @@ Basic.parseStatement = function(source) {
         } else if (source.indexOf('//') == 0) {
             statement = CommentStatement;
         } else {
-            var match = source.match('^(' + FUNCTION_REGEX + ')\\b');
+            var match = source.match('^(' + FUNCTION_REGEX + ')\\b\\s*\\(');
             if (!match) {
                 statement = InvalidStatement;
             }  else {

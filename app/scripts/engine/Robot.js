@@ -26,6 +26,7 @@ var Robot = function(x, y, getAtLocation, angularScope) {
     this.image = rbImage;
     this.speechImage = sImage;
     this.busy = false;
+    this.winning = false;
 
     this.talking = false;
     this.talkingText = '';
@@ -67,13 +68,53 @@ var Robot = function(x, y, getAtLocation, angularScope) {
                 var utterance = new SpeechSynthesisUtterance(self.talkingText);
                 window.speechSynthesis.speak(utterance);
             }
+        },
+        "fireLaser": function(params) {
+            var obstacle = null;
+            self.doSomething("talk", ["PEW PEW PEW"]);
+            switch (self.direction){
+                case 'right':
+                    var i = self.x + 1;
+                    while (self.getAtLocation(i, self.y) == null) {
+                        i++;
+                    }
+                    obstacle = self.getAtLocation(i, self.y);
+                    break;
+                case 'left':
+                    var i = self.x - 1;
+                    while (self.getAtLocation(i, self.y) == null) {
+                        i--;
+                    }
+                    obstacle = self.getAtLocation(i, self.y);
+                    break;
+                case 'up':
+                    var i = self.y - 1;
+                    while (self.getAtLocation(self.x, i) == null) {
+                        i--;
+                    }
+                    obstacle = self.getAtLocation(self.x, i);
+                    break;
+                case 'down':
+                    var i = self.y + 1;
+                    while (self.getAtLocation(self.x, i) == null) {
+                        i++;
+                    }
+                    obstacle = self.getAtLocation(self.x, i);
+                    break;
+            }
+            if (typeof obstacle.destroy != undefined) {
+                obstacle.destroy();
+            }
         }
     };
 
     angularScope.$on('processor.step', function() {
         self.drainBattery();
-        console.log(self.batteryPower);
-    })
+    });
+
+    angularScope.$on('processor.win', function() {
+        self.doSomething("talk", ["Woohoo"]);
+    });
 
 };
 
@@ -100,13 +141,13 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
 
     ctx.restore();
 
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = '#090';
 
     if (this.batteryPower > 0) {
         var padding = 5;
         var segmentWidth = (canvasSize.width / this.batterySize) - padding;
         for (var i = 0; i < this.batteryPower; i++) {
-            ctx.fillRect(i * (segmentWidth + padding), canvasSize.height - 40, segmentWidth, 40);
+            ctx.fillRect(i * (segmentWidth + padding) + padding / 2, canvasSize.height - 35, segmentWidth, 30);
         }
     }
     
@@ -116,6 +157,9 @@ Robot.prototype.render = function(canvasSize, squareSize, ctx) {
 }
 
 Robot.prototype.update = function(time) {
+    if (this.winning) {
+        this.angularScope.$broadcast('win');
+    }
     if (this.moving) {
         this.$moveForward(time);
     }
@@ -137,6 +181,11 @@ Robot.prototype.isBusy = function() {
 Robot.prototype.drainBattery = function(amount) {
     var amount = amount || 1;
     this.batteryPower -= amount;
+
+    if (this.batteryPower == 0) {
+        this.doSomething("talk", ["Powering down"]);
+    }
+
     return this.batteryPower;
 }
 
@@ -155,6 +204,9 @@ Robot.prototype.$moveForward = function(time) {
         this.moving = false;
         this.colliding = true;
     } else {
+        if (inFront != null && inFront.goal) {
+            this.winning = true;
+        }
         if (this.movingDistance > 0) {
             var modifier = this.speed * time;
             if(modifier > this.movingDistance){
@@ -266,5 +318,4 @@ Robot.prototype.$cleanMyPosition = function() {
     this.x = Math.round(this.x);
     this.y = Math.round(this.y);
 }
-
 

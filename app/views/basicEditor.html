@@ -2,28 +2,51 @@
     <div ui-ace="{onLoad: aceLoaded, mode:'bhtbasic'}" class="source" ng-model="program.code">
     </div>
     <textarea class="prefill" style="display: none;">
+Say( 'okay' )
+
 LET x = 1
 
-TELL robot : 'talk', 'suck it'
-
 IF x &lt; 2 THEN
-  Print 'hello, world'
+  Say( 'hello, world' )
 END IF
 
 IF x &gt; 2 THEN
-  Print 'goodbye, world'
+  Say( 'goodbye, world' )
 END IF
 
-LOOP
-  LET x = x + 1
-WHILE x &lt; 5
-
-FOR i = 1 TO 5
-  Print i
+FOR i = 1 TO 3
+  Forward( 5 )
+  Left()
 NEXT i
 
-FUNCTION Print i
-  TELL robot : 'moveForward', i
+LET y = 1
+
+WHILE y < 3
+  LET y = y + 1
+END WHILE
+
+REPEAT
+  LET y = y - 1
+UNTIL y == 1
+
+// Say something
+FUNCTION Say( s )
+  TELL robot : 'talk', s
+END FUNCTION
+
+// Move the forward block a number of spaces
+FUNCTION Forward( n )
+  TELL robot : 'moveForward', n
+END FUNCTION
+
+// Turn the robot left 90 degrees
+FUNCTION Left()
+  TELL robot : 'turn', 'left'
+END FUNCTION
+
+// Turn the robot right 90 degrees
+FUNCTION Right()
+  TELL robot : 'turn', 'right'
 END FUNCTION
     </textarea>
     <div class="variables" ng-bind-html="variables()">

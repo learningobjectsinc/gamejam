@@ -11,7 +11,7 @@ var Game = function(map, angularScope, RobotIO) {
 
     this.debugMode = false;
 
-    this.bottomBarHeight = 50;
+    this.bottomBarHeight = 40;
 
     // Game bg image
     var bgImage = new Image();
@@ -63,17 +63,20 @@ Game.prototype.render = function(canvasSize, ctx) {
 
     //draw the background
     var ptrn = ctx.createPattern(this.bgImage, 'repeat'); // Create a pattern with this image, and set it to "repeat".
-    ctx.fillStyle = ptrn;
+    ctx.fillStyle = '#EEE';
     ctx.fillRect(0, 0, canvasSize.width, canvasSize.height - this.bottomBarHeight); // context.fillRect(x, y, width, height);
 
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = '#111';
     ctx.fillRect(0, canvasSize.height - this.bottomBarHeight, canvasSize.width, this.bottomBarHeight);
     ctx.fill();
 
     //draw the squares
-    for(var x=0; x<this.map.width; x++){
-        for(var y=0; y<this.map.height; y++){
-            ctx.strokeRect(x*squareSize.width, y*squareSize.height, squareSize.width, squareSize.height);
+    if (this.debugMode) {
+        ctx.strokeStyle = '#CCC';
+        for(var x=0; x<this.map.width; x++){
+            for(var y=0; y<this.map.height; y++){
+                ctx.strokeRect(x*squareSize.width, y*squareSize.height, squareSize.width, squareSize.height);
+            }
         }
     }
 
@@ -106,6 +109,9 @@ Game.prototype.update = function(canvasSize, ctx) {
 
 
 Game.prototype.getAtLocation = function(x, y) {
+    if (x > this.map.width || y > this.map.height) {
+        return {};
+    }
     for (var i = 0; i < this.objects.length; i++) {
         var object = this.objects[i];
         if ((object.x === x) && (object.y === y)) {

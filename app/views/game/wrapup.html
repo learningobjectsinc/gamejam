@@ -1,2 +1,8 @@
-YOU WIN
-<button class="btn" ui-sref="home">GO HOME</button>
+<ul rn-carousel rn-carousel-indicator="true">
+	<li ng-repeat="page in wrapUp.pages">
+		<h2>{{page.title}}</h2>
+        <div ng-bind-html="page.body">{{page.body}}</div>
+	</li>
+</ul>
+
+<button class="btn btn-accent btn-play" ui-sref="home">GO HOME</button>

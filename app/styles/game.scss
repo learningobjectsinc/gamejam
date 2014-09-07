@@ -1,12 +1,18 @@
 #game {
 	.sidebar {
-		width: 32%;
-		max-width: 32%;
+		width: 30%;
+		max-width: 30%;
 		float: right;
 
 		> div {
 			padding: 5px;
 			margin: 10px 5px;
 		}
+	}
+
+	canvas {
+		margin: 1em;
+		border: 3px solid $color-primary;
+		border-radius: 0.5vem;
 	}
 }
