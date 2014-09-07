@@ -165,9 +165,11 @@ ProgramStatement.prototype.addStatement = function(statement) {
 }
 
 ProgramStatement.prototype.addLibrary = function(library) {
+    console.log('Add Lib', library);
     _.each(library.functions, function(fn) {
+        console.log('FN', fn)
         this.functions[fn.name] = this.functions[fn.name] || fn;
-    });
+    }, this);
 }
 
 // EndProgramStatement

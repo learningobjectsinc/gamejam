@@ -11,27 +11,34 @@ angular.module('gamejamApp')
     });
 
 angular.module('gamejamApp')
+
   .controller('TheGame', function ($scope, $state, Program, levelService, GameService, blockService) {
+
+    
+    var func = new FunctionCall();
+    func.name = "Step";
+    func.parameters = [];
+
+    var func2 = new FunctionCall();
+    func2.name = "TurnRight";
+    func2.parameters = [];
+
+    var func3 = new FunctionCall();
+    func3.name = "TurnLeft";
+    func3.parameters = [];
+
+    
+    console.log($scope.program);
+
     console.log($scope.level.defaultCode);
-    $scope.program = new Program("TELL robot : MoveForward(1) \n");
+    $scope.program = new Program("Step()\n", null);
 
-    var fakeLibrary = "" + 
-        "// Move the robot forward one block;"+ "\n"+ 
-        "FUNCTION Step()"+ "\n"+ 
-        "  TELL robot : MoveForward(1)"+ "\n"+ 
-        "  Wait()"+ "\n"+ 
-        "END FUNCTION"+ "\n"+ 
-
-        "// Wait for the robot to finish"+ "\n"+ 
-        "FUNCTION Wait()"+ "\n"+ 
-        "  WHILE ASK('Busy')"+ "\n"+ 
-        "    // Just wait"+ "\n"+ 
-        "  END WHILE"+ "\n"+ 
-        "END FUNCTION"+ "\n";
-        console.log($scope.program);
-    $scope.program.statements.addLibrary(Basic.parseProgram(fakeLibrary));
 
     $scope.program.compile();
+
+    
+
+    console.log($scope.program);
 
     $scope.errorMessage = "";
 
