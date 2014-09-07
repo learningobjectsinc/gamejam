@@ -6,13 +6,13 @@
   margin: 0 0
 
   h4
-    margin: 0 1em 1em 0
-    padding: 0.25em 0.5em
+    margin: 0
+    padding: 3.33% 5%
     background: $color-secondary
-    border-radius: 0 0 0.33em 0
     color: $color-white
-    float: left
-    font-size: 0.75em
+    //float: left
+    font-size: 1em
+    width: 90%
 
   .description
     padding: 0 5% 1em 5%
@@ -20,6 +20,8 @@
     width: 0
     text-align: center
     width: 90%
+    font-size: 0.8em
+    display: none
 
   &.active
     border: 4px solid
@@ -28,7 +30,8 @@
 
   .delete
     cursor: pointer
-    float: right
+    position: absolute
+    right: 0
     background: $color-accent
     padding: 0.33em 0.5em
     color: $color-white
@@ -115,7 +118,7 @@
   display: inline-block
   width: 97%
   padding: 1.5%
-  //min-height: 4em
+  min-height: 4.15em
   background: fade-out($color-secondary,0.85)
 
   /*&:after
