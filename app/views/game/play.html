@@ -24,6 +24,7 @@
 				Add some blocks!<br>Y U NO CODE!?!?
 			</div>
 			<div ng-repeat="stmt in program.statements.children track by stmt.id" block="stmt"></div>
+			<button ng-click="convertToCode()" type="button" class="btn btn-block btn-primary">Convert to code</button>
 		</div>
 
 		<div class="codeEditor">
