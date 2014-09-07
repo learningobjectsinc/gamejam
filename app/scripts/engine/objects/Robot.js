@@ -6,15 +6,11 @@ angular.module("gamejamApp").run(function(objectFactory) {
 
         _.extend(self, config);
 
-        self.direction = 'right';
-
+        // TODO: base on direction
         this.image = "images/robot/robot-right.svg";
 
-        // TODO: behaviors
-        this.restrictive = true;
-
         this.instructions = {
-            "moveForward": function(params) {
+            "MoveForward": function(params) {
                 // params[0] is the distance
                 for (var i = 0; i < params[0]; i++) {
                     switch (self.direction) {
@@ -37,27 +33,24 @@ angular.module("gamejamApp").run(function(objectFactory) {
                     }
                 }
             },
-            "turn": function(params) {
+            "Turn": function(params) {
                 // params[0] is the direction
                 self.$turn(params[0]);
             },
-            "busy": function() {
+            "Busy": function() {
                 return false;
             },
-            "talk": function(params) {
+            "Talk": function(params) {
                 // params[0] is the text
-                self.talking = true;
-                self.talkingText = params[0];
-                self.talkingDuration = self.talkingTotalDuration;
-                table.$broadcast('robot.talk', {
-                    uttering: self.talkingText
-                });
+                // table.$broadcast('robot.talk', {
+                //     uttering: self.talkingText
+                // });
                 if ('speechSynthesis' in window) {
                     var utterance = new SpeechSynthesisUtterance(self.talkingText);
                     window.speechSynthesis.speak(utterance);
                 }
             },
-            "fireLaser": function(params) {
+            "FireLaser": function(params) {
                 self.invoke("talk", ["PEW PEW PEW"]);
                 var obstacle = self.$getInFront();
                 if (obstacle && (typeof obstacle.destroy != undefined)) {
@@ -70,7 +63,11 @@ angular.module("gamejamApp").run(function(objectFactory) {
     Robot.prototype = {};
 
     Robot.prototype.invoke = function(functionName, params) {
-        return this.instructions[functionName](params);
+        var op = this.instructions[functionName];
+        if (!op) {
+            throw "Unknown method: " + functionName;
+        }
+        return op(params);
     }
 
     Robot.prototype.render = function(element) {

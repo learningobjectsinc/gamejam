@@ -1361,7 +1361,8 @@ gameData["levels"] = [
 					"type": "Robot",
 					"config": {
 						"x": 3,
-						"y": 3
+						"y": 3,
+						"direction": "right"
 					}
 				},
 				{
@@ -1390,6 +1391,20 @@ gameData["levels"] = [
 					"config": {
 						"x": 4,
 						"y": 3
+					}
+				},
+				{
+					"type": "Rock",
+					"config": {
+						"x": 4,
+						"y": 4
+					}
+				},
+				{
+					"type": "Goal",
+					"config": {
+						"x": 3,
+						"y": 4
 					}
 				}
 			]

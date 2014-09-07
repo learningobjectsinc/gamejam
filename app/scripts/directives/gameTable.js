@@ -34,17 +34,15 @@ angular.module('gamejamApp')
                         }
                     });
 
-                    scope.$watch('grid', function(value, oldValue) {
-                        console.log(value, oldValue);
-                    });
-
                     scope.moveObject = function(object, x, y) {
                         scope.$apply(function() {
+                            var currentX = object.x,
+                                currentY = object.y;
+
                             if (x >= width || y >= height) {
                                 return null;
                             }
-                            var currentX = object.x,
-                                currentY = object.y;
+
                             var collision = grid.data[y][x];
                             if (!collision) {
                                 grid.data[y][x] = object;

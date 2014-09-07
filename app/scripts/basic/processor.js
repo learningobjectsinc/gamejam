@@ -43,6 +43,7 @@ Processor.prototype.step = function() {
     } catch (e) {
         this.halted = true;
         this.crashed = e;
+        console.log(e.getStack());
     }
 }
 

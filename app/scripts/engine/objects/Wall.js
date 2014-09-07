@@ -4,8 +4,9 @@ angular.module("gamejamApp").run(function(objectFactory) {
     var Wall = function($rootScope, config) {
         this.image = "images/objects/wall.png";
 
-        // TODO: behaviors
-        this.restrictive = true;
+        this.behaviors = {
+            impassable: true
+        };
     };
 
     Wall.prototype = {};
