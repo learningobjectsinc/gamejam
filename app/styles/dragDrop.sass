@@ -1,0 +1,51 @@
+@import variables
+
+.dropzone
+	min-height: 3.33em
+	background: none
+	position: relative
+	background: none
+	transition: all ease $trans-speed
+	background: fade-out($color-success,0.5)
+
+	.icon
+		position: absolute
+		font-size: 2.5em
+		height: 1em
+		width: 1em
+		margin: auto
+		left: 0
+		right: 0
+		top: 0
+		bottom: 0
+		color: fade-out($color-white, 0.5)
+		transition: all ease $trans-speed
+
+	p
+		margin: 0
+		padding: 0
+		display: inline-block
+		color: fade-out($color-white, 0.75)
+
+.dropzone.drag-enter
+	background: $color-accent
+	min-height: 6em
+
+	.icon
+		font-size: 4em
+
+	&:after
+		height: 100%
+		background: red
+		content: ' '
+		display: block
+		position: relative
+		top: 10px
+
+.btn.dragging
+	cursor: default
+
+.btn.drag-over
+	background: #1a80b6
+	border: 1px solid #ddf
+	cursor: pointer
