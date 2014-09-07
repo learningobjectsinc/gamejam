@@ -368,12 +368,8 @@ gameData["levels"] = [
 				}
 			]
 		},
-		"availableBlocks": {
-			"TellStatement": {
-				"availableFns": "moveForward",
-				"src": "TELL robot : MoveForward(1)"
-			}
-		}, "availableFunctions": {
+		"availableBlocks": {},
+		"availableFunctions": {
 			"Step": {}
 		}
 	},
