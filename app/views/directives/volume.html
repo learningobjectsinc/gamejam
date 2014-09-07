@@ -2,5 +2,6 @@
     <audio id="music" loop>
         <source src="sound/finalAct.wav" type="audio/wav">
     </audio>
-    <img class="icon" ng-src="images/glyphicons_{{ isMusicOn ? '184_volume_up' : '182_mute' }}.png" ng-click="toggleMusic()" alt="Toggle Music"/>
+    <span ng-class="{'mute':volOff}" class="icon icon-volume-medium" ng-click="toggleMusic()" alt="Toggle Music"/></span>
+    <!--<span class="icon icon-volume-mute" ng-click="toggleMusic()" alt="Toggle Music"/></span>-->
 </span>
