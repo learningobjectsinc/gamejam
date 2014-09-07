@@ -1,4 +1,4 @@
-var Robot = function(x,y, getAtLocation) {
+var Robot = function(x, y, getAtLocation, angularScope) {
     GridObject.apply(this, [x, y]);
     
     // Robot image
@@ -10,6 +10,7 @@ var Robot = function(x,y, getAtLocation) {
     rbImage.src = "images/robot/robot-right.svg";
 
 	var self = this;
+    this.angularScope = angularScope
     this.x = x;
     this.y = y;
     this.getAtLocation = getAtLocation
@@ -25,13 +26,15 @@ var Robot = function(x,y, getAtLocation) {
     this.moving = false;
     this.movingDistance = 0;
     this.totalMovingDistance = 0;
-    // pixels/second
-    this.speed = 20;
+    this.speed = 20; // pixels/second
 
     this.turning = false;
     this.turningDirection = 'right';
 
     this.colliding = false;
+
+    this.batterySize = 15;
+    this.batteryPower = this.batterySize;
 
     this.instructions = {
     	"moveForward": function(params) {
@@ -52,6 +55,11 @@ var Robot = function(x,y, getAtLocation) {
             self.talkingText = params[0];
         }
     };
+
+    angularScope.$on('processor.step', function() {
+        self.drainBattery();
+        console.log(self.batteryPower);
+    })
 
 };
 
@@ -92,6 +100,12 @@ Robot.prototype.isBusy = function() {
     return this.busy;
 }
 
+Robot.prototype.drainBattery = function(amount) {
+    var amount = amount || 1;
+    this.batteryPower -= amount;
+    return this.batteryPower;
+}
+
 Robot.prototype.$talk = function(time, text) {
     if (this.talkingDuration > 0) {
         ctx.save();
@@ -107,43 +121,44 @@ Robot.prototype.$talk = function(time, text) {
 }
 
 Robot.prototype.$moveForward = function(time) {
-    if (this.movingDistance > 0) {
-        var modifier = this.speed * time;
-        if(modifier > this.movingDistance){
-            modifier = this.movingDistance;
-            this.movingDistance = 0;
-        } else {
-            this.movingDistance -= modifier;
-        }
-        switch (this.direction){
-            case 'right':
-                this.x += modifier;
-                break;
-            case 'left':
-                this.x -= modifier;
-                break;
-            case 'up':
-                this.y -= modifier;
-                break;
-            case 'down':
-                this.y += modifier;
-                break;
-        }
+    if (this.$getInFront() != null) { //TODO real collision
+        this.moving = false;
+        this.colliding = true;
     } else {
-        this.x = Math.round(this.x);
-        this.y = Math.round(this.y);
-        this.totalMovingDistance--;
-        if (this.totalMovingDistance === 0) {
-            this.moving = false;
-            this.movingDistance = 0;
-            this.busy = false;   
-        } else {
-            console.log(this.x, this.y);
-            if (this.$getInFront() != null) { //TODO real collision
-                this.moving = false;
-                this.colliding = true;
+        if (this.movingDistance > 0) {
+            var modifier = this.speed * time;
+            if(modifier > this.movingDistance){
+                modifier = this.movingDistance;
+                this.movingDistance = 0;
             } else {
-                this.movingDistance = 1;
+                this.movingDistance -= modifier;
+            }
+            switch (this.direction){
+                case 'right':
+                    this.x += modifier;
+                    break;
+                case 'left':
+                    this.x -= modifier;
+                    break;
+                case 'up':
+                    this.y -= modifier;
+                    break;
+                case 'down':
+                    this.y += modifier;
+                    break;
+            }
+        } else {
+            this.x = Math.round(this.x);
+            this.y = Math.round(this.y);
+            this.totalMovingDistance--;
+            if (this.totalMovingDistance === 0) {
+                this.moving = false;
+                this.movingDistance = 0;
+                this.busy = false;   
+            } else {
+                
+                    this.movingDistance = 1;
+                //}
             }
         }
     }

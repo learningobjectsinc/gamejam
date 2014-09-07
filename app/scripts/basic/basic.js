@@ -21,7 +21,6 @@ function _parseExpressionList(str) {
 }
 
 function Statement() {
-    this.children = {};
 }
 
 Statement.prototype.init = function(source) {
@@ -49,42 +48,43 @@ Statement.prototype.execute = function(context) {
 
 Statement.prototype.skipBlock = function(processor) {
     processor.nextStatement = this.nextStatement(false);
-    var last = this.firstChild;
-    while (last && last.nextSibling) {
-        last = last.nextSibling;
-    }
-    return last;
+    var l = this.children.length;
+    return l ? this.children[l - 1] : null;
 };
 
 Statement.prototype.addStatement = function(statement) {
     if (!this.startsBlock) {
         throw "Cannot add to: " + this.source;
     }
-    var child = this.firstChild;
-    if (!child) {
-        this.firstChild = statement;
-    } else {
-        while (child.nextSibling) {
-            child = child.nextSibling;
-        }
-        child.nextSibling = statement;
+    if (this.children == Statement.prototype.children) {
+        this.children = [];
     }
+    this.children.push(statement);
     statement.parent = this;
 };
 
 Statement.prototype.nextStatement = function(children) {
-    if (children && this.firstChild) {
-        return this.firstChild;
+    if (children && this.children.length) {
+        return this.children[0];
     } else {
-        var context = this;
-        while (context.parent && !context.nextSibling) {
+        var context = this, next = context.nextSibling();
+        while (context.parent && context.parent.parent && !next) {
             if (!context.endsBlock) {
                 throw "Unexpected end: " + context.source;
             }
             context = context.parent;
+            next = context.nextSibling();
         }
-        return context.nextSibling;
+        return next;
     }
+}
+
+Statement.prototype.nextSibling = function() {
+    var siblings = this.parent.children, index = _.indexOf(siblings, this);
+    if (index < 0) {
+        throw "Abnormal end";
+    }
+    return (index + 1 < siblings.length) ? siblings[index + 1] : null;
 }
 
 Statement.prototype.startsBlock = false;
@@ -94,6 +94,8 @@ Statement.prototype.endsBlock = false;
 Statement.prototype.description = 'This statement does not have a helpful description.';
 
 Statement.prototype.syntaxHelp = '<span class="keyword">Syntax</span>';
+
+Statement.prototype.children = [];
 
 // ProgramStatement
 
@@ -358,7 +360,7 @@ NextStatement.prototype.execute = function(processor) {
     var stop = processor.evaluate(this.parent.stop);
     if (value <= stop) {
         processor.variables[this.variable] = value;
-        processor.nextStatement = this.parent.firstChild;
+        processor.nextStatement = this.parent.children[0];
     }
 }
 
@@ -452,7 +454,7 @@ UntilStatement.prototype.execute = function(processor) {
     }
     var value = processor.evaluate(this.expression);
     if (!value) {
-        processor.nextStatement = this.parent.firstChild;
+        processor.nextStatement = this.parent.children[0];
     }
 }
 
@@ -481,7 +483,7 @@ WhileStatement.prototype.execute = function(processor) {
     }
     var value = processor.evaluate(this.expression);
     if (value) {
-        processor.nextStatement = this.parent.firstChild;
+        processor.nextStatement = this.parent.children[0];
     }
 }
 

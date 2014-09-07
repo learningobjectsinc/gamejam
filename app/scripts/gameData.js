@@ -29,7 +29,7 @@ gameData["blocks"] = [
 	}
 ];
 gameData["instructions"] = [{
-        "levelId": 123,
+        "levelId": 1,
         "pages": [
 			{
 				"title": "One",
@@ -54,7 +54,7 @@ gameData["learningOutcomes"] = [
 ];
 gameData["levels"] = [
 	{
-		"id": 123,
+		"id": 1,
 		"name": "Level 1: Functions",
 		"description": "Number of Lemmings: 10",
 		"icon": "power",
@@ -267,7 +267,7 @@ gameData["levels"] = [
 		}
 	},
 	{
-		"id": 123,
+		"id": 2,
 		"name": "Level 2: Variables",
 		"description": "Number of Lemmings: 10",
 		"icon": "settings",
@@ -295,7 +295,7 @@ gameData["levels"] = [
 		}
 	},
 	{
-		"id": 123,
+		"id": 3,
 		"name": "Level 3: Conditionals",
 		"description": "Number of Lemmings: 10",
 		"icon": "podium",
@@ -323,7 +323,7 @@ gameData["levels"] = [
 		}
 	},
 	{
-		"id": 123,
+		"id": 4,
 		"name": "Level 4: Loops",
 		"description": "Number of Lemmings: 10",
 		"icon": "spinner",
@@ -351,7 +351,7 @@ gameData["levels"] = [
 		}
 	},
 	{
-		"id": 123,
+		"id": 5,
 		"name": "Level 5: All the Things!",
 		"description": "Number of Lemmings: 10",
 		"icon": "rocket",

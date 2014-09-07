@@ -1,7 +1,10 @@
 window.robots = [];
-var Game = function(map) {
-    this.map = map;
+
+var Game = function(map, angularScope) {
     var self = this;
+
+    this.map = map;
+    this.angularScope = angularScope;
 
     this.objects = [];
 
@@ -27,7 +30,7 @@ var Game = function(map) {
 
     _.each(map.objects, function(object) {
         // forgive me
-        var instance = new window[object.type](object.x, object.y, getAtLocation);
+        var instance = new window[object.type](object.x, object.y, getAtLocation, angularScope);
         self.objects.push(instance);
         //forgive me some more
         if(object.type === 'Robot'){
@@ -51,8 +54,6 @@ var Game = function(map) {
             self.debugMode = !self.debugMode;
         }
     }, true);
-
-
 }
 
 Game.prototype.render = function(canvasSive, ctx) {
