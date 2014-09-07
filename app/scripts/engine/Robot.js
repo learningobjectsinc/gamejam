@@ -141,7 +141,7 @@ Robot.prototype.drainBattery = function(amount) {
     this.batteryPower -= amount;
 
     if (this.batteryPower == 0) {
-        this.invoke("Talk", ["Powering down"]);
+//      this.invoke("Talk", ["Powering down"]);
     }
 
     return this.batteryPower;
