@@ -50,7 +50,7 @@ angular.module("gamejamApp").run(function(objectFactory) {
                             break;
                         case 'left':
                             table.moveObject(self, self.x - 1, self.y);
-                            self.y--;
+                            self.x--;
                             break;
                     }
                 }
@@ -74,7 +74,7 @@ angular.module("gamejamApp").run(function(objectFactory) {
                 }
             },
             "FireLaser": function(params) {
-                //self.invoke("Talk", ["PEW PEW PEW"]);
+                self.invoke("Talk", ["PEW PEW PEW"]);
                 var beam;
                 switch (self.direction) {
                     case 'up':

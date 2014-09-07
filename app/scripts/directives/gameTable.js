@@ -60,7 +60,7 @@ angular.module('gamejamApp')
                                 grid.touch = new Date();
                             }
 
-                            if (object.type == "Robot" && collision && collision.behavior.win) {
+                            if (object.type == "Robot" && collision && collision.behavior && collision.behavior.win) {
                                 scope.$emit('win');
                             }
 
