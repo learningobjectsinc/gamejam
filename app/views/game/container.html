@@ -1,2 +1,20 @@
-<h1>{{level.name}}</h1>
+<section class="header">
+	<!--<div class="robojam">
+      <img src="/images/robot/robot-down.svg">
+    </div>-->
+    <div class="c100 p{{level.completed * 100}}">
+      <span class="icon icon-{{level.icon}}"></span>
+      <p class="comp-percent">{{level.completed * 100}}</p>
+      <div class="slice">
+          <div class="bar"></div>
+          <div class="fill"></div>
+      </div>
+    </div>
+	<h1>{{level.name}}</h1>
+	<div id="main-nav">
+		<a href="#/home"><span class="icon icon-house"></span></a>
+		<a href="#/home"><span class="icon icon-info"></span></a>
+		<a href="#/home"><span class="icon icon-help"></span></a>
+	</div>
+</section>
 <ui-view></ui-view>

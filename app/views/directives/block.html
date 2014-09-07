@@ -4,15 +4,13 @@
   <span class="description">
     {{ block.description }}
   </span>
-  <form class="form-horizontal" ng-if="block.params">
-    <div class="form-group" ng-repeat="param in block.params">
-      <label for="{{ param.shortName }}_{{ block.id }}" class="col-sm-2 control-label">{{ param.name }}</label>
-      <div class="col-sm-10">
-        <div class="input-group">
-          <input id="{{ param.shortName }}_{{ block.id }}" type="text" class="form-control">
-          <span class="input-group-addon">{{ param.units }}</span>
-        </div>
-      </div>
+  <form class="form-horizontal" ng-if="block.tokenLabels">
+    <div ng-repeat="token in block.tokenLabels">
+      <label for="{{ token }}_{{ block.id }}">{{ token }}</label>
+      <input id="{{ token }}_{{ block.id }}" ng-model="block.matches[$index+1]" type="text" class="form-control">
     </div>
   </form>
+  <div class="childBlocks">
+    <div child-blocks="block.children"></div>
+  </div>
 </div>

@@ -1,8 +1,8 @@
 <ul rn-carousel rn-carousel-indicator="true">
 	<li ng-repeat="page in instructions.pages">
 		<h2>{{page.title}}</h2>
-        <p>{{page.body}}</p>
+        <div ng-bind-html="page.body">{{page.body}}</div>
 	</li>
 </ul>
 
-<button class="btn" ui-sref="^.play">PLAY ME</button>
+<button class="btn btn-accent btn-play" ui-sref="^.play">PLAY ME</button>

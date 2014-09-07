@@ -32,16 +32,16 @@ gameData["instructions"] = [{
         "levelId": 1,
         "pages": [
 			{
-				"title": "One",
-				"body": "Test 1"
+				"title": "Welcome to RoboJam!",
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>RoboJam's a super cool robot who sometimes forgets how to do things. Help him out with his controls by learning the basics of programming.</p>"
 			},
 			{
-				"title": "Two",
-				"body": "Test 2"
+				"title": "Level 1: Functions",
+				"body": "<p>Functions are self <em>contained modules</em> of code that accomplish a specific task. Functions usually take in data, process it, and return a result. Once a function is written, it can be used over and over and over again. Functions can be called from the inside of other functions.</p>"
 			},
 			{
-				"title": "Three",
-				"body": "Test 3"
+				"title": "Instructions",
+				"body": "<dl><dt>Drag and drop the functions to complete the action</dt><dt>Hit 'Run' to see the function execute</dt><dt>View the code that makes it all come alive!</dt></ol>"
 			}
 		]
 	}

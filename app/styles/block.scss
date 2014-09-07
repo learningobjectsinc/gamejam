@@ -11,13 +11,22 @@
   		color: red;
   	}
   }
+
+  .childBlocks {
+    margin-left: 1em;
+    .programBlock {
+      background-color: #ffdddd;
+    }
+  }
 }
 
 .programBlockContainer {
   background: #dedeff;
   margin-top: 0.5em;
+  max-height: 300px;
+  overflow-y: scroll;
   
-  > div:nth-child(2n) .programBlock {
+  > div:nth-child(2n) > .programBlock {
     background-color: #bbffbb;
   }
 }

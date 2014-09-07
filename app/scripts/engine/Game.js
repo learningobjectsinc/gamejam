@@ -63,14 +63,15 @@ Game.prototype.render = function(canvasSize, ctx) {
 
     //draw the background
     var ptrn = ctx.createPattern(this.bgImage, 'repeat'); // Create a pattern with this image, and set it to "repeat".
-    ctx.fillStyle = ptrn;
+    ctx.fillStyle = '#EEE';
     ctx.fillRect(0, 0, canvasSize.width, canvasSize.height - this.bottomBarHeight); // context.fillRect(x, y, width, height);
 
     ctx.fillStyle = 'black';
-    ctx.fillRect(0, canvasSize.height - this.bottomBarHeight, canvasSize.width, this.bottomBarHeight);
+    //ctx.fillRect(0, canvasSize.height - this.bottomBarHeight, canvasSize.width, this.bottomBarHeight);
     ctx.fill();
 
     //draw the squares
+    ctx.strokeStyle = '#CCC';
     for(var x=0; x<this.map.width; x++){
         for(var y=0; y<this.map.height; y++){
             ctx.strokeRect(x*squareSize.width, y*squareSize.height, squareSize.width, squareSize.height);

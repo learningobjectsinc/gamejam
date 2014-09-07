@@ -27,6 +27,7 @@ Statement.prototype.init = function(source) {
     this.source = source;
     this.id = +_.uniqueId();
     var match = source.match(this.syntax);
+    this.matches = match;
     if (!match) {
         this.invalid = true;
     } else {
@@ -100,6 +101,8 @@ Statement.prototype.description = 'This statement does not have a helpful descri
 Statement.prototype.syntaxHelp = '<span class="keyword">Syntax</span>';
 
 Statement.prototype.children = [];
+
+Statement.prototype.tokenLabels = [];
 
 // ProgramStatement
 
@@ -217,6 +220,8 @@ LetStatement.prototype.keyword = "LET";
 
 LetStatement.prototype.syntax = "^LET\\s+(" + VARIABLE_REGEX + ")\\s*=\\s*(" + EXPRESSION_REGEX + ")\\s*$";
 
+LetStatement.prototype.tokenLabels = ['Variable', 'Value'];
+
 LetStatement.prototype.description = "This statement assigns a value to variable.";
 
 LetStatement.prototype.syntaxHelp = '<span class="keyword">LET</span> <span class="variable">variable</span> = <span class="value">value</span>';
@@ -244,6 +249,8 @@ TellStatement.prototype.execute = function(processor) {
 TellStatement.prototype.keyword = "TELL";
 
 TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" + EXPRESSION_REGEX + "(?:,\\s*" + EXPRESSION_REGEX + ")*)\\s*$";
+
+TellStatement.prototype.tokenLabels = ["Object to call", "Function to call", "Value to pass in"];
 
 // FunctionStatement
 
@@ -289,6 +296,8 @@ FunctionStatement.prototype.startsBlock = true;
 FunctionStatement.prototype.keyword = "FUNCTION";
 
 FunctionStatement.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*$";
+
+FunctionStatement.prototype.tokenLabels = ["Name", "Input Parameter"];
 
 // End FunctionStatement
 
@@ -337,6 +346,8 @@ ForStatement.prototype.keyword = "FOR";
 
 ForStatement.prototype.syntax = "^FOR\\s+(" + VARIABLE_REGEX + ")\\s+=\\s+(" + EXPRESSION_REGEX + ")\\s+TO\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
+ForStatement.prototype.tokenLabels = ["Variable to loop", "Start at", "Go to"];
+
 // NextStatement
 
 function NextStatement() {
@@ -370,6 +381,8 @@ NextStatement.prototype.keyword = "NEXT";
 
 NextStatement.prototype.syntax = "^NEXT\\s+(" + VARIABLE_REGEX + ")\\s*$";
 
+NextStatement.prototype.tokenLabels = ["Variable"];
+
 // IfStatement
 
 function IfStatement() {
@@ -398,6 +411,8 @@ IfStatement.prototype.startsBlock = true;
 IfStatement.prototype.keyword = "IF";
 
 IfStatement.prototype.syntax = "^IF\\s+(" + EXPRESSION_REGEX + ")\\s+THEN\\s*$";
+
+IfStatement.prototype.tokenLabels = ["Expression"];
 
 // EndIfStatement
 
@@ -464,6 +479,8 @@ UntilStatement.prototype.keyword = "UNTIL";
 
 UntilStatement.prototype.syntax = "^UNTIL\\s+(" + EXPRESSION_REGEX + ")\\s*$";
 
+UntilStatement.prototype.tokenLabels = ["Expression"];
+
 // WhileStatement
 
 function WhileStatement() {
@@ -492,6 +509,8 @@ WhileStatement.prototype.endsBlock = true;
 WhileStatement.prototype.keyword = "WHILE";
 
 WhileStatement.prototype.syntax = "^WHILE\\s+(" + EXPRESSION_REGEX + ")\\s*$";
+
+WhileStatement.prototype.tokenLabels = ["Expression"];
 
 // FunctionCall
 
@@ -523,6 +542,8 @@ FunctionCall.prototype.invalid = function(processor) {
 FunctionCall.prototype.keyword = "Function Call";
 
 FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*$";
+
+FunctionCall.prototype.tokenLabels = ['Function to call', 'Parameters'];
 
 // Basic
 

@@ -9,6 +9,7 @@ var Rock = function(x,y) {
     };
     rockImage.src = "images/objects/wall.png";
     this.restrictive = true;
+    this.goal = false;
 
     var self = this;
     this.x = x;
