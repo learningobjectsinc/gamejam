@@ -1,4 +1,4 @@
-var libraryFunctions = {
+angular.module('gamejamApp').constant('libraryFunctions', {
     "Step": {
         "source" : [
             'FUNCTION Step()',
@@ -69,4 +69,4 @@ var libraryFunctions = {
         "description" : "Fire your lasers in front of you",
         "parameters" : []
     }
-}
+});

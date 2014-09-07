@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, RobotIO){
+angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, RobotIO, libraryFunctions){
 	var program = function(code){
         var librarySourceLines = [];
-        for (var functionName in window.libraryFunctions) {
-            var lines = window.libraryFunctions[functionName]['source'];
+        for (var functionName in libraryFunctions) {
+            var lines = libraryFunctions[functionName]['source'];
             for (var i = 0;i < lines.length;i++) {
                 librarySourceLines.push(lines[i]);
             }

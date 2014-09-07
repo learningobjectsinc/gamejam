@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('gamejamApp').directive('block', function($timeout, blockService){
+angular.module('gamejamApp').directive('block', function($timeout, blockService, libraryFunctions){
 	return {
 		restrict: 'A',
 		scope: {
@@ -16,7 +16,7 @@ angular.module('gamejamApp').directive('block', function($timeout, blockService)
 			};
 
 			if(block.constructor.name === 'FunctionCall'){
-				scope.cfg = window.libraryFunctions[block.name];
+				scope.cfg = libraryFunctions[block.name];
 			}
 
 			scope.isBlockHidden = blockService.dontShow;
