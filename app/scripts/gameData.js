@@ -34,7 +34,7 @@ gameData["instructions"] = [
         "pages": [
 			{
 				"title": "Let's Move!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Solve the epidemic of robot obesity by getting Tobor to move.</p>"
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div>"
 			},
 			{
 				"title": "Level 0: Let's Move!",
