@@ -67,7 +67,8 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 							var range = new Range(stmt.line, offset, lastChild.line, line.length);
 						} else {
 							line = session.getLine(stmt.line);
-							offset = line.match(firstChar).index;
+                                                        var match = line.match(firstChar);
+							offset = match ? match.index : 0;
 							var range = new Range(stmt.line, offset, stmt.line, line.length);
 						}
 

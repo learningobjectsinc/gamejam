@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, RobotIO){
-	var program = function(code, library){
+	var program = function(code){
     
         this.library = Basic.parseProgram([
             "// Turn the robot right", 
@@ -37,9 +37,9 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 		this.paused = false;
 	};
 
-	program.prototype.init = function(src) {
-		src = src || [];
-	    this.statements = Basic.parseProgram(src);
+    program.prototype.init = function(src) {
+	src = src || [];
+	this.statements = Basic.parseProgram(src);
         this.statements.addLibrary(this.library);
         console.log(this.statements);
 
@@ -47,6 +47,7 @@ angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, R
 	    this.paused = false;
 	    this.sleeper = null;
 	    this.processor = new Processor(this.statements, this.io, $rootScope);
+this.library.processor = this.processor; // TODO: KILLME: HACK
 	};
 
 	program.prototype.compile = function(){

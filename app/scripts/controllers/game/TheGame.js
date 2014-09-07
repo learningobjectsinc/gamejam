@@ -93,8 +93,9 @@ angular.module('gamejamApp')
 
     $scope.runProgram = function(){
         GameService.resetGameFromLastMap();
-        $scope.convertToCode();
-        $scope.program.compile();
+        if (!$scope.blockEditing) {
+            $scope.program.compile();
+        }
         $scope.program.run();
     };
 
