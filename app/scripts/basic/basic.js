@@ -304,7 +304,7 @@ FunctionStatement.prototype.startsBlock = true;
 
 FunctionStatement.prototype.keyword = "FUNCTION";
 
-FunctionStatement.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*$";
+FunctionStatement.prototype.syntax = "^FUNCTION\\s+(" + FUNCTION_REGEX + ")\\b\\s*\\(\\s*(" + VARIABLE_REGEX + "(?:\\s*,\\s*" + VARIABLE_REGEX + ")*)?\\s*\\)\\s*$";
 
 FunctionStatement.prototype.tokenLabels = ["Name", "Input Parameter"];
 
@@ -572,7 +572,7 @@ FunctionCall.prototype.invalid = function(processor) {
 
 FunctionCall.prototype.keyword = "Function Call";
 
-FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*$";
+FunctionCall.prototype.syntax = "^(" + FUNCTION_REGEX + ")\\s*\\(\\s*(" + EXPRESSION_REGEX + "(,\\s*" + EXPRESSION_REGEX + ")*)?\\s*\\)\\s*$";
 
 FunctionCall.prototype.tokenLabels = ['Function to call', 'Parameters'];
 
@@ -620,7 +620,7 @@ Basic.parseStatement = function(source) {
         } else if (source.indexOf('//') == 0) {
             statement = CommentStatement;
         } else {
-            var match = source.match('^(' + FUNCTION_REGEX + ')\\b');
+            var match = source.match('^(' + FUNCTION_REGEX + ')\\b\\s*\\(');
             if (!match) {
                 statement = InvalidStatement;
             }  else {
