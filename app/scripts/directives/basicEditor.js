@@ -24,6 +24,22 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				prevLine = line;
 			});
 
+			$scope.$watch('program.statements', function(statements){
+				if(!program.processor){
+					return;
+				}
+				var session = ace.getSession();
+				$('.invalid').removeClass('invalid'); // muahahahahahandrewmuahahahahahaaa
+				var index = 0;
+				for (var stmt = statements.children[0]; stmt; stmt = stmt.nextStatement(true)) {
+					var invalid = stmt.invalid;
+					if ((typeof invalid == 'function') ? stmt.invalid(program.processor) : invalid) {
+						session.addGutterDecoration(index, 'invalid');
+					}
+					++ index;
+				}
+			});
+
 			var ace = null;
 			$scope.aceLoaded = function(editor){
 				ace = editor;
@@ -43,7 +59,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 					return;
 				}
 				return _.reduce(program.processor.variables, function(str, value, variable) { 
-				    return str + '<div>' + variable + ' = ' + value + '</div>';
+					return str + '<div>' + variable + ' = ' + value + '</div>';
 				}, '');
 			};
 

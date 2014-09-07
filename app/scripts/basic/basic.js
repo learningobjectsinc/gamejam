@@ -255,10 +255,6 @@ FunctionStatement.prototype.initmatch = function(match) {
     this.parameterNames = _parseParameterList(match[2]);
 }
 
-FunctionStatement.prototype.invalid = function(processor) {
-    return !processor.functions[this.name];
-}
-
 FunctionStatement.prototype.execute = function(processor) {
     if (!processor.stack.length || (processor.stack.slice(-1)[0].callee != this)) {
         var statement = this.skipBlock(processor);
@@ -503,17 +499,21 @@ FunctionCall.prototype = Object.create(Statement.prototype);
 FunctionCall.prototype.constructor = FunctionCall;
 
 FunctionCall.prototype.initmatch = function(match) {
-    this.subroutine = match[1];
+    this.name = match[1];
     this.parameters = _parseExpressionList(match[2]);
 }
 
 FunctionCall.prototype.execute = function(processor) {
-    var fn = processor.functions[this.subroutine];
+    var fn = processor.functions[this.name];
     if (!fn) {
         throw "Unknown function: " + this.source;
     }
     var parameters = _.map(this.parameters, processor.evaluate, processor);
     fn.invoke(processor, parameters);
+}
+
+FunctionCall.prototype.invalid = function(processor) {
+    return !processor.functions[this.name];
 }
 
 FunctionCall.prototype.keyword = "Function Call";
