@@ -11,7 +11,7 @@ var Game = function(map, angularScope, RobotIO) {
 
     this.debugMode = false;
 
-    this.bottomBarHeight = 50;
+    this.bottomBarHeight = 40;
 
     // Game bg image
     var bgImage = new Image();
@@ -66,15 +66,17 @@ Game.prototype.render = function(canvasSize, ctx) {
     ctx.fillStyle = '#EEE';
     ctx.fillRect(0, 0, canvasSize.width, canvasSize.height - this.bottomBarHeight); // context.fillRect(x, y, width, height);
 
-    ctx.fillStyle = 'black';
-    //ctx.fillRect(0, canvasSize.height - this.bottomBarHeight, canvasSize.width, this.bottomBarHeight);
+    ctx.fillStyle = '#111';
+    ctx.fillRect(0, canvasSize.height - this.bottomBarHeight, canvasSize.width, this.bottomBarHeight);
     ctx.fill();
 
     //draw the squares
-    ctx.strokeStyle = '#CCC';
-    for(var x=0; x<this.map.width; x++){
-        for(var y=0; y<this.map.height; y++){
-            ctx.strokeRect(x*squareSize.width, y*squareSize.height, squareSize.width, squareSize.height);
+    if (this.debugMode) {
+        ctx.strokeStyle = '#CCC';
+        for(var x=0; x<this.map.width; x++){
+            for(var y=0; y<this.map.height; y++){
+                ctx.strokeRect(x*squareSize.width, y*squareSize.height, squareSize.width, squareSize.height);
+            }
         }
     }
 
