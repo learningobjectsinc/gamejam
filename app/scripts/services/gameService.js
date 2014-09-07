@@ -1,8 +1,15 @@
 "use strict";
 
 angular.module('gamejamApp').factory('GameService', function($rootScope, RobotIO){
-    this.getNewGame = function (map){
-        return new Game(map, $rootScope, RobotIO);
+    var service = {};
+    service.getNewGame = function (map){
+        this.game = new Game(map, $rootScope, RobotIO);
+        return this.game;
     }
-    return this;
+    service.resetGameFromLastMap = function(){
+        if(this.game){
+            this.game.reset();
+        }
+    }
+    return service;
 });

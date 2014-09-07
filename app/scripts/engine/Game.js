@@ -6,11 +6,10 @@ var Game = function(map, angularScope, RobotIO) {
 
     this.map = map;
     this.angularScope = angularScope;
-
-    this.objects = [];
+    this.RobotIO = RobotIO;
+    this.$initiate(map);
 
     this.debugMode = false;
-
     this.bottomBarHeight = 40;
 
     // Game bg image
@@ -20,26 +19,6 @@ var Game = function(map, angularScope, RobotIO) {
     };
     bgImage.src = "images/backgroundTile.png";
     this.bgImage = bgImage;
-
-    var getAtLocation = function(x, y) {
-        for (var i = 0; i < self.objects.length; i++) {
-            var object = self.objects[i];
-            if ((object.x === x) && (object.y === y)) {
-                return object;
-            }
-        };
-        return null;
-    }
-
-    _.each(map.objects, function(object) {
-        // forgive me
-        var instance = new window[object.type](object.x, object.y, getAtLocation, angularScope);
-        self.objects.push(instance);
-        //forgive me some more
-        if(object.type === 'Robot'){
-            RobotIO.setRobot(instance);
-        }
-    });
 
     this.getSquareSizes = function(canvasSize){
         //figure out the width of each square
@@ -96,7 +75,6 @@ Game.prototype.render = function(canvasSize, ctx) {
     
 };
 
-
 Game.prototype.update = function(canvasSize, ctx) {
     //figure out the width of each square
     var squareSize = this.getSquareSizes(canvasSize);
@@ -106,7 +84,6 @@ Game.prototype.update = function(canvasSize, ctx) {
     }
     
 };
-
 
 Game.prototype.getAtLocation = function(x, y) {
     if (x > this.map.width || y > this.map.height) {
@@ -119,4 +96,32 @@ Game.prototype.getAtLocation = function(x, y) {
         }
     };
     return null;
+}
+
+Game.prototype.$initiate = function(map){
+    var self = this;
+    this.objects = [];
+    var getAtLocation = function(x, y) {
+        for (var i = 0; i < self.objects.length; i++) {
+            var object = self.objects[i];
+            if ((object.x === x) && (object.y === y)) {
+                return object;
+            }
+        };
+        return null;
+    }
+
+    _.each(map.objects, function(object) {
+        // forgive me
+        var instance = new window[object.type](object.x, object.y, getAtLocation, self.angularScope);
+        self.objects.push(instance);
+        //forgive me some more
+        if(object.type === 'Robot'){
+            self.RobotIO.setRobot(instance);
+        }
+    });
+}
+
+Game.prototype.reset = function(){
+    this.$initiate(this.map);
 }
