@@ -1,4 +1,4 @@
-var libraryFunctions = {
+angular.module('gamejamApp').constant('libraryFunctions', {
     "Step": {
         "source" : [
             'FUNCTION Step()',
@@ -46,8 +46,8 @@ var libraryFunctions = {
     },
     "Say": {
         "source" : [
-            'FUNCTION Say()',
-            '  TELL robot : Talk(\'left\')',
+            'FUNCTION Say(text)',
+            '  TELL robot : Talk(text)',
             'END FUNCTION'
         ],
         "example": "Say('Hello World!')",
@@ -63,10 +63,12 @@ var libraryFunctions = {
         "source" : [
             'FUNCTION Fire()',
             '  TELL robot : FireLaser(\'left\')',
+            '  FOR j = 1 TO 50',
+            '  NEXT j',
             'END FUNCTION'
         ],
         "example": "Fire()",
         "description" : "Fire your lasers in front of you",
         "parameters" : []
     }
-}
+});

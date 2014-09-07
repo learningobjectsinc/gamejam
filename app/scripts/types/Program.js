@@ -1,34 +1,15 @@
 'use strict';
 
-angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, RobotIO){
+angular.module('gamejamApp').factory('Program', function($timeout, $rootScope, RobotIO, libraryFunctions){
 	var program = function(code){
-    
-        this.library = Basic.parseProgram([
-            "// Turn the robot right", 
-            "FUNCTION TurnRight()",
-            "  TELL robot : Turn('right')", 
-            "  Wait()",
-            "END FUNCTION",
-
-            "// Turn the robot left", 
-            "FUNCTION TurnLeft()",
-            "  TELL robot : Turn('left')", 
-            "  Wait()",
-            "END FUNCTION",
-
-            "// Move the robot forward one block;", 
-            "FUNCTION Step()",
-            "  TELL robot : MoveForward(1)", 
-            "  Wait()",
-            "END FUNCTION",
-
-            "// Wait for the robot to finish",
-            "FUNCTION Wait()",
-            "  WHILE ASK('Busy')",
-            "    // Just wait",
-            "  END WHILE", 
-            "END FUNCTION"
-        ]);
+        var librarySourceLines = [];
+        for (var functionName in libraryFunctions) {
+            var lines = libraryFunctions[functionName]['source'];
+            for (var i = 0;i < lines.length;i++) {
+                librarySourceLines.push(lines[i]);
+            }
+        }
+        this.library = Basic.parseProgram(librarySourceLines);
 		this.code = code || '';
 		this.statements = null;
 		this.processor = null;

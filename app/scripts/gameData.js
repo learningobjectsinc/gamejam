@@ -368,12 +368,8 @@ gameData["levels"] = [
 				}
 			]
 		},
-		"availableBlocks": {
-			"TellStatement": {
-				"availableFns": "moveForward",
-				"src": "TELL robot : MoveForward(1)"
-			}
-		}, "availableFunctions": {
+		"availableBlocks": {},
+		"availableFunctions": {
 			"Step": {}
 		}
 	},
@@ -640,7 +636,7 @@ gameData["levels"] = [
 	},
 	{
 		"id": 2,
-		"name": "Level 2: Functions",
+		"name": "Level 2: Zap the obstacle!",
 		"description": "Number of Lemmings: 10",
 		"icon": "power",
 		"completed": "0.8",
@@ -1086,7 +1082,7 @@ gameData["levels"] = [
 	},
 	{
 		"id": 3,
-		"name": "Level 3: Variables",
+		"name": "Level 3: Set it to get it!",
 		"description": "Number of Lemmings: 10",
 		"icon": "settings",
 		"completed": "0.6",
@@ -1311,7 +1307,7 @@ gameData["levels"] = [
 	},
 	{
 		"id": 4,
-		"name": "Level 4: Conditionals",
+		"name": "Level 4: Gain some logic!",
 		"description": "Number of Lemmings: 10",
 		"icon": "podium",
 		"completed": "0.4",

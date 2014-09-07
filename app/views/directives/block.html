@@ -1,4 +1,7 @@
 <div ng-if="!isBlockHidden(block)">
+  <div ng-drop="true" ng-drop-success="addToParent($data,block)" class="dropzone subDrop" ng-if="!block.endsBlock">
+    <span class="icon icon-download"></span>
+  </div>
   <div class="programBlock">
     <div class="delete pull-right" ng-click="delete()">&times;</div>
     <h4>{{ block.name || block.keyword }}</h4>
@@ -23,8 +26,5 @@
       </div>
       <div child-blocks="block.children"></div>
     </div>
-  </div>
-  <div ng-drop="true" ng-drop-success="addToParent($data,block)" class="dropzone subDrop" ng-if="!block.endsBlock">
-    <span class="icon icon-download"></span>
   </div>
 </div>
