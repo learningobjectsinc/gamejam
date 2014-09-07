@@ -13,7 +13,24 @@ angular.module('gamejamApp')
 angular.module('gamejamApp')
   .controller('TheGame', function ($scope, $state, Program, levelService, GameService) {
     console.log($scope.level.defaultCode);
-    $scope.program = new Program($scope.level.defaultCode);
+    $scope.program = new Program("TELL robot : MoveForward(1) \n");
+
+    var fakeLibrary = "" + 
+        "// Move the robot forward one block;"+ "\n"+ 
+        "FUNCTION Step()"+ "\n"+ 
+        "  TELL robot : MoveForward(1)"+ "\n"+ 
+        "  Wait()"+ "\n"+ 
+        "END FUNCTION"+ "\n"+ 
+
+        "// Wait for the robot to finish"+ "\n"+ 
+        "FUNCTION Wait()"+ "\n"+ 
+        "  WHILE ASK('Busy')"+ "\n"+ 
+        "    // Just wait"+ "\n"+ 
+        "  END WHILE"+ "\n"+ 
+        "END FUNCTION"+ "\n";
+        console.log($scope.program);
+    $scope.program.statements.addLibrary(Basic.parseProgram(fakeLibrary));
+
     $scope.program.compile();
 
     $scope.errorMessage = "";
