@@ -2,8 +2,8 @@
         "levelId": 1,
         "pages": [
 			{
-				"title": "Welcome to RoboJam!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>RoboJam's a super cool robot who sometimes forgets how to do things. Help him out with his controls by learning the basics of programming.</p>"
+				"title": "Welcome to I Tobor!",
+				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Tobor's a super cool robot who sometimes forgets how to do things. Help him out with his controls by learning the basics of programming.</p>"
 			},
 			{
 				"title": "Level 1: Functions",
