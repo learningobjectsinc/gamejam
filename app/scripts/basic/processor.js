@@ -10,7 +10,7 @@ function Processor(program, io, angularScope) {
     this.halted = false;
     this.stack = [];
     this.functions = _.indexBy(_.filter(program.children, function(statement) {
-        return statement instanceof FunctionStatement;
+        return (statement instanceof FunctionStatement) && !statement.invalid;
     }), 'name');
 }
 
@@ -42,8 +42,8 @@ Processor.prototype.step = function() {
 
         this.angularScope.$broadcast('processor.step');
     } catch (e) {
+        console.log('Failure', e);
         this.halted = true;
-        throw e;
     }
 }
 

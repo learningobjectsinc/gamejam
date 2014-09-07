@@ -272,7 +272,7 @@ FunctionStatement.prototype.setParent = function(parent) {
 
 FunctionStatement.prototype.initmatch = function(match) {
     this.name = match[1];
-    this.parameterNames = _parseParameterList(match[2]);
+    this.parameterNames = match[2] ? _parseParameterList(match[2]) : [];
 }
 
 FunctionStatement.prototype.execute = function(processor) {
@@ -532,7 +532,7 @@ FunctionCall.prototype.constructor = FunctionCall;
 
 FunctionCall.prototype.initmatch = function(match) {
     this.name = match[1];
-    this.parameters = _parseExpressionList(match[2]);
+    this.parameters = match[2] ? _parseExpressionList(match[2]) : [];
 }
 
 FunctionCall.prototype.execute = function(processor) {
