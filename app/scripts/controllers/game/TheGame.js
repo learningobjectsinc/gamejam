@@ -12,8 +12,9 @@ angular.module('gamejamApp')
 
 angular.module('gamejamApp')
   .controller('TheGame', function ($scope, $state, Program, levelService, GameService) {
-    $scope.program = new Program();
-    $scope.isMusicOn = true;
+    console.log($scope.level.defaultCode);
+    $scope.program = new Program($scope.level.defaultCode);
+    $scope.program.compile();
 
     $scope.errorMessage = "";
 
@@ -22,15 +23,6 @@ angular.module('gamejamApp')
     $scope.$watch('program.processor.crashed', function(crashed){
         $scope.errorMessage = crashed;
     });
-
-    $scope.toggleMusic = function() {
-        $scope.isMusicOn = !$scope.isMusicOn;
-        if ($scope.isMusicOn) {
-            $('#music')[0].play();
-        } else {
-            $('#music')[0].pause();
-        }
-    };
 
     $scope.resetGame = function(){
         GameService.resetGameFromLastMap();
@@ -68,7 +60,13 @@ angular.module('gamejamApp')
     $scope.blockEditing = true;
     $scope.switchCodingContext= function(){
         $scope.blockEditing = !$scope.blockEditing;
-    }
+    };
+
+    $scope.runProgram = function(){
+        $scope.convertToCode();
+        $scope.program.compile();
+        $scope.program.run();
+    };
 
     
     
