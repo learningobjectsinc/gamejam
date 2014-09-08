@@ -39,7 +39,7 @@ angular.module('gamejamApp')
             for (var x = 0; x < $scope.numCols; x++) {
                 var printX = x + 1;
                 var printY = y + 1;
-                $scope.grid[y][x] = "Empty";
+                $scope.grid[y][x] = "Wall";
             }
         }
     }
