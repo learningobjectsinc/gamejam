@@ -1,5 +1,5 @@
 // RobotIO
-angular.module('gamejamApp').service('RobotIO', [function(){
+angular.module('gamejamApp').factory('RobotIO', [function(){
 
     this.setRobot = function(robot){
         this.robot = robot;
@@ -12,5 +12,7 @@ angular.module('gamejamApp').service('RobotIO', [function(){
     this.interrupt = function(code, parameters) {
         return this.robot.invoke(code, parameters);
     }
+
+    return this;
 }]);
 

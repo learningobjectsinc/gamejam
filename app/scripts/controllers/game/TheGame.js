@@ -107,6 +107,7 @@ angular.module('gamejamApp')
         if (!$scope.blockEditing) {
             $scope.program.compile();
         }
+        $scope.program.reset();
         $scope.program.run();
     };
 
