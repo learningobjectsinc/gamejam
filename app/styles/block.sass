@@ -13,6 +13,7 @@
     //float: left
     font-size: 1em
     width: 90%
+    overflow: hidden
 
   .description
     padding: 0 5% 1em 5%
@@ -36,7 +37,7 @@
     padding: 0.785em 1em
     color: $color-white
     line-height: 1
-    color: all ease $trans-speed
+    //transition: all ease $trans-speed
 
     &:hover
       background: darken($color-accent,15%)
@@ -60,11 +61,19 @@
 .programBlockContainer
   //background: fade-out($color-success,0.5)
   //max-height: 500px
-  //overflow-y: scroll
-  position: relative
-  max-height: 100%
+  overflow: scroll
+  height: 100%
+  position: absolute
+  //max-height: 100%
   display: inline-block
   width: 100%
+  padding-bottom: 10em
+
+  &:after
+    content: " "
+    display: inline-block
+    width: 100%
+    height: 30em
 
   h2
     color: $color-white
@@ -120,15 +129,19 @@
   .wrapBlockLib
     display: inline-block
     width: 100%
-    margin-bottom: 10em
+    //margin-bottom: 10em
     //overflow: scroll
+
+  .blockContainer
+    display: block
+    width: 100%
 
   .wrapBottomCtrl
     position: fixed
     width: 31.67%
     bottom: 0
     background: url('/images/hexabump.png') $color-dark
-    box-shadow: 3px -2px 6px rgba(0,0,0,0.5)
+    box-shadow: 2px -2px 4px rgba(0,0,0,0.33)
 
   .instructionSub
     position: relative
