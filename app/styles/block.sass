@@ -144,7 +144,7 @@
 
   .wrapBottomCtrl
     position: fixed
-    width: 31.67%
+    width: 33.33%
     bottom: 0
     background: url('/images/hexabump.png') $color-dark
     box-shadow: 2px -2px 4px rgba(0,0,0,0.33)
@@ -153,7 +153,7 @@
     position: relative
     display: inline-block
     width: 97%
-    padding: 2.5% 1.5%
+    padding: 3.33% 1.5%
     min-height: 3em
     background: fade-out($color-secondary,0.85)
 
@@ -176,6 +176,51 @@
       background: $color-primary-light
       border-radius: 0.25em
       margin: 0.5em 0.5em
+      font-size: 0.85em
+      
+      @-webkit-keyframes change_background_color
+        to
+          background-color: $color-accent
+
+
+      @-moz-keyframes change_background_color
+        to
+          background-color: $color-accent
+
+
+      @-ms-keyframes change_background_color
+        to
+          background-color: $color-accent
+
+
+      @keyframes change_background_color
+        to
+          background-color: $color-accent
+
+
+      &.pulsate-8times
+        -webkit-animation-name: change_background_color
+        -moz-animation-name: change_background_color
+        -ms-animation-name: change_background_color
+        animation-name: change_background_color
+        -webkit-animation-duration: 1s
+        -moz-animation-duration: 1s
+        -ms-animation-duration: 1s
+        animation-duration: 1s
+        -webkit-animation-iteration-count: 16
+        -moz-animation-iteration-count: 16
+        -ms-animation-iteration-count: 16
+        animation-iteration-count: 16
+        -webkit-animation-direction: alternate
+        -moz-animation-direction: alternate
+        -ms-animation-direction: alternate
+        animation-direction: alternate
+        -webkit-animation-timing-function: ease-in-out
+        -moz-animation-timing-function: ease-in-out
+        -ms-animation-timing-function: ease-in-out
+        animation-timing-function: ease-in-out
+
+      
 
       &:hover
         background: $color-secondary

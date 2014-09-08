@@ -60,7 +60,7 @@
             </div>
 
             <div class="instructionSub">
-                <button type="button" class="btn btn-block btn-primary" ng-repeat="block in availableBlocks" ng-drag="true" ng-drag-data="block">
+                <button type="button" class="btn btn-block btn-primary pulsate-8times" ng-repeat="block in availableBlocks" ng-drag="true" ng-drag-data="block">
                     {{ block.cfg.label || block.constructor.prototype.keyword }}
                 </button>
             </div>
