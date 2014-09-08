@@ -74,6 +74,9 @@ angular.module('gamejamApp')
         }
 
         programStmt.addStatement(block, insertAfter);
+
+        // Animate scroll to bottom of programBlockContainer.
+        $("#programBlockContainer").animate({ scrollTop: $('#programBlockContainer')[0].scrollHeight}, 1000);
     };
 
     $scope.$on('win', function() {
