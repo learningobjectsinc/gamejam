@@ -8,7 +8,7 @@
     <game-table level="level" class="gameLevel"></game-table>
 
     <div class="sidebar">
-        <div ng-if="blockEditing">
+        <div class="wrapBlockLib" ng-if="blockEditing">
             <div class="blockLibrary">
 
             	<div class="agentWrap">
@@ -63,11 +63,12 @@
                 </button>
             </div>
 
+            <div class="wrapBtnRun">
+                <button class="btn btn-success btn-huge" ng-click="runProgram()" ng-disabled="program.isRunning()">Run</button>
+            </div>
+
         </div>
 
-        <div class="wrapBtnRun">
-            <button class="btn btn-success btn-huge" ng-click="runProgram()" ng-disabled="program.isRunning()">Run</button>
-        </div>
         <!-- <button ui-sref="^.wrapup">WIN</button> -->
         <!--<input class="btn btn-primary" ng-click="resetGame()" class="reset" type="button" value="Reset" ng-disabled="program.isRunning()" />-->
         <button class="wrapViewBtn btn btn-primary-dark" ng-click="switchCodingContext()">
