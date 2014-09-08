@@ -60,13 +60,15 @@ angular.module('gamejamApp')
                         }
 
                         var currentX = object.x,
-                            currentY = object.y;
+                            currentY = object.y,
+                            moved = false;
 
                         var collision = grid.data[y][x];
                         if (!collision || (collision.behavior && !collision.behavior.impassable && !collision.behavior.destructable)) {
                             grid.data[y][x] = object;
                             delete grid.data[currentY][currentX];
                             grid.touch = new Date();
+                            moved = true;
                         }
 
                         if (object.type == "Robot" && collision && collision.behavior && collision.behavior.win) {
@@ -81,6 +83,8 @@ angular.module('gamejamApp')
                             delete grid.data[currentY][currentX];
                             grid.touch = new Date();
                         }
+
+                        return moved;
                         //});
                     };
 

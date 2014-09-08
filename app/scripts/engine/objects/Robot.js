@@ -17,20 +17,24 @@ angular.module("gamejamApp").run(function(objectFactory) {
                 for (var i = 0; i < params[0]; i++) {
                     switch (self.direction) {
                         case 'up':
-                            table.moveObject(self, self.x, self.y - 1);
-                            self.y--;
+                            if (table.moveObject(self, self.x, self.y - 1)) {
+                                self.y--;
+                            }
                             break;
                         case 'right':
-                            table.moveObject(self, self.x + 1, self.y);
-                            self.x++;
+                            if (table.moveObject(self, self.x + 1, self.y)) {
+                                self.x++;
+                            }
                             break;
                         case 'down':
-                            table.moveObject(self, self.x, self.y + 1);
-                            self.y++;
+                            if (table.moveObject(self, self.x, self.y + 1)) {
+                                self.y++;
+                            }
                             break;
                         case 'left':
-                            table.moveObject(self, self.x - 1, self.y);
-                            self.x--;
+                            if (table.moveObject(self, self.x - 1, self.y)) {
+                                self.x--;
+                            }
                             break;
                     }
                 }
