@@ -43,10 +43,16 @@ Processor.prototype.step = function() {
 
         this.angularScope.$broadcast('processor.step');
     } catch (e) {
-        console.error(e);
         this.halted = true;
         this.crashed = e.message || e;
     }
+}
+
+Processor.prototype.reset = function() {
+    delete this.nextStatement;
+    this.variables = {};
+    this.stack = [];
+    this.halted = false;
 }
 
 Processor.prototype.log = function() {
