@@ -60,6 +60,10 @@ this.library.processor = this.processor; // TODO: KILLME: HACK
 		}
 	};
 
+	program.prototype.reset = function(){
+		this.processor.reset();
+	};
+
 	program.prototype.pause = function(){
 		this.paused = true;
 		$timeout.cancel(this.sleeper);

@@ -48,6 +48,13 @@ Processor.prototype.step = function() {
     }
 }
 
+Processor.prototype.reset = function() {
+    delete this.nextStatement;
+    this.variables = {};
+    this.stack = [];
+    this.halted = false;
+}
+
 Processor.prototype.log = function() {
     console.log('Statement', this.statement.source);
     console.log('Variables', this.variables);
