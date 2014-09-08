@@ -25,7 +25,7 @@ angular.module('gamejamApp')
             "Robot": "images/robot/robot-down.svg",
             "Goal": "images/objects/goal.gif",
             "Rock": "images/objects/rock.png",
-            "Wall": "images/objects/wall.png",
+            "Wall": "images/objects/wall5.svg",
             "Troll": "images/objects/troll.png"
         };
     }
