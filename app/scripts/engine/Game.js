@@ -123,6 +123,5 @@ Game.prototype.$initiate = function(map){
 }
 
 Game.prototype.reset = function(){
-    $scope.program.kill();
     this.$initiate(this.map);
 }

@@ -7,12 +7,13 @@
 
   h4
     margin: 0
-    padding: 3.33% 5%
+    padding: 0.75em 5%
     background: $color-secondary
     color: $color-white
     //float: left
     font-size: 1em
     width: 90%
+    overflow: hidden
 
   .description
     padding: 0 5% 1em 5%
@@ -32,10 +33,14 @@
     cursor: pointer
     position: absolute
     right: 0
-    background: $color-accent
-    padding: 0.33em 0.5em
+    background: fade-out($color-accent,0.15)
+    padding: 0.785em 1em
     color: $color-white
     line-height: 1
+    //transition: all ease $trans-speed
+
+    &:hover
+      background: darken($color-accent,15%)
 
     \:hover
       color: red
@@ -56,8 +61,19 @@
 .programBlockContainer
   //background: fade-out($color-success,0.5)
   //max-height: 500px
-  overflow-y: scroll
-  position: relative
+  overflow: scroll
+  height: 100%
+  position: absolute
+  //max-height: 100%
+  display: inline-block
+  width: 100%
+  padding-bottom: 10em
+
+  &:after
+    content: " "
+    display: inline-block
+    width: 100%
+    height: 30em
 
   h2
     color: $color-white
@@ -113,19 +129,29 @@
       font-size: 0.85em
 
 #game .sidebar
+  .wrapBlockLib
+    display: inline-block
+    width: 100%
+    //margin-bottom: 10em
+    //overflow: scroll
+
+  .blockContainer
+    display: block
+    width: 100%
+
   .wrapBottomCtrl
     position: fixed
     width: 31.67%
-    bottom: 4em
+    bottom: 0
     background: url('/images/hexabump.png') $color-dark
-    box-shadow: 3px -2px 6px rgba(0,0,0,0.5)
+    box-shadow: 2px -2px 4px rgba(0,0,0,0.33)
 
   .instructionSub
     position: relative
     display: inline-block
     width: 97%
-    padding: 1.5%
-    min-height: 4.15em
+    padding: 2.5% 1.5%
+    min-height: 3em
     background: fade-out($color-secondary,0.85)
 
     /*&:after
