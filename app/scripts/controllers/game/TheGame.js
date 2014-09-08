@@ -114,6 +114,12 @@ angular.module('gamejamApp')
         $scope.program.run();
     };
 
+    window.addEventListener('keydown', function(e){
+        if(e.keyCode === 81){
+            $scope.debugMode = !$scope.debugMode;
+            $scope.$digest();
+        }
+    });
 
     var currentBlock;
     $scope.currentBlock = function(){

@@ -34,7 +34,7 @@
     position: absolute
     right: 0
     background: fade-out($color-accent,0.15)
-    padding: 0.785em 1em
+    padding: 0.775em 1em
     color: $color-white
     line-height: 1
     //transition: all ease $trans-speed
@@ -83,7 +83,10 @@
     background-color: #bbffbb
 
   .blockContainer.active
-    background-color: yellow
+    //background: $color-success
+
+    h4
+      background: $color-success
 
 .errorBar
   background: red
@@ -100,7 +103,7 @@
     padding: 1.5% 2.5% 0
     position: relative
 
-    &:after
+    /*&:after
       border-top: 0.33em solid $color-accent
       border-left: 0.33em solid $color-accent
       border-bottom: 0.33em solid transparent
@@ -112,7 +115,7 @@
       position: absolute
       left: 0
       margin: auto
-      top: 100%
+      top: 100%*/
 
     img
       width: 2em
