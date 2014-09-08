@@ -290,7 +290,7 @@
 		"description": "Learn to turn",
 		"icon": "rocket",
 		"completed": "0",
-		"defaultCode": "TELL robot : MoveForward(1)\nTELL robot : Turn('right')\nTELL robot : Turn('right')\nTELL robot : MoveForward(1)",
+		"defaultCode": "Step()\nTurnRight()\nTurnRight()\nStep()",
 		"map": {
 			"width": 8,
 			"height": 7,

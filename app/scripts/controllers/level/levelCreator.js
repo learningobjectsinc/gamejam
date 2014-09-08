@@ -88,6 +88,6 @@ angular.module('gamejamApp')
             "name": $scope.levelName,
             "map": buildMap()
         };
-        console.log(JSON.stringify(level));
+        $scope.results = JSON.stringify(level, undefined, 4);
     }
 });

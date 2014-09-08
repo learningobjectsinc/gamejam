@@ -31,7 +31,7 @@ angular.module('gamejamApp')
     console.log($scope.program);
 
     console.log($scope.level.defaultCode);
-    $scope.program = new Program("Step()\n", null);
+    (typeof $scope.level.defaultCode != undefined) ? $scope.program = new Program($scope.level.defaultCode) : $scope.program = new Program();
 
 
     $scope.program.compile();
@@ -91,7 +91,7 @@ angular.module('gamejamApp')
             stmt = stmt.nextStatement(true);
         }
         $scope.program.code = src;
-    }
+    };
 
     $scope.blockEditing = true;
     $scope.switchCodingContext = function(){
@@ -109,6 +109,21 @@ angular.module('gamejamApp')
         }
         $scope.program.run();
     };
+
+
+    var currentBlock;
+    $scope.currentBlock = function(){
+        if(!$scope.program.isRunning() && !currentBlock){
+            return $scope.program.statements.nextStatement(true);
+        }
+        return currentBlock;
+    };
+    $scope.$watch('program.processor.nextStatement', function(val){
+        if(val && !blockService.dontShow(val) && val.program === $scope.program.statements){
+            currentBlock = val;
+            console.log(val);
+        }
+    });
 
     $scope.isBlockHidden = blockService.dontShow;
     
