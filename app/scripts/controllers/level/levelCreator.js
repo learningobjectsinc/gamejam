@@ -31,23 +31,49 @@ angular.module('gamejamApp')
     }
 
     function newGrid() {
-        $scope.numRows = 7;
+        $scope.numRows = 8;
         $scope.numCols = 8;
         $scope.grid = [];
-        for (var x = 0; x < $scope.numCols; x++) {
-            for (var y = 0; y < $scope.numRows; y++) {
+        for (var y = 0; y < $scope.numRows; y++) {
+            $scope.grid[y] = [];
+            for (var x = 0; x < $scope.numCols; x++) {
                 var printX = x + 1;
                 var printY = y + 1;
-                if (!$scope.grid[y]) $scope.grid[y] = [];
                 $scope.grid[y][x] = "Empty";
             }
         }
     }
 
     function updateGrid() {
-        var oldNumCols = $scope.grid.length;
-        var oldNumRows = $scope.grid[0].length;
-        // TODO implement
+        var oldNumCols = $scope.grid[0].length;
+        var oldNumRows = $scope.grid.length;
+
+        if ($scope.numCols < oldNumCols) {
+            // Column(s) deleted.
+            for (var y = 0; y < $scope.numRows; y++) {
+                $scope.grid[y].splice($scope.numCols, oldNumCols - $scope.numCols);
+            }
+        } else if ($scope.numCols > oldNumCols) {
+            // Column(s) added.
+            for (var y = 0; y < $scope.numRows; y++) {
+                for (var x = oldNumCols; x < $scope.numCols; x++) {
+                    $scope.grid[y][x] = "Empty";
+                }
+            }
+        }
+        
+        if ($scope.numRows < oldNumRows) {
+            // Row(s) deleted.
+            $scope.grid.splice($scope.numRows, oldNumRows - $scope.numRows);
+        } else if ($scope.numRows > oldNumRows) {
+            // Row(s) added.
+            for (var y = oldNumRows; y < $scope.numRows; y++) {
+                $scope.grid[y] = [];
+                for (var x = 0; x < $scope.numCols; x++) {
+                    $scope.grid[y][x] = "Empty";
+                }
+            }
+        }
     }
 
     $scope.$watch('numRows', function(newValue, oldValue) {
