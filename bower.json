@@ -16,7 +16,8 @@
     "angular-carousel": "~0.2.5",
     "ace-builds": "~1.1.6",
     "angular-ui-ace": "bower",
-    "ngDraggable": "*"
+    "ngDraggable": "*",
+    "paper": "~0.9.20"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
