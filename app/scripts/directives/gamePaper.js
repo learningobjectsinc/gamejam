@@ -15,7 +15,7 @@ angular.module('gamejamApp')
                     var height = scope.level.map.height;
                     var grid;
 
-                    var animations = {};
+                    var animations = null;
                     var then = 0;
                     var robot;
 
@@ -34,9 +34,14 @@ angular.module('gamejamApp')
 
                         // Get a reference to the canvas object
 		        var canvas = element[0];
-		        // Create an empty project and a view for the canvas:
-		        paper.setup(canvas);
 
+                        if (animations) {
+                            paper.project.activeLayer.removeChildren();
+                        } else {
+		            // Create an empty project and a view for the canvas:
+		            paper.setup(canvas);
+                        }
+                        animations = {};
 
                         var floor = new paper.Path.Line({
                             from: [0, 400],
@@ -125,17 +130,27 @@ angular.module('gamejamApp')
                             this.id = _.uniqueId('robot_');
                             this.then = then;
                             animations[this.id] = this;
+                            
+                            this.x = 0;
+                            this.targetX = 0;
 
                             this.armLocation = 20;
                             this.armLength = 30;
-                            this.armAngle = .6;
-                            this.armTargetAngle = -.6;
+                            this.armAngle = 0;
+                            this.armTargetAngle = .6;
                             this.armTargetLocation = 20;
 
                             this.animate(0, then);
                         };
 
                         Roboto.prototype.animate = function(time, delta) {
+
+                            var xRel = this.targetX - this.x;
+                            var xDelta = Math.min(Math.abs(xRel), 100 * delta) * ((xRel < 0) ? -1 : 1);
+                            this.x = this.x + xDelta;
+                            robot.translate(xDelta, 0);
+                            this.armSwinging = xDelta != 0;
+
                             this.animateScanner(time);
                             this.animateArm(time, delta);
                         };
@@ -156,13 +171,14 @@ angular.module('gamejamApp')
                             robot.addChild(this.scanner);
                         };
 
-                        Roboto.prototype.armAnimation = function(on) {
-                            this.armSwinging = on;
-                        };
 
                         Roboto.prototype.animateArm = function(time, delta) {
                             if (this.armSwinging) {
                                 this.armTargetAngle = 0.9 * Math.cos(time * 2);
+                                if (Math.random() < .5)
+                                    new Toot();
+                            } else {
+                                this.armTargetAngle = .6;
                             }
                             var armAngleRel = this.armTargetAngle - this.armAngle;
                             var armAngleChange = Math.abs(armAngleRel);
@@ -177,8 +193,18 @@ angular.module('gamejamApp')
                             arm.lastSegment.point = new paper.Point(x + this.armLength * Math.sin(this.armAngle), y + this.armLength * Math.cos(this.armAngle));
                         };
 
+                        Roboto.prototype.invoke = function(method, parameters) {
+                            if (method == 'MoveForward') {
+                                this.targetX += 100;
+                            } else {
+                                console.log(method);
+                            }
+                        };
+
                         var roboto = new Roboto();
-                        roboto.armAnimation(true);
+
+                        RobotIO.setRobot(roboto);
+
 
                         var Toot = function() {
                             this.id = _.uniqueId('toot_');
@@ -220,10 +246,6 @@ angular.module('gamejamApp')
                             _.each(animations, function(animation) {
                                 animation.animate(event.time, event.delta);
                             });
-
-                            if (Math.random() < .05)
-                                new Toot();
-
 
                             laserPhase += 1;
                             var laserWidth = 0, laserOpacity = 0;
