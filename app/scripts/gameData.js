@@ -34,7 +34,7 @@ gameData["instructions"] = [
         "pages": [
 			{
 				"title": "Level 0: Let's Move!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>This is Ms. Roboto. She's fresh off the assembly line and needs training from scratch on the basics of being a robot.</p>"
+				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>This is Ms. Roboto. She's fresh off the assembly line and needs training from scratch on the basics of being a robot.</p>"
 			},
 			{
 				"title": "Goal",
@@ -51,7 +51,7 @@ gameData["instructions"] = [
         "pages": [
 			{
 				"title": "Level 1: You Spin Me Round",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Teach Ms. Roboto to turn</p>"
+				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>Teach Ms. Roboto to turn</p>"
 			},
 			{
 				"title": "Goal",
@@ -68,7 +68,7 @@ gameData["instructions"] = [
         "pages": [
 			{
 				"title": "Level 2: Zap the contrived obstacle",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>Teach Ms. Roboto to use her laser</p>"
+				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>Teach Ms. Roboto to use her laser</p>"
 			},
 			{
 				"title": "Goal",

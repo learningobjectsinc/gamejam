@@ -1,3 +1,45 @@
+/*
+Step()
+Step()
+Step()
+Step()
+WHILE 0 < 1
+LET r = random()
+IF r < .25 THEN
+  Fire()
+END IF
+IF r >= .25 THEN
+  IF (r < .5) THEN
+    TurnLeft()
+  END IF
+END IF
+IF r >= .5 THEN
+  IF (r < .75) THEN
+    TurnRight()
+  END IF
+END IF
+IF r >= .75 THEN
+  IF (r < 1) THEN
+    Step()
+  END IF
+END IF
+END WHILE
+
+Fire()
+Step()
+Step()
+TurnLeft()
+Fire()
+Step()
+TurnRight()
+Step()
+Step()
+Fire()
+TurnLeft()
+Step()
+Fire()
+*/
+
 angular.module('gamejamApp')
     .directive('gamePaper',
         function(levelService, $stateParams, objectFactory, GameService, RobotIO) {
@@ -63,19 +105,12 @@ angular.module('gamejamApp')
                         });
 
                         var eye = new paper.Path.Circle({
-                            center: [30, -119],
+                            center: [0, 0],
                             radius: 8,
                             fillColor: dark
                         });
-
-                        var laserPhase = 200;
-                        var laser = new paper.Path.Line({
-                            from: [30, -119],
-                            to: [580, -119],
-                            strokeColor: 'red',
-                            strokeWidth: 28,
-                            opacity: 0,
-                            strokeCap: 'round' });
+                        var eyeGroup = new paper.Group({ transformContent: false, children: [ eye ] });
+                        eyeGroup.translate(30, -119);
 
                         var body = new paper.Path.Rectangle({
                             topLeft: [ -39, -98 ],
@@ -122,8 +157,9 @@ angular.module('gamejamApp')
 
                         robot = new paper.Group({
                             transformContent: false,
-                            children: [ head, eye, laser, body, arm, waist, track, wheelGroup ]
+                            children: [ head, eyeGroup, body, arm, waist, track, wheelGroup ]
                         });
+                        robot.pivot = new paper.Point(0, 0);
                         robot.translate(100, 400);
 
                         var Roboto = function() {
@@ -134,11 +170,11 @@ angular.module('gamejamApp')
                             this.x = 0;
                             this.targetX = 0;
 
+                            this.direction = 'right';
                             this.armLocation = 20;
                             this.armLength = 30;
                             this.armAngle = 0;
                             this.armTargetAngle = .6;
-                            this.armTargetLocation = 20;
 
                             this.animate(0, then);
                         };
@@ -153,6 +189,16 @@ angular.module('gamejamApp')
 
                             this.animateScanner(time);
                             this.animateArm(time, delta);
+
+                            if ((this.x == 600) && !this.done) {
+                                this.done = time;
+                            }
+                            if (this.done) {
+                                var phase = (time - this.done) * 50
+                                robot.scale(1, 1 + phase / 100);
+                                robot.translate(0, -phase / 5);
+                                robot.opacity = Math.max(0, Math.cos(phase / 25));
+                            }
                         };
 
                         Roboto.prototype.animateScanner = function(time) {
@@ -175,38 +221,58 @@ angular.module('gamejamApp')
                         Roboto.prototype.animateArm = function(time, delta) {
                             if (this.armSwinging) {
                                 this.armTargetAngle = 0.9 * Math.cos(time * 2);
-                                if (Math.random() < .5)
-                                    new Toot();
+                                if (Math.random() < .2) {
+                                    this.toot();
+                                }
                             } else {
-                                this.armTargetAngle = .6;
+                                this.armTargetAngle = (this.direction == 'right') ? .6 : -.6;
                             }
                             var armAngleRel = this.armTargetAngle - this.armAngle;
                             var armAngleChange = Math.abs(armAngleRel);
-                            var armAngleDelta = Math.min(armAngleChange, 1.5 * delta);
+                            var armAngleDelta = Math.min(armAngleChange, 3 * delta);
                             this.armAngle = this.armAngle + ((armAngleRel < 0) ? -armAngleDelta : armAngleDelta);
-                            var armLocationRel = this.armTargetLocation - this.armLocation;
+                            var armTargetLocation = (this.direction == 'right') ? 20 : -20;
+                            var armLocationRel = armTargetLocation - this.armLocation;
                             var armLocationChange = Math.abs(armLocationRel);
                             var armLocationDelta = Math.min(armLocationChange, 120 * delta);
                             this.armLocation = this.armLocation + ((armLocationRel < 0) ? -armLocationDelta : armLocationDelta);
                             var x = this.armLocation, y = -79;
                             arm.firstSegment.point = new paper.Point(x, y);
                             arm.lastSegment.point = new paper.Point(x + this.armLength * Math.sin(this.armAngle), y + this.armLength * Math.cos(this.armAngle));
+
+                            this.eyeLocation = this.armLocation * 3 / 2;
+                            eyeGroup.matrix.set(1, 0, 0, 1, this.eyeLocation, -119);
                         };
 
                         Roboto.prototype.invoke = function(method, parameters) {
                             if (method == 'MoveForward') {
-                                this.targetX += 100;
+                                this.targetX += (this.direction == 'right') ? 100 : -100;
+                            } else if (method == 'FireLaser') {
+                                new Laser();
+                            } else if (method == 'Turn') {
+                                this.direction = parameters[0];
                             } else {
                                 console.log(method);
                             }
                         };
 
+                        Roboto.prototype.toot = function() {
+                            var sign = (this.direction == 'right') ? -1 : 1;
+                            var center = new paper.Point(38 * sign, -51);
+                            var translated = robot.localToGlobal(center);
+                            var vx  = (25  + Math.random() * 25) * sign;
+                            var vy = Math.random() * 15;
+                            new Toot({
+                                center: translated,
+                                vx: vx,
+                                vy: vy,
+                                color: light
+                            });
+                        };
+
                         var roboto = new Roboto();
 
-                        RobotIO.setRobot(roboto);
-
-
-                        var Toot = function() {
+                        var Toot = function(o) {
                             this.id = _.uniqueId('toot_');
                             animations[this.id] = this;
                             this.then = then;
@@ -214,14 +280,13 @@ angular.module('gamejamApp')
                             var toot = new paper.Path.Circle({
                                 center: [0, 0],
                                 radius: 2,
-                                fillColor: new paper.Color(light.red * color, light.green * color, light.blue * color),
+                                fillColor: new paper.Color(o.color.red * color, o.color.green * color, o.color.blue * color),
                                 opacity: 1 });
                             this.toot = new paper.Group({ transformContent: false, children: [ toot ] });
-                            this.toot.sendToBack();
-                            var center = new paper.Point(-38, -51);
-                            this.center = robot.localToGlobal(center);
-                            this.vx  = -25  - Math.random() * 25;
-                            this.vy = Math.random() * 15;
+                            // this.toot.sendToBack();
+                            this.center = o.center;
+                            this.vx  = o.vx;
+                            this.vy = o.vy;
                             this.scale = 5 + Math.random() * 3;
                             this.animate(then);
                         };
@@ -238,6 +303,112 @@ angular.module('gamejamApp')
                             this.toot.opacity = .7 * (1 - delta);
                         };
 
+                        var Transport = function(o) {
+                            this.id = _.uniqueId('transport_');
+                            animations[this.id] = this;
+                            this.then = then;
+                            var color = new paper.Color(0, 1, 1);
+                            this.arcs = [];
+                            for (var i = 0; i < 4; ++ i) {
+                                var multiplier0 = (i + 3) / (i + 1);
+                                var multiplier1 = (i + 2) / (i + .1);
+                                for (var j = -1; j <= 1; j += 2) {
+                                    var arc = new paper.Path({
+                                        segments: [
+                                            new paper.Segment({
+                                                point: [ -60, 0 ],
+                                                handleOut: [ -1 * j, 30 * j ]
+                                            }),
+                                            new paper.Segment({
+                                                point: [ 60, 0 ],
+                                                handleIn: [ 1 * j, 30 * j ]
+                                            })
+                                        ],
+                                        strokeColor: color,
+                                        strokeWidth: 8
+                                    });
+                                    var arcGroup = new paper.Group({ transformContent: false, children: [ arc ] });
+                                    arcGroup.multiplier0 = multiplier0;
+                                    arcGroup.multiplier1 = multiplier1;
+                                    if (j < 0) {
+                                        arcGroup.sendToBack();
+                                    }
+                                    this.arcs.push(arcGroup);
+                                }
+                            }
+                            this.animate();
+                        };
+
+                        Transport.prototype.animate = function(time) {
+                            var delta = (time - this.then);
+                            _.each(this.arcs, function(arc) {
+                                arc.opacity = .7 - .3 * Math.cos(delta * arc.multiplier1);
+                                arc.matrix.set(1, 0, 0, 1, 700, 290 + 80 * Math.cos(delta * arc.multiplier0));
+                            });
+                        };
+
+                        new Transport();
+
+                        var Laser = function() {
+                            this.id = _.uniqueId('laser_');
+                            animations[this.id] = this;
+                            this.then = then;
+                            this.target = new paper.Point([ 800 * Math.random(), 400 * Math.random() ]);
+                            this.laser = new paper.Path.Line({
+                                from: this.target,
+                                to: this.target,
+                                strokeColor: 'red',
+                                strokeWidth: 14,
+                                opacity: 0,
+                                strokeCap: 'round'
+                            });
+                        };
+
+                        Laser.prototype.animate = function(time) {
+                            var phase = (time - this.then) * 50;
+                            var laserWidth = 0, laserOpacity = 0;
+                            if (phase < 20) {
+                                var laserCos = Math.cos(Math.PI * phase / 40);
+                                laserWidth = 14 + 36 * laserCos;
+                                laserOpacity = (1 - laserCos) * (1 - laserCos);
+                            } else if (phase < 80) {
+                                laserWidth = 14;
+                                laserOpacity = 1;
+                            } else if (phase < 100) {
+                                var laserCos = Math.cos(Math.PI * (phase - 80) / 40);
+                                laserWidth = 14;
+                                laserOpacity = laserCos;
+                            } else {
+                                this.destroy();
+                                return;
+                            }
+                            if ((phase >= 20) && (Math.random() < .3)) {
+                                var vx  = -25  + Math.random() * 50;
+                                var vy = -Math.random() * 15;
+                                new Toot({
+                                    center: this.target,
+                                    vx: vx,
+                                    vy: vy,
+                                    color: gray
+                                });
+                            }
+
+                            var center = new paper.Point(roboto.eyeLocation, -119);
+                            var adjusted = robot.localToGlobal(center);
+
+                            this.laser.strokeWidth = laserWidth;
+                            this.laser.opacity = laserOpacity;
+                            this.laser.firstSegment.point = adjusted;
+                        };
+
+                        Laser.prototype.destroy = function() {
+                            if (this.laser) {
+                                this.laser.remove();
+                                delete this.laser;
+                            }
+                            delete animations[this.id];
+                        };
+
 		        // Draw the view now:
 		        paper.view.draw();
 
@@ -247,28 +418,9 @@ angular.module('gamejamApp')
                                 animation.animate(event.time, event.delta);
                             });
 
-                            laserPhase += 1;
-                            var laserWidth = 0, laserOpacity = 0;
-                            if (laserPhase < 20) {
-                                var laserCos = Math.cos(Math.PI * laserPhase / 40);
-                                laserWidth = 14 + 36 * laserCos;
-                                laserOpacity = (1 - laserCos) * (1 - laserCos);
-                            } else if (laserPhase < 180) {
-                                laserWidth = 14;
-                                laserOpacity = 1;
-                            } else if (laserPhase < 200) {
-                                var laserCos = Math.cos(Math.PI * (laserPhase - 180) / 40);
-                                laserWidth = 14;
-                                laserOpacity = laserCos;
-                            } else if (laserPhase > 250) {
-                                laserPhase = 0;
-                            }
-                            laser.strokeWidth = laserWidth;
-                            laser.opacity = laserOpacity;
-//                            laser.firstSegment.point = new paper.Point(10, 10);
                         };
 
-//                                RobotIO.setRobot(instance);
+                        RobotIO.setRobot(roboto);
                     };
 
                     init();
