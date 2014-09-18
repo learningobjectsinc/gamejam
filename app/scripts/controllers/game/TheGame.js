@@ -47,7 +47,7 @@ angular.module('gamejamApp')
     $scope.$watch('program.processor.crashed', function(crashed){
         $scope.errorMessage = crashed;
         if (crashed) {
-            $scope.program.processor.io.interrupt('Talk', [ 'Ayeeeeeeeeeeeeeeee!' ]);
+            $scope.program.processor.io.robot.crashed();
         }
     });
 

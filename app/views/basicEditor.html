@@ -1,4 +1,4 @@
-<div class="basicEditor">
+<div class="basicEditor" ng-keypress="addLibrary($event)">
     <div ui-ace="{onLoad: aceLoaded, mode:'bhtbasic'}" class="source" ng-model="program.code">
     </div>
     <textarea class="prefill" style="display: none;">
@@ -61,6 +61,6 @@ FUNCTION Wait()
   END WHILE
 END FUNCTION
     </textarea>
-    <!-- div class="variables" ng-bind-html="variables()">
-    </div -->
+    <div class="variables" ng-bind-html="variables()">
+    </div>
 </div>

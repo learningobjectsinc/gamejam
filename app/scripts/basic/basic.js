@@ -34,6 +34,9 @@ Statement.prototype.init = function(source, program) {
 }
 
 Statement.prototype.parseExpressionList = function(str) {
+    if (!str) {
+        return [];
+    }
     var re = new RegExp(EXPRESSION_REGEX, 'g');
     var result = [], match;
     while (match = re.exec(str)) {
@@ -317,7 +320,7 @@ TellStatement.prototype.execute = function(processor) {
 
 TellStatement.prototype.keyword = "TELL";
 
-TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" + FUNCTION_REGEX + ")\\s*\\((\\s*" + EXPRESSION_REGEX + "\\s*(?:,\\s*" + EXPRESSION_REGEX + ")*)\\)\\s*$";
+TellStatement.prototype.syntax = "^TELL\\s+(" + VARIABLE_REGEX + ")\\s*:\\s*(" + FUNCTION_REGEX + ")\\s*\\((\\s*" + EXPRESSION_REGEX + "\\s*(?:,\\s*" + EXPRESSION_REGEX + ")*)?\\)\\s*$";
 
 TellStatement.prototype.tokenLabels = ["Who will do this task?", "What will they do?", "Parameters"];
 
@@ -451,7 +454,7 @@ ForStatement.prototype.syntax = "^FOR\\s+(" + VARIABLE_REGEX + ")\\s+=\\s+(" + E
 ForStatement.prototype.tokenLabels = ["Variable to loop", "Start at", "Go to"];
 
 ForStatement.prototype.toSource = function() {
-    var code = this.keyword + " " + this.start.toString() + " TO " + this.stop.toString();
+    var code = this.keyword + " " + this.variable + " = " + this.start + " TO " + this.stop;
     return code;
 }
 
@@ -762,8 +765,7 @@ Basic.parseProgram = function(sources) {
     program.addStatement(new EndProgramStatement(), true);
     program.parser.functions.robot = {};
     program.parser.functions.ASK = function(r, q) { 
-        var a = program.processor.io.interrupt(r, []);
-        console.log('ask', r, a);
+        return program.processor.io.interrupt(r, []);
     };
     return program;
 }

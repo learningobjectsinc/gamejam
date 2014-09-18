@@ -38,36 +38,50 @@ gameData["instructions"] = [
 			},
 			{
 				"title": "Goal",
-				"body": "Let's start with getting Ms. Roboto to move through a maze to the goal."
+				"body": "Let's start with getting Ms. Roboto to move across to a teleporter."
 			},
 			{
 				"title": "Instructions",
 				"body": "<dl><dt>Drag and drop the functions to complete the action</dt><dt>Hit 'Run' to see your algorithm execute</dt><dt>See the code that makes Ms. Roboto come alive!</dt></ol>"
 			}
 		]
-	},
-	{
+	}, {
         "levelId": 1,
         "pages": [
 			{
-				"title": "Level 1: You Spin Me Round",
-				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>Teach Ms. Roboto to turn</p>"
+				"title": "Heading down",
+				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>Teach Ms. Roboto to use a transport pad</p>"
 			},
 			{
 				"title": "Goal",
-				"body": "<p>You can teach Ms. Roboto to turn left and right. Use turning to get Ms. Roboto to her goal.</p>"
+				"body": "<p>You can teach Ms. Roboto to get to her goal.</p>"
 			},
 			{
 				"title": "Instructions",
 				"body": "<dl><dt>Drag and drop the functions to complete the action</dt><dt>Hit 'Run' to see your algorithm execute</dt><dt>See the code that makes Ms. Roboto come alive!</dt></ol>"
 			}
 		]
-	},
-	{
+	}, {
         "levelId": 2,
         "pages": [
 			{
-				"title": "Level 2: Zap the contrived obstacle",
+				"title": "Short and sweet",
+				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>Teach Ms. Roboto to iterate</p>"
+			},
+			{
+				"title": "Goal",
+				"body": "<p>Reach your goal using only 5 instructions.</p>"
+			},
+			{
+				"title": "Instructions",
+				"body": "<dl><dt>Drag and drop the functions to complete the action</dt><dt>Hit 'Run' to see your algorithm execute</dt><dt>See the code that makes Ms. Roboto come alive!</dt></ol>"
+			}
+		]
+	}, {
+        "levelId": 3,
+        "pages": [
+			{
+				"title": "Level 3: Zap the contrived obstacle",
 				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>Teach Ms. Roboto to use her laser</p>"
 			},
 			{
@@ -95,1211 +109,235 @@ gameData["levels"] = [
 		"icon": "rocket",
 		"completed": "0",
 		"defaultCode": "",
+                "objects": [
+                    {
+                        "type": "Girder",
+                        "x": 0,
+                        "y": 300,
+                        "width": 6
+                    }, {
+                        "type": "Roboto",
+                        "x": -50,
+                        "targetX": 100,
+                        "y": 300
+                    }, {
+                        "type": "Transport",
+                        "x": 500,
+                        "y": 300
+                    }
+                ],
 		"map": {
-			"width": 8,
-			"height": 7,
-			"music": "sound/skySanctuary.wav",
-			"objects": [
-				{
-					"type": "Laser",
-					"x": 2,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 4
-				},
-				{
-					"type": "Robot",
-					"x": 2,
-					"y": 4,
-					"direction": "right"
-				},
-				{
-					"type": "Goal",
-					"x": 7,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 7
-				}
-			]
+			"width": 6,
+			"height": 5,
+			"music": "sound/skySanctuary.wav"
 		},
-		"availableBlocks": {},
+		"availableBlocks": {
+                },
 		"availableFunctions": {
 			"Step": {}
 		}
 	},
 	{
 		"id": 1,
-		"name": "Level 1: You Spin Me Round",
-		"description": "Learn to turn",
+		"name": "Level 1: Heading down",
+		"description": "Learn to use transport pads",
 		"icon": "rocket",
 		"completed": "0",
-		"defaultCode": "Step()\nTurnRight()\nTurnRight()\nStep()",
+		"defaultCode": "Move(6)\nDown()\nReverse()\nMove(5)",
+                "objects": [
+                    {
+                        "type": "Elevator",
+                        "x": 700,
+                        "y0": 300,
+                        "y1": 700
+                    }, {
+                        "type": "Girder",
+                        "x": 0,
+                        "y": 300,
+                        "width": 6
+                    }, {
+                        "type": "Girder",
+                        "x": 800,
+                        "y": 300,
+                        "width": 2
+                    }, {
+                        "type": "Girder",
+                        "x": 0,
+                        "y": 700,
+                        "width": 6
+                    }, {
+                        "type": "Girder",
+                        "x": 800,
+                        "y": 700,
+                        "width": 2
+                    }, {
+                        "type": "Roboto",
+                        "x": -50,
+                        "targetX": 100,
+                        "y": 300
+                    }, {
+                        "type": "Transport",
+                        "x": 200,
+                        "y": 700
+                    }
+                ],
 		"map": {
-			"width": 8,
-			"height": 7,
-			"objects": [
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 2
-				},
-				{
-					"type": "Goal",
-					"x": 7,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 6
-				},
-				{
-					"type": "Robot",
-					"x": 2,
-					"y": 6,
-					"direction": "up"
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 7
-				}
-			]
+			"width": 10,
+			"height": 9
 		},
 		"availableBlocks": {},
 		"availableFunctions": {
-			"Step":{},
-			"TurnLeft": {},
-			"TurnRight": {}
+			"Move":{},
+			"Reverse": {},
+			"Down":{}
 		}
 	},
 	{
 		"id": 2,
-		"name": "Level 2: Zap the contrived obstacle",
-		"description": "Number of Lemmings: 10",
-		"icon": "power",
-		"completed": "0.8",
+		"name": "Level 2: Short and sweet",
+		"description": "Learn to iterate",
+		"icon": "rocket",
+		"completed": "0",
+		"defaultCode": "Move(2)\nFOR i = 1 TO 4\nDown()\nMove(4)\nNEXT i",
+                "objects": [
+                    {
+                        "type": "Girder",
+                        "x": 0,
+                        "y": 300,
+                        "width": 2
+                    }, {
+                        "type": "Elevator",
+                        "x": 300,
+                        "y0": 300,
+                        "y1": 500
+                    }, {
+                        "type": "Girder",
+                        "x": 400,
+                        "y": 500,
+                        "width": 2
+                    }, {
+                        "type": "Elevator",
+                        "x": 700,
+                        "y0": 500,
+                        "y1": 700
+                    }, {
+                        "type": "Girder",
+                        "x": 800,
+                        "y": 700,
+                        "width": 2
+                    }, {
+                        "type": "Elevator",
+                        "x": 1100,
+                        "y0": 700,
+                        "y1": 900
+                    }, {
+                        "type": "Girder",
+                        "x": 1200,
+                        "y": 900,
+                        "width": 2
+                    }, {
+                        "type": "Elevator",
+                        "x": 1500,
+                        "y0": 900,
+                        "y1": 1100
+                    }, {
+                        "type": "Girder",
+                        "x": 1600,
+                        "y": 1100,
+                        "width": 4
+                    }, {
+                        "type": "Roboto",
+                        "x": -50,
+                        "targetX": 100,
+                        "y": 300
+                    }, {
+                        "type": "Transport",
+                        "x": 1900,
+                        "y": 1100
+                    }
+                ],
 		"map": {
-			"width": 8,
-			"height": 7,
-			"objects": [
-				{
-					"type": "Goal",
-					"x": 2,
-					"y": 2
-				},
-				{
-					"type": "Rock",
-					"x": 7,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 1
-				},
-				{
-					"type": "Robot",
-					"x": 2,
-					"y": 6,
-					"direction": "right"
-				}
-				// {
-				// 	"type": "Rock",
-				// 	"x": 6,
-				// 	"y": 4
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 6,
-				// 	"y": 5
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 6,
-				// 	"y": 5
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 4,
-				// 	"y": 5
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 3,
-				// 	"y": 5
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 2,
-				// 	"y": 5
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 1,
-				// 	"y": 5
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 1,
-				// 	"y": 6
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 1,
-				// 	"y": 7
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 2,
-				// 	"y": 7
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 3,
-				// 	"y": 7
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 4,
-				// 	"y": 7
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 5,
-				// 	"y": 7
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 6,
-				// 	"y": 7
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 7,
-				// 	"y": 7
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 8,
-				// 	"y": 7
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 6,
-				// 	"y": 3
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 5,
-				// 	"y": 3
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 4,
-				// 	"y": 3
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 3,
-				// 	"y": 3
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 2,
-				// 	"y": 3
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 6,
-				// 	"y": 5
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 5,
-				// 	"y": 5
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 1,
-				// 	"y": 3
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 1,
-				// 	"y": 2
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 8,
-				// 	"y": 6
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 8,
-				// 	"y": 5
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 8,
-				// 	"y": 4
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 8,
-				// 	"y": 3
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 8,
-				// 	"y": 2
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 8,
-				// 	"y": 1
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 7,
-				// 	"y": 1
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 6,
-				// 	"y": 1
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 5,
-				// 	"y": 1
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 4,
-				// 	"y": 1
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 3,
-				// 	"y": 1
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 2,
-				// 	"y": 1
-				// },
-				// {
-				// 	"type": "Rock",
-				// 	"x": 1,
-				// 	"y": 1
-				// },
-				// {
-				// 	"type": "Robot",
-				// 	"x": 2,
-				// 	"y": 6
-				// }
-			]
+			"width": 20,
+			"height": 13
 		},
-		"availableBlocks": {},
+		"availableBlocks": {
+                    "ForStatement": {
+                        "src": "FOR i = 1 TO 10"
+                    },
+                    "NextStatement": {
+                        "src": "NEXT i"
+                    }
+                },
 		"availableFunctions": {
-			"Step":{},
-			"TurnLeft": {},
-			"TurnRight": {},
-			"Fire": {}
+			"Move":{},
+			"Reverse": {},
+			"Down":{}
 		}
 	},
 	{
 		"id": 3,
-		"name": "Level 3: Set it to get it",
-		"description": "Number of Lemmings: 10",
-		"icon": "settings",
-		"completed": "0.6",
+		"name": "Level 3: Zap the contrived obstacle",
+		"description": "Space! Crates!",
+		"icon": "power",
+		"completed": "0.8",
+		"defaultCode": "Fire()\nMove(7)\nUp()\nReverse()\nFire()\nMove(6)",
+                "objects": [
+                    {
+                        "type": "Elevator",
+                        "x": 800,
+                        "y0": 700,
+                        "y1": 300
+                    }, {
+                        "type": "Girder",
+                        "x": 0,
+                        "y": 300,
+                        "width": 7
+                    }, {
+                        "type": "Girder",
+                        "x": 900,
+                        "y": 300,
+                        "width": 1
+                    }, {
+                        "type": "Girder",
+                        "x": 0,
+                        "y": 700,
+                        "width": 7
+                    }, {
+                        "type": "Girder",
+                        "x": 900,
+                        "y": 700,
+                        "width": 1
+                    }, {
+                        "type": "Crate",
+                        "x": 500,
+                        "y": 700,
+                        "width": 1
+                    }, {
+                        "type": "Crate",
+                        "x": 350,
+                        "y": 300,
+                        "width": 1
+                    }, {
+                        "type": "Roboto",
+                        "x": -50,
+                        "targetX": 100,
+                        "y": 700
+                    }, {
+                        "type": "Transport",
+                        "x": 200,
+                        "y": 300
+                    }
+                ],
 		"map": {
-			"width": 8,
-			"height": 7,
-			"objects": [
-				{
-					"type": "Goal",
-					"x": 2,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 7
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 6
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 5
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 4
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 3
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 2
-				},
-				{
-					"type": "Wall",
-					"x": 8,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 7,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 6,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 5,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 4,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 3,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 2,
-					"y": 1
-				},
-				{
-					"type": "Wall",
-					"x": 1,
-					"y": 1
-				},
-				{
-					"type": "Robot",
-					"x": 2,
-					"y": 6
-				}
-			]
+			"width": 10,
+			"height": 9
 		},
-		"availableBlocks": {
-			"LetStatement": {}
-		},
+		"availableBlocks": {},
 		"availableFunctions": {
-			"Step":{},
-			"TurnLeft": {},
-			"TurnRight": {},
-			"Move": {}
+			"Move":{},
+			"Reverse": {},
+			"Down":{},
+			"Fire":{}
 		}
 	},
 	{
@@ -1428,7 +466,7 @@ gameData["wrapUp"] = [
         "pages": [
 			{
 				"title": "Nice work!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You taught Ms. Roboto how to move.</p>"
+				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>You taught Ms. Roboto how to move.</p>"
 			},
 			{
 				"title": "Level 0: Let's Move!",
@@ -1441,10 +479,10 @@ gameData["wrapUp"] = [
         "pages": [
 			{
 				"title": "Nice work!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You learned all about some things.</p>"
+				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>You taught Ms. Roboto how to compose different statements to achieve  a goal.</p>"
 			},
 			{
-				"title": "Level 1: You Spin Me Round",
+				"title": "Level 1: Heading Down",
 				"body": "<p>Here's a little more info about what you did during this level.</p>"
 			}
 		]
@@ -1454,10 +492,23 @@ gameData["wrapUp"] = [
         "pages": [
 			{
 				"title": "Nice work!",
-				"body": "<div class='robojam'><img src='/images/robot/robot-down.svg'></div><p>You learned all about some things.</p>"
+				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>You taught Ms. Roboto how to use iteration to easily solve repetitive problems.</p>"
 			},
 			{
-				"title": "Level 2: Functions",
+				"title": "Level 2: Short and sweet",
+				"body": "<p>Here's a little more info about what you did during this level.</p>"
+			}
+		]
+	},
+	{
+        "levelId": 3,
+        "pages": [
+			{
+				"title": "Nice work!",
+				"body": "<div class='robojam'><img src='/images/tobor.svg'></div><p>You taught Ms. Roboto how to shoot lasers from her eye.</p>"
+			},
+			{
+				"title": "Level 3: Zap",
 				"body": "<p>Here's a little more info about what you did during this level.</p>"
 			}
 		]

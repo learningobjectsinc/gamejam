@@ -7,7 +7,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 		scope: {
 			'program': '=basicEditor'
 		},
-		controller: function($scope){
+		controller: function($scope, libraryFunctions){
 			var program = $scope.program;
 
 			var prevLine = null, prevCrash = null;
@@ -25,15 +25,15 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 			});
 
 			$scope.$watch('program.processor.crashed', function(crashed){
-				if(!program.processor){
-					return;
-				}
+			    if(!program.processor){
+				return;
+			    }
 			    var session = editor.getSession();
-				session.removeGutterDecoration(prevCrash, 'crashed');
-                if (crashed) {
-				    session.addGutterDecoration(program.processor.pc, 'crashed');
-                    prevCrash = program.processor.pc;
-                }
+			    session.removeGutterDecoration(prevCrash, 'crashed');
+                            if (crashed) {
+				session.addGutterDecoration(program.processor.pc, 'crashed');
+                                prevCrash = program.processor.pc;
+                            }
 			});
 
 			$scope.$watch('program.statements', function(statements){
@@ -77,7 +77,7 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 					}
 					++ index;
 				}
-                session.setAnnotations(annotations);
+                            session.setAnnotations(annotations);
 			});
 
 			var Range = ace.require('ace/range').Range;
@@ -100,12 +100,20 @@ angular.module('gamejamApp').directive('basicEditor', function(){
 				}).join('');
 			};
 
+                        $scope.addLibrary = function($event) {
+                            var source = Array.prototype.concat.apply([], _.map(libraryFunctions, function(o) { return o.source; })).join('\n');
+                            if ($event.ctrlKey && ($event.keyCode == 28)) {
+                                session.insert({ row: session.getLength(),
+                                                 column: 0 }, source);
+                            }
+                        };
+
 		}, link: function($scope, el){
 			$scope.variables = function(){
-				if(!program.processor){
-					return;
+				if(!$scope.program.processor){
+					return '';
 				}
-				return _.reduce(program.processor.variables, function(str, value, variable) { 
+				return _.reduce($scope.program.processor.variables, function(str, value, variable) { 
 					return str + '<div>' + variable + ' = ' + value + '</div>';
 				}, '');
 			};

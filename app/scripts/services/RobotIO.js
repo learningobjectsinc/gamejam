@@ -10,7 +10,8 @@ angular.module('gamejamApp').factory('RobotIO', [function(){
     }
 
     this.interrupt = function(code, parameters) {
-        return this.robot.invoke(code, parameters);
+        var x = this.robot.invoke(code, parameters);
+        return x;
     }
 
     return this;
